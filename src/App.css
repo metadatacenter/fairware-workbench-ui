@@ -1,23 +1,61 @@
+:root {
+  --color1: #FFFFFF; /* white */
+  --color2: #0B5AAB; /* blue */
+  --color3: #000000; /* black */
+}
+
 .App {
   text-align: center;
-  /*background-color: red;*/
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
 h1 {
-  text-align: center;
 }
 
 h2 {
-  font-size: 1.2rem;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-weight: 500;
-  line-height: 2.66;
-  letter-spacing: 0.08333em;
-  /*text-transform: uppercase;*/
 }
 
-pre {
-  font-family: Consolas, Monaco, "Lucida Console", "Liberation Mono", "Nimbus Mono L", "Courier New", Courier, monospace;
-  font-size: 0.8rem;
+/* MAIN LAYOUT - START */
+#appWrapper {
+  height: 100vh;
+  display: flex;
+  /* Direction of the items, can be row or column */
+  flex-direction: column;
+}
 
+#appHeader {
+  background-color: white;
+  color: var(--color2);
+}
+
+#appContent {
+  color: var(--color3);
+  flex: 1;
+}
+
+#appFooter {
+  padding-top: 5vh;
+  padding-bottom: 5vh;
+  background-color: #0B5AAB;
+  text-align: center;
+  color: var(--color1);
+  font-size: 0.8rem;
+}
+
+#appFooter a {
+  color: var(--color1);
+}
+/* MAIN LAYOUT - END */
+
+.mainTitle {
+  margin-top: 10vh;
+  text-align: center;
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.mainSubtitle {
+  text-align: center;
+  margin: 6vh 25vh auto 25vh;
+  font-size: 1.5rem;
 }

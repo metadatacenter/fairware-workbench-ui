@@ -3,7 +3,7 @@ import React from "react";
 export default function AppFooter() {
 
   return (
-    <div>
+    <div id="appFooter">
       <div>
         <a href="https://bmir.stanford.edu/">Stanford Center for Biomedical Informatics Research (BMIR)</a>
       </div>

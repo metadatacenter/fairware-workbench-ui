@@ -8,8 +8,10 @@ import Box from "@mui/material/Box";
 export default function AppContent() {
 
   return (
-    <div>
-    <h1>Making data fair</h1>
+    <div id="appContent">
+      <div className="mainTitle">Making data fair</div>
+      <div className="mainSubtitle">Get suggestions for improving your metadata. Make your research data more Findable, Accessible, Interoperable
+        and Reusable</div>
     </div>
   );
 }
