@@ -11,7 +11,6 @@ import Stack from "@mui/material/Stack";
 
 export default function AppHeader() {
 
-
   return (
     <div>
       <AppBar id={"appHeader"} position={"static"}>
@@ -27,16 +26,14 @@ export default function AppHeader() {
         </Toolbar>
         <Toolbar id={"secondaryToolBar"} variant={"dense"}>
           <Stack direction="row" spacing={2}>
-            <Button startIcon={<SearchIcon/>} variant={"contained"} disableElevation>Metadata Search</Button>
-            <Button startIcon={<ListIcon/>} variant={"contained"} disableElevation>My Records</Button>
-            <Button startIcon={<AssessmentOutlinedIcon/>} variant={"contained"} disableElevation>Summary Report</Button>
+            <Button startIcon={<SearchIcon/>} variant={"contained"} size={"medium"} disableElevation>Metadata Search</Button>
+            <Button startIcon={<ListIcon/>} variant={"contained"} size={"medium"} disableElevation>My Records</Button>
+            <Button startIcon={<AssessmentOutlinedIcon/>} variant={"contained"} size={"medium"} disableElevation>Summary Report</Button>
           </Stack>
         </Toolbar>
       </AppBar>
-
       {/*<AboutDialog openAboutDialog={openAboutDialog} handleCloseAboutDialog={handleCloseAboutDialog}/>*/}
       {/*<ContactUsDialog openContactUsDialog={openContactUsDialog} handleCloseContactUsDialog={handleCloseContactUsDialog}/>*/}
-
     </div>
   );
 }

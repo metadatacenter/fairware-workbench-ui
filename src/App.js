@@ -1,10 +1,10 @@
 import * as React from 'react';
-import AppContent from "./components/AppContent";
 import './App.css';
 import CssBaseline from '@mui/material/CssBaseline';
-import AppHeader from "./components/AppHeader";
-import AppFooter from "./components/AppFooter";
+import AppHeader from "./components/common/AppHeader";
+import AppFooter from "./components/common/AppFooter";
 import StyledEngineProvider from "@mui/material/StyledEngineProvider";
+import Home from "./components/Home";
 
 export default function App() {
 
@@ -16,7 +16,9 @@ export default function App() {
           <CssBaseline/>
           <div id="appWrapper">
             <AppHeader/>
-            <AppContent/>
+            <div id="appContent">
+            <Home/>
+            </div>
             <AppFooter/>
           </div>
         </React.Fragment>

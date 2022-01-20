@@ -15,7 +15,7 @@ h1 {
 h2 {
 }
 
-/* MAIN LAYOUT - START */
+/* MAIN LAYOUT (START) */
 #appWrapper {
   height: 100vh;
   display: flex;
@@ -35,7 +35,7 @@ h2 {
 
 #appContent {
   color: var(--color3);
-  flex: 1;
+  flex: 1; /* This element will have the remaining full space given to it */
 }
 
 #appFooter {
@@ -50,7 +50,20 @@ h2 {
 #appFooter a {
   color: var(--color1);
 }
-/* MAIN LAYOUT - END */
+/* MAIN LAYOUT (END) */
+
+#mainButtons {
+  margin: auto;
+  text-align: center;
+}
+
+.mainButton {
+  margin: 8vh 1vw;
+}
+
+
+/* BUTTONS (START) */
+/* BUTTONS (END) */
 
 .mainTitle {
   margin-top: 10vh;
