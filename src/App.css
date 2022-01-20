@@ -24,8 +24,13 @@ h2 {
 }
 
 #appHeader {
-  background-color: white;
+  background-color: var(--color1);
   color: var(--color2);
+}
+
+#appHeader #secondaryToolBar {
+  background-color: var(--color2);
+  color: var(--color1);
 }
 
 #appContent {
