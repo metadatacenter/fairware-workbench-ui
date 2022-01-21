@@ -28,6 +28,10 @@ h2 {
   color: var(--color2);
 }
 
+#appHeader .logo {
+  flex: 1; /* This element will have the remaining full space given to it */
+}
+
 #appHeader #secondaryToolBar {
   background-color: var(--color2);
   color: var(--color1);
@@ -35,7 +39,7 @@ h2 {
 
 #appContent {
   color: var(--color3);
-  flex: 1; /* This element will have the remaining full space given to it */
+  flex: 1;
 }
 
 #appFooter {
