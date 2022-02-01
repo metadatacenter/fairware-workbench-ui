@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import AppHeader from "../common/AppHeader";
 import AppFooter from "../common/AppFooter";
 import StyledEngineProvider from "@mui/material/StyledEngineProvider";
+import Typography from "@material-ui/core/Typography";
 
 export default function Home() {
 
@@ -32,6 +33,7 @@ export default function Home() {
             size={"large"}>
             My research is published</Button>
         </div>
+        <Typography align={"center"}><Link to={"/PrivacyPolicy"}>How this tool uses your data</Link></Typography>
       </div>
       <AppFooter/>
     </>

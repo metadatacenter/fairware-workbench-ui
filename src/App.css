@@ -28,8 +28,19 @@ h2 {
   color: var(--color2);
 }
 
-#appHeader .logo {
+#appHeader #logoContainer {
   flex: 1; /* This element will have the remaining full space given to it */
+  text-align: left;
+  padding-top: 8px;
+}
+
+#appHeader #logoContainer .logo {
+  height: 40px;
+  margin-left: 4vw;
+}
+
+#appHeader #linksContainer {
+  margin-right: 4vw;
 }
 
 #appHeader #secondaryToolBar {
@@ -37,9 +48,14 @@ h2 {
   color: var(--color1);
 }
 
+#appHeader #secondaryToolBar #headerButtonsContainer {
+  margin-left: 4vw;
+}
+
 #appContent {
   color: var(--color3);
   flex: 1;
+  margin: 5vh 5vw;
 }
 
 #appFooter {
@@ -56,6 +72,8 @@ h2 {
 }
 /* MAIN LAYOUT (END) */
 
+/* BUTTONS (START) */
+
 #mainButtons {
   margin: auto;
   text-align: center;
@@ -65,9 +83,25 @@ h2 {
   margin: 8vh 1vw;
 }
 
+#findMetadataButtons {
+  margin: auto;
+  text-align: center;
+}
 
-/* BUTTONS (START) */
+.generalButton {
+  margin: 1vh 1vw;
+}
+
 /* BUTTONS (END) */
+
+.inputTextFieldContainer {
+  text-align: center;
+  margin: 3vh auto;
+}
+
+#mainInputTextField {
+  width: 50vw;
+}
 
 .mainTitle {
   margin-top: 10vh;
@@ -78,6 +112,6 @@ h2 {
 
 .mainSubtitle {
   text-align: center;
-  margin: 6vh 25vh auto 25vh;
+  margin: 6vh 10vw auto 10vw;
   font-size: 1.5rem;
 }

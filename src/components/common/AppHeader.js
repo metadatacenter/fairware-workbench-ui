@@ -8,6 +8,7 @@ import ListIcon from '@mui/icons-material/List';
 import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
 import Stack from "@mui/material/Stack";
 import {Link} from 'react-router-dom';
+import logo from '../../../src/FAIRwareLogo.svg';
 
 export default function AppHeader() {
 
@@ -15,15 +16,18 @@ export default function AppHeader() {
     <div>
       <AppBar id={"appHeader"} position={"static"}>
         <Toolbar>
-          <Typography component={Link} to="/" className={"logo"} variant="h4">FAIRware workbench</Typography>
-          <Stack direction="row" spacing={4}>
-            <Button color="inherit">About</Button>
-            <Button color="inherit">Support</Button>
-            <Button color="inherit">Resources</Button>
+          <div id={"logoContainer"}>
+            <Link to="/"><img className={"logo"} src={logo} alt="logo" /></Link>
+          </div>
+          {/*<Typography component={Link} to="/" className={"logo"} variant="h4">FAIRware workbench</Typography>*/}
+          <Stack id={"linksContainer"} direction="row" spacing={4}>
+            <Button component={Link} to="/About" color="inherit">About</Button>
+            <Button component={Link} to="/Support" color="inherit">Support</Button>
+            <Button component={Link} to="/Resources" color="inherit">Resources</Button>
           </Stack>
         </Toolbar>
         <Toolbar id={"secondaryToolBar"} variant={"dense"}>
-          <Stack direction="row" spacing={4}>
+          <Stack id={"headerButtonsContainer"} direction="row" spacing={4}>
             <Button component={Link} to="/FindMetadata" startIcon={<SearchIcon/>} variant={"contained"} size={"medium"}
                     disableElevation>Metadata Search</Button>
             <Button startIcon={<ListIcon/>} variant={"contained"} size={"medium"} disableElevation>My Records</Button>

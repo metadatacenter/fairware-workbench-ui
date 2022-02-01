@@ -8,6 +8,10 @@ import Home from "./components/routes/Home";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import ResearchNotPublished from "./components/routes/ResearchNotPublished";
 import FindMetadata from "./components/routes/FindMetadata";
+import PrivacyPolicy from "./components/routes/PrivacyPolicy";
+import About from "./components/routes/About";
+import Support from "./components/routes/Support";
+import Resources from "./components/routes/Resources";
 
 export default function App() {
 
@@ -21,8 +25,12 @@ export default function App() {
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Home/>}/>
-                <Route path="ResearchNotPublished" element={<ResearchNotPublished/>}/>
-                <Route path="FindMetadata" element={<FindMetadata/>}/>
+                <Route path="/ResearchNotPublished" element={<ResearchNotPublished/>}/>
+                <Route path="/FindMetadata" element={<FindMetadata/>}/>
+                <Route path="/PrivacyPolicy" element={<PrivacyPolicy/>}/>
+                <Route path="/About" element={<About/>}/>
+                <Route path="/Support" element={<Support/>}/>
+                <Route path="/Resources" element={<Resources/>}/>
               </Routes>
             </BrowserRouter>
           </div>
