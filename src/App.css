@@ -139,6 +139,7 @@ h2 {
 }
 
 .searchResults .progressIndicator {
+  margin-top: 6vh;
   text-align: center;
 }
 
