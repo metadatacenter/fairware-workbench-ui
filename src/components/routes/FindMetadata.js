@@ -13,7 +13,6 @@ export default function FindMetadata() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location);
   const it = location && location.state && location.state.inputText ? location.state.inputText : "";
 
   const [inputText, setInputText] = useState(it);
@@ -22,7 +21,10 @@ export default function FindMetadata() {
 
 
   const sampleInput1 = "https://repo.metadatacenter.org/template-instances/8e21af07-33ca-4ce3-8e84-d4e3fbe017b6\n" +
-    "https://repo.metadatacenter.org/template-instances/7a1ab52b-29ba-41bc-98a1-80f4d5bd696c";
+    "https://repo.metadatacenter.org/template-instances/7a1ab52b-29ba-41bc-98a1-80f4d5bd696c\n" +
+    "https://repo.metadatacenter.org/template-instances/fc07cd73-0a73-4171-84dd-32cf0dec6d32\n" +
+  "https://repo.metadatacenter.org/template-instances/392f4f43-2b78-4016-bd66-b5cce4b38d38\n" +
+  "https://repo.metadatacenter.org/template-instances/a838e6b6-3257-4551-bedd-229776b20611";
   const sampleInput2 = "10.15468/9vuieb\n" +
     "10.4230/lipics.iclp.2011.16";
   const sampleInput3 = sampleInput1 + "\n" + sampleInput2;
@@ -43,15 +45,12 @@ export default function FindMetadata() {
     setInputText(sampleInput3);
   }
 
-  function searchMetadata() {
-    //this.props.history.push('/MetadataRecords');
+  function handleSearchMetadataButtonClick() {
     setSearching(true);
-    //setResults({}); // Clear previous results
     let dois = inputText.split("\n").map(e => e.trim());
     dois = removeDuplicates(dois);
     searchMetadataByDois(dois).then(data => {
       setSearching(false);
-      //setResults(data);
       navigate("/MetadataRecords",
         {
           state: {
@@ -95,7 +94,7 @@ export default function FindMetadata() {
             Go Back</Button>
           <Button
             disabled={inputText.trim().length === 0}
-            onClick={searchMetadata}
+            onClick={handleSearchMetadataButtonClick}
             className={"generalButton"}
             variant={"contained"}
             size={"large"}>
@@ -108,57 +107,6 @@ export default function FindMetadata() {
             {searching && <CircularProgress/>}
           </div>
 
-          {/*{results.items &&*/}
-          {/*<>*/}
-          {/*  <div className={"title2"}>Search results</div>*/}
-          {/*  <span>{results.items.length} metadata {results.items.length <= 1 && 'record'} {results.items.length > 1 && 'records'} found</span>*/}
-          {/*  <TableContainer className={"table"}>*/}
-          {/*    <Table>*/}
-          {/*      <TableHead>*/}
-          {/*        <TableRow>*/}
-          {/*          <TableCell>URI</TableCell>*/}
-          {/*          <TableCell>SOURCE</TableCell>*/}
-          {/*          <TableCell>TITLE</TableCell>*/}
-          {/*          <TableCell>METADATA SCHEMA</TableCell>*/}
-          {/*          <TableCell>PREVIEW</TableCell>*/}
-          {/*          <TableCell>DOWNLOAD</TableCell>*/}
-          {/*        </TableRow>*/}
-          {/*      </TableHead>*/}
-          {/*      <TableBody>*/}
-          {/*        {results.items*/}
-          {/*          .map((item) => (*/}
-          {/*            <TableRow key={item.uri}>*/}
-          {/*              <TableCell>*/}
-          {/*                <Tooltip title={item.uri}>*/}
-          {/*                  <a href={"https://doi.org/" + item.uri} target="_blank">{shortenUrl(item.uri)}</a>*/}
-          {/*                </Tooltip>*/}
-          {/*              </TableCell>*/}
-          {/*              <TableCell>{item.metadata ? item.source : "URI not found"}</TableCell>*/}
-          {/*              <TableCell>{item.metadata ? item.title : "NA"}</TableCell>*/}
-          {/*              <TableCell>{item.metadata ?*/}
-          {/*                <Tooltip title={item.schemaId}>*/}
-          {/*                  <a href={item.schemaId} target="_blank">{shortenUrl(item.schemaId)}</a></Tooltip>: "NA"}*/}
-          {/*              </TableCell>*/}
-          {/*              <TableCell><IconButton className={"iconButton"}><VisibilityIcon/></IconButton></TableCell>*/}
-          {/*              <TableCell><IconButton className={"iconButton"}><DownloadIcon/></IconButton></TableCell>*/}
-          {/*            </TableRow>*/}
-
-          {/*          ))}*/}
-          {/*      </TableBody>*/}
-          {/*    </Table>*/}
-          {/*  </TableContainer>*/}
-
-          {/*  <div id={"findMetadataButtons"}>*/}
-          {/*    <Button*/}
-          {/*      disabled={inputText.trim().length === 0}*/}
-          {/*      onClick={searchMetadata}*/}
-          {/*      className={"generalButton"}*/}
-          {/*      variant={"contained"}*/}
-          {/*      size={"large"}>*/}
-          {/*      Continue</Button>*/}
-          {/*  </div>*/}
-          {/*</>*/}
-          {/*}*/}
         </div>
       </div>
       <AppFooter/>

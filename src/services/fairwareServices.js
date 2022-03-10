@@ -10,7 +10,6 @@ import {FAIRWARE_METADATA_EVALUATE_URL, FAIRWARE_METADATA_SEARCH_URL} from "../c
  * @constructor
  */
 export function searchMetadataByDois(uris) {
-  console.log('searching: ', uris);
   let url = FAIRWARE_METADATA_SEARCH_URL;
   const requestOptions = {
     method: 'POST',
@@ -22,7 +21,6 @@ export function searchMetadataByDois(uris) {
   return fetch(url, requestOptions).then(response => {
     // Check if the request is 200
     if (response.ok) {
-      console.log('response ok');
       let data = response.json();
       return data;
     }
@@ -36,7 +34,6 @@ export function searchMetadataByDois(uris) {
  * @constructor
  */
 export function evaluateMetadata(metadataRecords) {
-  console.log("records", metadataRecords);
   let url = FAIRWARE_METADATA_EVALUATE_URL;
   let requestOptions = {
     method: 'POST',
@@ -50,7 +47,6 @@ export function evaluateMetadata(metadataRecords) {
       metadataRecordId: record.uri,
       templateId: record.schemaId
     });
-    //console.log("requestOptions", requestOptions);
     requests.push(
       fetch(url, requestOptions)
         .then(response => response.json()));

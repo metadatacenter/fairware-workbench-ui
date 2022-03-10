@@ -11,6 +11,7 @@ import About from "./components/routes/About";
 import Support from "./components/routes/Support";
 import Resources from "./components/routes/Resources";
 import MetadataRecords from "./components/routes/MetadataRecords";
+import MetadataEvaluationReport from "./components/routes/MetadataEvaluationReport";
 
 export default function App() {
 
@@ -27,6 +28,7 @@ export default function App() {
                 <Route path="/ResearchNotPublished" element={<ResearchNotPublished/>}/>
                 <Route path="/FindMetadata" element={<FindMetadata/>}/>
                 <Route path="/MetadataRecords" element={<MetadataRecords/>}/>
+                <Route path="/MetadataEvaluationReport" element={<MetadataEvaluationReport/>}/>
                 <Route path="/PrivacyPolicy" element={<PrivacyPolicy/>}/>
                 <Route path="/About" element={<About/>}/>
                 <Route path="/Support" element={<Support/>}/>

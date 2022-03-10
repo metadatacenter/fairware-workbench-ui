@@ -1,3 +1,6 @@
+import {isCedarUri, isCedarTemplateInstanceUri, isCedarTemplateUri} from "./cedarUtil";
+import {CEDAR_EDIT_TEMPLATE_BASE_URI, CEDAR_EDIT_TEMPLATE_INSTANCE_BASE_URI, DOI_BASE_URI} from "../constants";
+
 /**
  * Common Utilities
  */
@@ -11,7 +14,7 @@ export function truncate(str, num) {
     return str
   }
   return str.slice(0, num) + '...'
-}
+};
 
 export function shortenUrl(url) {
   if (url.length > 50) {
@@ -21,5 +24,20 @@ export function shortenUrl(url) {
   }
   else {
     return url;
+  }
+};
+
+export function generateHref(uri) {
+  if (isCedarTemplateUri(uri)) {
+    return CEDAR_EDIT_TEMPLATE_BASE_URI + uri;
+  }
+  else if (isCedarTemplateInstanceUri(uri)) {
+    return CEDAR_EDIT_TEMPLATE_INSTANCE_BASE_URI + uri;
+  }
+  else if (!uri.startsWith("http") && !uri.startsWith("https")) {
+    return DOI_BASE_URI + uri;
+  }
+  else {
+    return uri;
   }
 }
