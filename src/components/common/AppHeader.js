@@ -30,7 +30,7 @@ export default function AppHeader() {
             <Button component={Link} to="/FindMetadata" startIcon={<SearchIcon/>} variant={"contained"} size={"medium"}
                     disableElevation>Metadata Search</Button>
             <Button component={Link} to="/MetadataRecords" startIcon={<ListIcon/>} variant={"contained"} size={"medium"} disableElevation>My Records</Button>
-            <Button startIcon={<AssessmentOutlinedIcon/>} variant={"contained"} size={"medium"} disableElevation>Summary
+            <Button component={Link} to="/SummaryReport" startIcon={<AssessmentOutlinedIcon/>} variant={"contained"} size={"medium"} disableElevation>Summary
               Report</Button>
           </Stack>
         </Toolbar>
