@@ -69,8 +69,8 @@ export default function MetadataRecords() {
           <>
             <div className={"title2"}><b>Search results</b></div>
             <span className={"title3"}>{results.items.length} metadata {results.items.length <= 1 && 'record'} {results.items.length > 1 && 'records'} found</span>
-            <TableContainer className={"table"}>
-              <Table>
+            <TableContainer className={"table"} component={"Paper"}>
+              <Table /*size="small"*/>
                 <TableHead>
                   <TableRow>
                     <TableCell>METADATA RECORD</TableCell>
@@ -104,8 +104,8 @@ export default function MetadataRecords() {
                           {evaluationResults[item.uri] && <div className={"wrapIcon"}><CheckCircleRoundedIcon className={"textSuccess"}/><span className={"textIcon"}>Complete</span></div>}
                         </TableCell>
                         <TableCell>{evaluationResults[item.uri] ? evaluationResults[item.uri].items.length : "Not available"}</TableCell>
-                        <TableCell><IconButton className={"iconButton"}><VisibilityIcon/></IconButton></TableCell>
-                        <TableCell><IconButton className={"iconButton"}><DownloadIcon/></IconButton></TableCell>
+                        <TableCell align={"center"}><IconButton className={"iconButton"}><VisibilityIcon/></IconButton></TableCell>
+                        <TableCell align={"center"}><IconButton className={"iconButton"}><DownloadIcon/></IconButton></TableCell>
                         <TableCell>
                           {evaluationResults[item.uri] &&
                           <Button

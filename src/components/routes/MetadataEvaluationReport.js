@@ -41,8 +41,8 @@ export default function MetadataEvaluationReport() {
         <div className={"searchResults"}>
           {evaluationResults && evaluationResults.items &&
           <>
-            <TableContainer className={"table"}>
-              <Table>
+            <TableContainer className={"table"} component={"Paper"}>
+              <Table size="small">
                 <TableHead>
                   <TableRow>
                     <TableCell>FIELD NAME</TableCell>
@@ -77,14 +77,12 @@ export default function MetadataEvaluationReport() {
                         <TableCell>
                           <Button
                             disabled={evaluationResults[item.uri] && evaluationResults[item.uri].items.length === 0}
-                            //onClick={(e) => handleSeeReportButtonClick(e, item)}
                             className={"generalButton"}
                             variant={"contained"}
                             size={"small"}>
                             Accept</Button>
                           <Button
                             disabled={evaluationResults[item.uri] && evaluationResults[item.uri].items.length === 0}
-                            //onClick={(e) => handleSeeReportButtonClick(e, item)}
                             className={"generalButton"}
                             variant={"contained"}
                             size={"small"}>
