@@ -28,6 +28,7 @@ export function shortenUrl(url) {
 };
 
 export function generateHref(uri) {
+  console.log(uri)
   if (isCedarTemplateUri(uri)) {
     return CEDAR_EDIT_TEMPLATE_BASE_URI + uri;
   }

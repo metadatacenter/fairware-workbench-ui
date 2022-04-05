@@ -196,5 +196,11 @@ h2 {
   color: var(--color6);
 }
 
+/* SUMMARY REPORT */
+
+.summaryReportPanel {
+  padding: 2vh;
+}
+
 
 

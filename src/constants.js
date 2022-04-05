@@ -5,6 +5,7 @@ export const DOI_BASE_URI = "https://doi.org/";
 const FAIRWARE_API_BASE_URL = "http://localhost:9090/";
 export const  FAIRWARE_METADATA_SEARCH_URL = FAIRWARE_API_BASE_URL + "metadata/search";
 export const  FAIRWARE_METADATA_EVALUATE_URL = FAIRWARE_API_BASE_URL + "metadata/evaluate";
+export const  FAIRWARE_METADATA_SUMMARY_REPORT_URL = FAIRWARE_API_BASE_URL + "metadata/report";
 
 export const ISSUE_TYPE_MISSING_REQUIRED_VALUE = "MISSING_REQUIRED_VALUE";
 export const ISSUE_TYPE_MISSING_REQUIRED_VALUE_MSG = "Missing required value";

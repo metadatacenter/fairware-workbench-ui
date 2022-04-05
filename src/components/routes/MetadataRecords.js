@@ -68,8 +68,9 @@ export default function MetadataRecords() {
           {results && results.items &&
           <>
             <div className={"title2"}><b>Search results</b></div>
-            <span className={"title3"}>{results.items.length} metadata {results.items.length <= 1 && 'record'} {results.items.length > 1 && 'records'} found</span>
-            <TableContainer className={"table"} component={"Paper"}>
+            <span
+              className={"title3"}>{results.items.length} metadata {results.items.length <= 1 && 'record'} {results.items.length > 1 && 'records'} found</span>
+            <TableContainer className={"table"}>
               <Table /*size="small"*/>
                 <TableHead>
                   <TableRow>
@@ -97,15 +98,21 @@ export default function MetadataRecords() {
                         <TableCell>{item.metadata ? item.source : "URI not found"}</TableCell>
                         <TableCell>{item.metadata ?
                           <Tooltip title={item.schemaId}>
-                            <a href={generateHref(item.schemaId)} target="_blank">{shortenUrl(item.schemaId)}</a></Tooltip> : "NA"}
+                            <a href={generateHref(item.schemaId)}
+                               target="_blank">{shortenUrl(item.schemaId)}</a></Tooltip> : "NA"}
                         </TableCell>
                         <TableCell>
-                          {!evaluationResults[item.uri] && <div className={"wrapIcon"}><WarningRoundedIcon className={"textWarning"}/><span className={"textIcon"}>Not started</span></div>}
-                          {evaluationResults[item.uri] && <div className={"wrapIcon"}><CheckCircleRoundedIcon className={"textSuccess"}/><span className={"textIcon"}>Complete</span></div>}
+                          {!evaluationResults[item.uri] &&
+                          <div className={"wrapIcon"}><WarningRoundedIcon className={"textWarning"}/><span
+                            className={"textIcon"}>Not started</span></div>}
+                          {evaluationResults[item.uri] &&
+                          <div className={"wrapIcon"}><CheckCircleRoundedIcon className={"textSuccess"}/><span
+                            className={"textIcon"}>Complete</span></div>}
                         </TableCell>
                         <TableCell>{evaluationResults[item.uri] ? evaluationResults[item.uri].items.length : "Not available"}</TableCell>
                         <TableCell align={"center"}><IconButton className={"iconButton"}><VisibilityIcon/></IconButton></TableCell>
-                        <TableCell align={"center"}><IconButton className={"iconButton"}><DownloadIcon/></IconButton></TableCell>
+                        <TableCell align={"center"}><IconButton
+                          className={"iconButton"}><DownloadIcon/></IconButton></TableCell>
                         <TableCell>
                           {evaluationResults[item.uri] &&
                           <Button
@@ -137,7 +144,6 @@ export default function MetadataRecords() {
             </div>
           </>
           }
-
           <div className={"progressIndicator"}>
             {evaluating && <CircularProgress/>}
           </div>

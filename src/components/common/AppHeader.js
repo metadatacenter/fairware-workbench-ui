@@ -7,10 +7,32 @@ import SearchIcon from '@mui/icons-material/Search';
 import ListIcon from '@mui/icons-material/List';
 import AssessmentOutlinedIcon from '@mui/icons-material/AssessmentOutlined';
 import Stack from "@mui/material/Stack";
-import {Link} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import logo from '../../../src/FAIRwareLogo.svg';
 
 export default function AppHeader() {
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const results = location && location.state && location.state.results ? location.state.results : [];
+  console.log(results);
+  function handleMyRecordsButtonClick(e, item) {
+    navigate("/MetadataRecords",
+      {
+        state: {
+          results: results
+        }
+      });
+  }
+
+  function handleSeeSummaryReportButtonClick(e, item) {
+    navigate("/SummaryReport",
+      {
+        state: {
+          results: results
+        }
+      });
+  }
 
   return (
     <div>
@@ -29,9 +51,18 @@ export default function AppHeader() {
           <Stack id={"headerButtonsContainer"} direction="row" spacing={4}>
             <Button component={Link} to="/FindMetadata" startIcon={<SearchIcon/>} variant={"contained"} size={"medium"}
                     disableElevation>Metadata Search</Button>
-            <Button component={Link} to="/MetadataRecords" startIcon={<ListIcon/>} variant={"contained"} size={"medium"} disableElevation>My Records</Button>
-            <Button component={Link} to="/SummaryReport" startIcon={<AssessmentOutlinedIcon/>} variant={"contained"} size={"medium"} disableElevation>Summary
-              Report</Button>
+            {results.totalCount > 0 && <Button onClick={handleMyRecordsButtonClick}
+                    to="/MetadataRecords"
+                    startIcon={<ListIcon/>}
+                    variant={"contained"}
+                    size={"medium"} disableElevation>My Records</Button>}
+
+            {results.totalCount > 0 && <Button onClick={handleSeeSummaryReportButtonClick}
+                    to="/SummaryReport"
+                    startIcon={<AssessmentOutlinedIcon/>}
+                    variant={"contained"}
+                    size={"medium"} disableElevation>
+              Summary Report</Button>}
           </Stack>
         </Toolbar>
       </AppBar>

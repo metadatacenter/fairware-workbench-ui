@@ -76,13 +76,15 @@ export default function MetadataEvaluationReport() {
                         <TableCell>{item.repairAction.message}</TableCell>
                         <TableCell>
                           <Button
-                            disabled={evaluationResults[item.uri] && evaluationResults[item.uri].items.length === 0}
+                            // disabled={evaluationResults[item.uri] && evaluationResults[item.uri].items.length === 0}
+                            disabled={true}
                             className={"generalButton"}
                             variant={"contained"}
                             size={"small"}>
                             Accept</Button>
                           <Button
-                            disabled={evaluationResults[item.uri] && evaluationResults[item.uri].items.length === 0}
+                            // disabled={evaluationResults[item.uri] && evaluationResults[item.uri].items.length === 0}
+                            disabled={true}
                             className={"generalButton"}
                             variant={"contained"}
                             size={"small"}>

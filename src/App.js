@@ -12,7 +12,7 @@ import Support from "./components/routes/Support";
 import Resources from "./components/routes/Resources";
 import MetadataRecords from "./components/routes/MetadataRecords";
 import MetadataEvaluationReport from "./components/routes/MetadataEvaluationReport";
-import SummaryReport from "./components/routes/SummaryReport";
+import SummaryReport from "./components/routes/summaryReport/SummaryReport";
 
 export default function App() {
 
