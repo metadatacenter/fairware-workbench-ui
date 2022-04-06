@@ -11,6 +11,7 @@ import CompletenessReport from "./CompletenessReport";
 import IssuesReport from "./IssuesReport";
 import {useLocation, useNavigate} from "react-router";
 import {generateSummaryReport} from "../../../services/fairwareServices";
+import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 
 ChartJS.register(ArcElement, Tooltip);
 
@@ -68,42 +69,42 @@ export default function SummaryReport() {
     setValue(newValue);
   };
 
-  if (isLoading) {
-    return (<>
+
+  return (
+    <>
       <AppHeader/>
       <div id="appContent">
         <h1>Summary Report</h1>
-        <div>Loading...</div>
+        <Paper elevation={1} className={'summaryReportPanel'}>
+          {isLoading &&
+          <div className={"progressIndicator"}>
+            <CircularProgress/>
+          </div>
+          }
+          {!isLoading &&
+
+          <Box sx={{width: '100%'}}>
+            <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
+              <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                <Tab label="Metadata Completeness" {...a11yProps(0)} />
+                <Tab label="Metadata Issues" {...a11yProps(1)} />
+              </Tabs>
+            </Box>
+            <TabPanel value={value} index={0}>
+              <CompletenessReport completenessReport={summaryReport.completenessReport}/>
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+              <IssuesReport/>
+            </TabPanel>
+          </Box>
+
+          }
+        </Paper>
       </div>
       <AppFooter/>
-    </>)
-  } else {
-    return (
-      <>
-        <AppHeader/>
-        <div id="appContent">
-          <h1>Summary Report</h1>
-          <Paper elevation={1} className={'summaryReportPanel'}>
-            <Box sx={{width: '100%'}}>
-              <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                  <Tab label="Metadata Completeness" {...a11yProps(0)} />
-                  <Tab label="Metadata Issues" {...a11yProps(1)} />
-                </Tabs>
-              </Box>
-              <TabPanel value={value} index={0}>
-                <CompletenessReport completenessReport={summaryReport.completenessReport}/>
-              </TabPanel>
-              <TabPanel value={value} index={1}>
-                <IssuesReport/>
-              </TabPanel>
-            </Box>
-          </Paper>
-        </div>
-        <AppFooter/>
-      </>
-    );
-  }
+    </>
+  );
+
 }
 
 

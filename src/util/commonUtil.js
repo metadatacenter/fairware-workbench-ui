@@ -16,11 +16,16 @@ export function truncate(str, num) {
   return str.slice(0, num) + '...'
 };
 
-export function shortenUrl(url) {
+export function shortenUrl(url, onlyEnd) {
   if (url.length > 50) {
     let end = url.slice(url.length - 16);
     let start = url.substr(0, 16);
-    return start + '...' + end;
+    if (onlyEnd) {
+      return end;
+    }
+    else {
+      return start + '...' + end;
+    }
   }
   else {
     return url;

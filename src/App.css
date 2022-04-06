@@ -202,5 +202,22 @@ h2 {
   padding: 2vh;
 }
 
+.summaryReportPanel .progressIndicator {
+  margin-top: 12vh;
+  margin-bottom: 12vh;
+  text-align: center;
+}
+
+.horizontalBarCell {
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.materialTooltip {
+  margin-left: 0px;
+  vertical-align: -4px; /*Change this to adjust the icon*/
+}
+
+
 
 

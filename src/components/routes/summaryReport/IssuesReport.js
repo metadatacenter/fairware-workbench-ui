@@ -130,6 +130,7 @@ export default function IssuesReport() {
         ctx.restore();
         let fontSize = (height / 160).toFixed(2);
         ctx.font = fontSize + "em sans-serif"; // Title font
+
         ctx.textBaseline = "top";
         let textTitle = numberWithCommas(data.innerTextTitle),
           textTitleX = Math.round((width - ctx.measureText(textTitle).width) / 2),
@@ -151,18 +152,18 @@ export default function IssuesReport() {
     <>
         <Paper elevation={1} className={'summaryReportPanel'}>
           <Grid container spacing={4}>
-            <Grid item xs={3}>
-              <Doughnut data={data1} options={chartOptions} plugins={generatePlugins(data1)} />
-            </Grid>
-            <Grid item xs={3}>
-              <Doughnut data={data2} options={chartOptions} plugins={generatePlugins(data2)} />
-            </Grid>
-            <Grid item xs={3}>
-              <Doughnut data={data3} options={chartOptions} plugins={generatePlugins(data3)} />
-            </Grid>
-            <Grid item xs={3}>
-              <Doughnut data={data4} options={chartOptions} plugins={generatePlugins(data4)} />
-            </Grid>
+            {/*<Grid item xs={3}>*/}
+            {/*  <Doughnut data={data1} options={chartOptions} plugins={generatePlugins(data1)} />*/}
+            {/*</Grid>*/}
+            {/*<Grid item xs={3}>*/}
+            {/*  <Doughnut data={data2} options={chartOptions} plugins={generatePlugins(data2)} />*/}
+            {/*</Grid>*/}
+            {/*<Grid item xs={3}>*/}
+            {/*  <Doughnut data={data3} options={chartOptions} plugins={generatePlugins(data3)} />*/}
+            {/*</Grid>*/}
+            {/*<Grid item xs={3}>*/}
+            {/*  <Doughnut data={data4} options={chartOptions} plugins={generatePlugins(data4)} />*/}
+            {/*</Grid>*/}
           </Grid>
         </Paper>
     </>

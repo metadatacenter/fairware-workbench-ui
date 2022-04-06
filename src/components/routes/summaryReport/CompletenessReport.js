@@ -14,6 +14,8 @@ import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
 import TableContainer from "@mui/material/TableContainer";
 import Tooltip from "@mui/material/Tooltip/Tooltip";
+import HSBar from "react-horizontal-stacked-bar-chart";
+import HelpIcon from '@mui/icons-material/Help';
 
 ChartJS.register(ArcElement, TooltipJS, Legend);
 
@@ -67,6 +69,7 @@ export default function CompletenessReport(props) {
 
   const options = {
     //responsive: false,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: true,
@@ -98,14 +101,14 @@ export default function CompletenessReport(props) {
           height = chart.height,
           ctx = chart.ctx;
         ctx.restore();
-        let fontSize = (height / 160).toFixed(2);
-        ctx.font = fontSize + "em sans-serif"; // Title font
-        ctx.textBaseline = "top";
+        let fontSize = (height / 120).toFixed(2);
+        ctx.font = fontSize + "em Helvetica"; // Title font
+        ctx.fontWeight = "bold";
         let textTitle = numberWithCommas(data.innerTextTitle),
           textTitleX = Math.round((width - ctx.measureText(textTitle).width) / 2),
           textTitleY = (height / 2) - 50;
         ctx.fillText(textTitle, textTitleX, textTitleY);
-        ctx.font = 0.7 * fontSize + "em sans-serif"; // Subtitle font
+        ctx.font = 0.5 * fontSize + "em sans-serif"; // Subtitle font
         let textSubtitle = data.innerTextSubtitle,
           textSubtitleX = Math.round((width - ctx.measureText(textSubtitle).width) / 2),
           textSubtitleY = (height / 2) - 10;
@@ -116,13 +119,56 @@ export default function CompletenessReport(props) {
     return plugins;
   }
 
+  function generatePercentageStr(num, total) {
+    return Math.round((num / total) * 100) + '%';
+  }
+
+  function generateDescription(count, total) {
+    if (count > 0) {
+      return count + ' (' + generatePercentageStr(count, total) + ')';
+    } else {
+      return '';
+    }
+  }
+
+  function generateHsBarData(missingRequiredValuesCount, missingOptionalValuesCount, completeCount, fieldsCount) {
+    let data = [];
+    if (missingRequiredValuesCount > 0) {
+      data.push({
+        value: missingRequiredValuesCount,
+        description: generateDescription(missingRequiredValuesCount, fieldsCount),
+        color: '#CC3051'
+      })
+    }
+    if (missingOptionalValuesCount > 0) {
+      data.push({
+        value: missingOptionalValuesCount,
+        description: generateDescription(missingOptionalValuesCount, fieldsCount),
+        color: '#FEC02D'
+      })
+    }
+    if (completeCount > 0) {
+      data.push({
+        value: completeCount,
+        description: generateDescription(completeCount, fieldsCount),
+        color: '#1BA9E3'
+      })
+    }
+    return data;
+  }
+
   return (
     <>
       <Paper elevation={1} className={'summaryReportPanel'}>
-        <Grid container columnSpacing={20}>
+        <Grid container columnSpacing={2}>
           <Grid item xs={1}/>
           <Grid item xs={5}>
-            <Doughnut data={recordsGraphData} options={options} plugins={generatePlugins(recordsGraphData)}/>
+            <Doughnut
+              data={recordsGraphData}
+              height="300px"
+              width="300px"
+              options={options}
+              plugins={generatePlugins(recordsGraphData)}/>
           </Grid>
           <Grid item xs={5}>
             <Doughnut data={fieldsGraphData} options={options} plugins={generatePlugins(fieldsGraphData)}/>
@@ -130,7 +176,7 @@ export default function CompletenessReport(props) {
           <Grid item xs={1}/>
         </Grid>
       </Paper>
-      <h2>Completeness by Metadata Record</h2>
+      <h2>Completeness by Record</h2>
       <TableContainer className={"table"}>
         <Table>
           <TableHead>
@@ -139,7 +185,13 @@ export default function CompletenessReport(props) {
               <TableCell>TITLE</TableCell>
               <TableCell>SOURCE</TableCell>
               <TableCell>METADATA TEMPLATE</TableCell>
-              <TableCell>COMPLETENESS</TableCell>
+              <TableCell>COMPLETENESS
+                <Tooltip title="For each metadata record, this column shows the number of fields with missing required values (red), missing optional values (yellow), and complete (blue)." className={'materialTooltip'}>
+                  <IconButton>
+                    <HelpIcon fontSize={'small'}/>
+                  </IconButton>
+                </Tooltip>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -147,7 +199,8 @@ export default function CompletenessReport(props) {
               .map((item) => (
                 <TableRow key={item.metadataRecordId}>
                   <TableCell>
-                    <a href={generateHref(item.metadataRecordId)} target="_blank">{shortenUrl(item.metadataRecordId)}</a>
+                    <a href={generateHref(item.metadataRecordId)}
+                       target="_blank">{shortenUrl(item.metadataRecordId)}</a>
                   </TableCell>
                   <TableCell>{item.metadata ? item.title : "NA"}</TableCell>
                   <TableCell>{item.metadata ? item.source : "URI not found"}</TableCell>
@@ -156,21 +209,36 @@ export default function CompletenessReport(props) {
                       <a href={generateHref(item.schemaId)}
                          target="_blank">{shortenUrl(item.schemaId)}</a></Tooltip> : "NA"}
                   </TableCell>
-                  <TableCell>{item.missingRequiredValues} / {item.missingOptionalValues}</TableCell>
+                  <TableCell className={"horizontalBarCell"}>
+                    <HSBar
+                      height={20}
+                      showTextIn
+                      outlineColor="#FFFFFF"
+                      id="chart"
+                      fontColor="#FFFFFF"
+                      data={generateHsBarData(item.missingRequiredValuesCount, item.missingOptionalValuesCount, item.completeCount, item.fieldsCount)}
+                    />
+                  </TableCell>
                 </TableRow>
               ))}
           </TableBody>
         </Table>
       </TableContainer>
-      <h2>Completeness by Metadata Field</h2>
+      <h2>Completeness by Field</h2>
       <TableContainer className={"table"}>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell>FIELD NAME</TableCell>
               <TableCell>METADATA TEMPLATE</TableCell>
-              <TableCell>NUMBER OF RECORDS</TableCell>
-              <TableCell>COMPLETENESS</TableCell>
+              <TableCell># OF RECORDS</TableCell>
+              <TableCell>COMPLETENESS
+                <Tooltip title="Number of fields with missing required values (red), missing optional values (yellow), and complete (blue)." className={'materialTooltip'}>
+                  <IconButton>
+                    <HelpIcon fontSize={'small'}/>
+                  </IconButton>
+                </Tooltip>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -178,9 +246,22 @@ export default function CompletenessReport(props) {
               .map((item) => (
                 <TableRow key={item.templateId + '-' + item.metadataFieldPath}>
                   <TableCell><b>{item.metadataFieldPath}</b></TableCell>
-                  <TableCell>{item.templateId ? item.templateId : "NA"}</TableCell>
-                  <TableCell>"NA"</TableCell>
-                  <TableCell>{item.completeCount} / {item.missingRequiredValuesCount} / {item.missingOptionalValuesCount}</TableCell>
+                  <TableCell>{item.templateId ?
+                    <Tooltip title={item.templateId}>
+                      <a href={generateHref(item.templateId)}
+                         target="_blank">{shortenUrl(item.templateId)}</a></Tooltip> : "NA"}
+                  </TableCell>
+                  <TableCell>{item.fieldsCount}</TableCell>
+                  <TableCell className={"horizontalBarCell"}>
+                    <HSBar
+                      height={20}
+                      showTextIn
+                      outlineColor="#FFFFFF"
+                      id="chart"
+                      fontColor="#FFFFFF"
+                      data={generateHsBarData(item.missingRequiredValuesCount, item.missingOptionalValuesCount, item.completeCount, item.fieldsCount)}
+                    />
+                  </TableCell>
                 </TableRow>
               ))}
           </TableBody>

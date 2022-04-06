@@ -19,6 +19,8 @@ import {useLocation} from "react-router";
 import {useNavigate} from 'react-router-dom';
 import {evaluateMetadata} from "../../services/fairwareServices";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
+import { DataGrid } from '@mui/x-data-grid';
+import Checkbox from "@mui/material/Checkbox";
 
 export default function MetadataRecords() {
 
@@ -59,6 +61,15 @@ export default function MetadataRecords() {
       });
   }
 
+  function generateMetadataRecordName(uri, recordTitle) {
+    if (recordTitle) {
+      return recordTitle + ' (' + shortenUrl(uri, true) + ')';
+    }
+    else {
+      return shortenUrl(uri);
+    }
+  }
+
   return (
     <>
       <AppHeader/>
@@ -74,8 +85,8 @@ export default function MetadataRecords() {
               <Table /*size="small"*/>
                 <TableHead>
                   <TableRow>
+                    <TableCell padding="checkbox"><Checkbox color="primary" checked={false}/></TableCell>
                     <TableCell>METADATA RECORD</TableCell>
-                    <TableCell>TITLE</TableCell>
                     <TableCell>SOURCE</TableCell>
                     <TableCell>METADATA TEMPLATE</TableCell>
                     <TableCell>EVALUATION STATUS</TableCell>
@@ -89,17 +100,13 @@ export default function MetadataRecords() {
                   {results.items
                     .map((item) => (
                       <TableRow key={item.uri}>
+                        <TableCell padding="checkbox"><Checkbox color="primary" checked={false}/></TableCell>
                         <TableCell>
-                          <Tooltip title={item.uri}>
-                            <a href={generateHref(item.uri)} target="_blank">{shortenUrl(item.uri)}</a>
-                          </Tooltip>
+                          <a href={generateHref(item.uri)} target="_blank">{generateMetadataRecordName(item.uri, item.title)}</a>
                         </TableCell>
-                        <TableCell>{item.metadata ? item.title : "NA"}</TableCell>
                         <TableCell>{item.metadata ? item.source : "URI not found"}</TableCell>
-                        <TableCell>{item.metadata ?
-                          <Tooltip title={item.schemaId}>
-                            <a href={generateHref(item.schemaId)}
-                               target="_blank">{shortenUrl(item.schemaId)}</a></Tooltip> : "NA"}
+                        <TableCell>
+                          {item.metadata ? <Tooltip title={item.schemaId}><a href={generateHref(item.schemaId)} target="_blank">{item.schemaName}</a></Tooltip> : "NA"}
                         </TableCell>
                         <TableCell>
                           {!evaluationResults[item.uri] &&

@@ -41,7 +41,7 @@ export default function MetadataEvaluationReport() {
         <div className={"searchResults"}>
           {evaluationResults && evaluationResults.items &&
           <>
-            <TableContainer className={"table"} component={"Paper"}>
+            <TableContainer className={"table"}>
               <Table size="small">
                 <TableHead>
                   <TableRow>
@@ -55,7 +55,7 @@ export default function MetadataEvaluationReport() {
                 <TableBody>
                   {evaluationResults.items
                     .map((item) => (
-                      <TableRow key={item.uri}>
+                      <TableRow key={item.metadataFieldPath}>
                         <TableCell><b>{item.metadataFieldPath}</b></TableCell>
                         <TableCell><span>(empty)</span>
                           {/*{item.issue.issueLevel === ISSUE_LEVEL_ERROR && <span className="textError">(empty)</span>}*/}
