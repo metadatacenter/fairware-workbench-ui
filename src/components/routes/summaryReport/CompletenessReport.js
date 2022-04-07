@@ -243,7 +243,7 @@ export default function CompletenessReport(props) {
                   <TableCell>{item.templateId ?
                     <Tooltip title={item.templateId}>
                       <a href={generateHref(item.templateId)}
-                         target="_blank">{shortenUrl(item.templateId)}</a></Tooltip> : "NA"}
+                         target="_blank">{shortenUrl(item.templateName)}</a></Tooltip> : "NA"}
                   </TableCell>
                   <TableCell className={"horizontalBarCell"}>
                     <HSBar

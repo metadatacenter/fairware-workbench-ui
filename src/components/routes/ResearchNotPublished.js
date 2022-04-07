@@ -10,11 +10,11 @@ export default function ResearchNotPublished() {
       <AppHeader/>
       <div id="appContent">
         <div className="mainTitle">Research not published</div>
-        <div className="mainSubtitle">Get suggestions for improving your metadata. Make your research data more
-          Findable,
-          Accessible, Interoperable
-          and Reusable
-        </div>
+        {/*<div className="mainSubtitle">Get suggestions for improving your metadata. Make your research data more*/}
+        {/*  Findable,*/}
+        {/*  Accessible, Interoperable*/}
+        {/*  and Reusable*/}
+        {/*</div>*/}
         <div id={"mainButtons"}>
 
         </div>

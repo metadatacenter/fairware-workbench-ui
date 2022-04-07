@@ -20,9 +20,16 @@ export default function MetadataEvaluationReport() {
   const navigate = useNavigate();
   const state = useLocation().state;
   const evaluationResults = state && state.evaluationResults ? state.evaluationResults : {};
+  const itemUri = state && state.itemUri ? state.itemUri : null;
 
   function handleGoBackButtonClick() {
     navigate(-1);
+    // navigate("/MetadataRecords",
+    //   {
+    //     state: {
+    //       evaluationResults: evaluationResults,
+    //     }
+    //   });
   }
 
   return (
@@ -31,15 +38,15 @@ export default function MetadataEvaluationReport() {
       <div id="appContent">
         <h1>Metadata Evaluation Report</h1>
         <div
-          className={"title2"}><b>{evaluationResults.totalIssuesCount}</b> metadata {evaluationResults.totalIssuesCount === 1 && 'issue'} {evaluationResults.totalIssuesCount !== 1 && 'issues'} found
+          className={"title2"}><b>{evaluationResults[itemUri].totalIssuesCount}</b> metadata {evaluationResults[itemUri].totalIssuesCount === 1 && 'issue'} {evaluationResults[itemUri].totalIssuesCount !== 1 && 'issues'} found
         </div>
         <div className={"title3"}>
-          <span className={"textError"}><b>{evaluationResults.errorsCount}</b> errors</span>
+          <span className={"textError"}><b>{evaluationResults[itemUri].errorsCount}</b> errors</span>
           <span>{" - "}</span>
-          <span className={"textWarning"}><b>{evaluationResults.warningsCount}</b> warnings</span>
+          <span className={"textWarning"}><b>{evaluationResults[itemUri].warningsCount}</b> warnings</span>
         </div>
         <div className={"searchResults"}>
-          {evaluationResults && evaluationResults.items &&
+          {evaluationResults[itemUri] && evaluationResults[itemUri].items &&
           <>
             <TableContainer className={"table"}>
               <Table size="small">
@@ -53,7 +60,7 @@ export default function MetadataEvaluationReport() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {evaluationResults.items
+                  {evaluationResults[itemUri].items
                     .map((item) => (
                       <TableRow key={item.metadataFieldPath}>
                         <TableCell><b>{item.metadataFieldPath}</b></TableCell>

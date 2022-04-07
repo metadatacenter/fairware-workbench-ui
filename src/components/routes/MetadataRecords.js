@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import Button from "@mui/material/Button";
 import AppHeader from "../common/AppHeader";
 import AppFooter from "../common/AppFooter";
@@ -17,12 +17,12 @@ import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import DownloadIcon from '@mui/icons-material/Download';
 import {useLocation} from "react-router";
 import {useNavigate} from 'react-router-dom';
-import {evaluateMetadata} from "../../services/fairwareServices";
+import {evaluateMetadata, generateSummaryReport} from "../../services/fairwareServices";
 import CircularProgress from "@mui/material/CircularProgress/CircularProgress";
 import { DataGrid } from '@mui/x-data-grid';
 import Checkbox from "@mui/material/Checkbox";
 
-export default function MetadataRecords() {
+export default function MetadataRecords(props) {
 
   const navigate = useNavigate();
   const state = useLocation().state;
@@ -56,7 +56,8 @@ export default function MetadataRecords() {
     navigate("/MetadataEvaluationReport",
       {
         state: {
-          evaluationResults: evaluationResults[item.uri]
+          evaluationResults: evaluationResults,
+          itemUri: item.uri
         }
       });
   }
