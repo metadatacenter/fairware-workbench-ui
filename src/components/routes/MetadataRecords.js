@@ -9,7 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell/TableCell";
 import TableBody from "@mui/material/TableBody";
 import Tooltip from "@mui/material/Tooltip/Tooltip";
-import {removeDuplicates, shortenUrl, generateHref} from "../../util/commonUtil";
+import {removeDuplicates, shortenUrl, generateHref, generateMetadataRecordName} from "../../util/commonUtil";
 import IconButton from "@mui/material/IconButton";
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -59,15 +59,6 @@ export default function MetadataRecords() {
           evaluationResults: evaluationResults[item.uri]
         }
       });
-  }
-
-  function generateMetadataRecordName(uri, recordTitle) {
-    if (recordTitle) {
-      return recordTitle + ' (' + shortenUrl(uri, true) + ')';
-    }
-    else {
-      return shortenUrl(uri);
-    }
   }
 
   return (

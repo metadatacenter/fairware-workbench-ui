@@ -47,3 +47,12 @@ export function generateHref(uri) {
     return uri;
   }
 }
+
+export function generateMetadataRecordName(uri, recordTitle) {
+  if (recordTitle) {
+    return recordTitle + ' (' + shortenUrl(uri, true) + ')';
+  }
+  else {
+    return shortenUrl(uri);
+  }
+}

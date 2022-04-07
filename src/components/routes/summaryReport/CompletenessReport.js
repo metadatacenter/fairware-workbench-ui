@@ -8,7 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell/TableCell";
 import TableBody from "@mui/material/TableBody";
-import {generateHref, shortenUrl} from "../../../util/commonUtil";
+import {generateHref, generateMetadataRecordName, shortenUrl} from "../../../util/commonUtil";
 import WarningRoundedIcon from "@mui/material/SvgIcon/SvgIcon";
 import IconButton from "@mui/material/IconButton";
 import Button from "@mui/material/Button";
@@ -182,8 +182,6 @@ export default function CompletenessReport(props) {
           <TableHead>
             <TableRow>
               <TableCell>METADATA RECORD</TableCell>
-              <TableCell>TITLE</TableCell>
-              <TableCell>SOURCE</TableCell>
               <TableCell>METADATA TEMPLATE</TableCell>
               <TableCell>COMPLETENESS
                 <Tooltip title="For each metadata record, this column shows the number of fields with missing required values (red), missing optional values (yellow), and complete (blue)." className={'materialTooltip'}>
@@ -199,15 +197,10 @@ export default function CompletenessReport(props) {
               .map((item) => (
                 <TableRow key={item.metadataRecordId}>
                   <TableCell>
-                    <a href={generateHref(item.metadataRecordId)}
-                       target="_blank">{shortenUrl(item.metadataRecordId)}</a>
+                    <a href={generateHref(item.metadataRecordId)} target="_blank">{generateMetadataRecordName(item.metadataRecordId, item.metadataRecordName)}</a>
                   </TableCell>
-                  <TableCell>{item.metadata ? item.title : "NA"}</TableCell>
-                  <TableCell>{item.metadata ? item.source : "URI not found"}</TableCell>
-                  <TableCell>{item.metadata ?
-                    <Tooltip title={item.schemaId}>
-                      <a href={generateHref(item.schemaId)}
-                         target="_blank">{shortenUrl(item.schemaId)}</a></Tooltip> : "NA"}
+                  <TableCell>
+                    <Tooltip title={item.templateId}><a href={generateHref(item.templateId)} target="_blank">{item.templateName}</a></Tooltip>
                   </TableCell>
                   <TableCell className={"horizontalBarCell"}>
                     <HSBar
@@ -230,8 +223,8 @@ export default function CompletenessReport(props) {
           <TableHead>
             <TableRow>
               <TableCell>FIELD NAME</TableCell>
-              <TableCell>METADATA TEMPLATE</TableCell>
               <TableCell># OF RECORDS</TableCell>
+              <TableCell>METADATA TEMPLATE</TableCell>
               <TableCell>COMPLETENESS
                 <Tooltip title="Number of fields with missing required values (red), missing optional values (yellow), and complete (blue)." className={'materialTooltip'}>
                   <IconButton>
@@ -246,12 +239,12 @@ export default function CompletenessReport(props) {
               .map((item) => (
                 <TableRow key={item.templateId + '-' + item.metadataFieldPath}>
                   <TableCell><b>{item.metadataFieldPath}</b></TableCell>
+                  <TableCell>{item.fieldsCount}</TableCell>
                   <TableCell>{item.templateId ?
                     <Tooltip title={item.templateId}>
                       <a href={generateHref(item.templateId)}
                          target="_blank">{shortenUrl(item.templateId)}</a></Tooltip> : "NA"}
                   </TableCell>
-                  <TableCell>{item.fieldsCount}</TableCell>
                   <TableCell className={"horizontalBarCell"}>
                     <HSBar
                       height={20}
