@@ -68,9 +68,9 @@ export default function FindMetadata() {
     "https://repo.metadatacenter.org/template-instances/d0506d6d-9987-4a4b-ab8e-c3ebc2a545ac\n" +
     "https://repo.metadatacenter.org/template-instances/c81b0f05-a2ee-461e-8eb0-0b295f72a63a\n" +
     "https://repo.metadatacenter.org/template-instances/8c9698f2-e5ff-4ad4-acc2-c29b1bc0f8a8\n" +
-    "https://repo.metadatacenter.org/template-instances/2c786101-6771-4f5d-a901-dbfbf5ef0a1e\n" +
-    "https://repo.metadatacenter.org/template-instances/66782bae-9084-4dde-be21-5461e1b14453\n" +
-    "https://repo.metadatacenter.org/template-instances/606e6223-1bae-4c66-b7da-2f1ad8e9926e";
+    "https://repo.metadatacenter.org/template-instances/0ac7dd32-a581-4c09-9343-4863c07c29c7\n" +
+    "https://repo.metadatacenter.org/template-instances/ab8c0a70-bbe0-428e-904c-581314533187\n" +
+    "https://repo.metadatacenter.org/template-instances/30f4a555-91f7-44be-8fc5-442862c3b538";
 
   const sampleInput2 = "10.15468/9vuieb\n" +
     "10.4230/lipics.iclp.2011.16";
@@ -117,55 +117,55 @@ export default function FindMetadata() {
     });
   }
 
-    return (
-      <>
-        <AppHeader/>
-        <div id="appContent">
-          <div className="mainTitle">Find your Metadata</div>
-          <div className="mainSubtitle">Enter one or more URIs. We'll look for the associated metadata</div>
-          <div className="inputTextFieldContainer">
-            <TextField
-              id="mainInputTextField"
-              multiline
-              rows={4}
-              onChange={handleInputChange}
-              value={inputText}
-              helperText="Enter URIs (one per line)"
-            />
-            <div className={"sampleInputButton"}>
-              <Link component="button" onClick={handleSampleInput1Click}>sample input 1</Link>
-              <span>&nbsp;&nbsp;</span>
-              <Link component="button" onClick={handleSampleInput2Click}>sample input 2</Link>
-              <span>&nbsp;&nbsp;</span>
-              <Link component="button" onClick={handleSampleInput3Click}>sample input 3</Link>
-            </div>
-          </div>
-
-          <div id={"findMetadataButtons"}>
-            <Button component={Link}
-                    to="/"
-                    className={"generalButton"}
-                    variant={"text"}
-                    size={"large"}>
-              Go Back</Button>
-            <Button
-              disabled={inputText.trim().length === 0}
-              onClick={handleSearchMetadataButtonClick}
-              className={"generalButton"}
-              variant={"contained"}
-              size={"large"}>
-              Search</Button>
-          </div>
-
-          <div className={"searchResults"}>
-
-            <div className={"progressIndicator"}>
-              {searching && <CircularProgress/>}
-            </div>
-
+  return (
+    <>
+      <AppHeader/>
+      <div id="appContent">
+        <div className="mainTitle">Find your Metadata</div>
+        <div className="mainSubtitle">Enter one or more URIs. We'll look for the associated metadata</div>
+        <div className="inputTextFieldContainer">
+          <TextField
+            id="mainInputTextField"
+            multiline
+            rows={4}
+            onChange={handleInputChange}
+            value={inputText}
+            helperText="Enter URIs (one per line)"
+          />
+          <div className={"sampleInputButton"}>
+            <Link component="button" onClick={handleSampleInput1Click}>sample input 1</Link>
+            <span>&nbsp;&nbsp;</span>
+            <Link component="button" onClick={handleSampleInput2Click}>sample input 2</Link>
+            <span>&nbsp;&nbsp;</span>
+            <Link component="button" onClick={handleSampleInput3Click}>sample input 3</Link>
           </div>
         </div>
-        <AppFooter/>
-      </>
-    );
+
+        <div id={"findMetadataButtons"}>
+          <Button component={Link}
+                  to="/"
+                  className={"generalButton"}
+                  variant={"text"}
+                  size={"large"}>
+            Go Back</Button>
+          <Button
+            disabled={inputText.trim().length === 0}
+            onClick={handleSearchMetadataButtonClick}
+            className={"generalButton"}
+            variant={"contained"}
+            size={"large"}>
+            Search</Button>
+        </div>
+
+        <div className={"searchResults"}>
+
+          <div className={"progressIndicator"}>
+            {searching && <CircularProgress/>}
+          </div>
+
+        </div>
+      </div>
+      <AppFooter/>
+    </>
+  );
 }
