@@ -82,7 +82,7 @@ export default function EvaluateMetadata() {
                     </div>
                 </div>
 
-                <div id={"findMetadataButtons"}>
+                <div id={"findMetadataButtons"} hidden={evaluating}>
                     <Button
                         disabled={metadataUris.trim().length === 0}
                         onClick={handleStartEvaluateButtonClick}
