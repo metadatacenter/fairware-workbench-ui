@@ -135,6 +135,18 @@ h2 {
   width: 60vw;
 }
 
+#inputMetadataUris {
+  font-size: 0.8rem;
+  line-height: 0.9rem;
+  width: 60vw;
+}
+
+#inputTemplateId {
+  font-size: 0.8rem;
+  line-height: 0.9rem;
+  width: 60vw;
+}
+
 .mainTitle {
   margin-top: 4vh;
   text-align: center;

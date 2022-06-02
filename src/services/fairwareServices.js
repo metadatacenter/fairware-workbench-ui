@@ -58,6 +58,27 @@ export function evaluateMetadata(metadataRecords) {
   return Promise.all(requests);
 };
 
+export function evaluateMetadataInBatch(metadataRecordIds, cedarTemplateId) {
+  let url = FAIRWARE_METADATA_EVALUATE_URL;
+  let requestOptions = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  let requests = [];
+  metadataRecordIds.forEach(function (metadataRecordId) {
+    requestOptions.body = JSON.stringify({
+      metadataRecordId: metadataRecordId,
+      templateId: cedarTemplateId
+    });
+    requests.push(
+        fetch(url, requestOptions)
+            .then(response => response.json()));
+  });
+  return Promise.all(requests);
+}
+
 /**
  * Generate summary report
  * @param
