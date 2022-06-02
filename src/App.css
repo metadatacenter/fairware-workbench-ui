@@ -74,7 +74,7 @@ h2 {
 #appContent {
   color: var(--color3);
   flex: 1;
-  margin: 5vh 5vw;
+  margin: 2vh 2vw;
 }
 
 #appFooter {
@@ -148,7 +148,7 @@ h2 {
 }
 
 .mainTitle {
-  margin-top: 4vh;
+  margin-top: 2vh;
   text-align: center;
   font-size: 3rem;
   font-weight: bold;
@@ -156,7 +156,7 @@ h2 {
 
 .mainSubtitle {
   text-align: center;
-  margin: 6vh 10vw auto 10vw;
+  margin: 2vh 10vw auto 10vw;
   font-size: 1.5rem;
 }
 
