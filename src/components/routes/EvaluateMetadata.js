@@ -22,7 +22,7 @@ export default function EvaluateMetadata() {
     const [evaluating, setEvaluationInProgress] = useState(false);
 
     const sampleMetadataUris = "10.5061/dryad.rm2n805" + "\n" + "10.4230/lipics.iclp.2011.16";
-    const sampleTemplateId = "https://repo.metadatacenter.org/templates/6d9f4a83-a7ba-42be-a6af-f3cad7b2f7e";
+    const sampleTemplateId = "https://repo.metadatacenter.org/templates/08cbe8f2-d7ee-431f-8a17-2ff9d3189acb";
 
     function handleInputMetadataUriChange(event) {
         setMetadataUris(event.target.value);
@@ -39,9 +39,9 @@ export default function EvaluateMetadata() {
 
     function handleStartEvaluateButtonClick() {
         setEvaluationInProgress(true);
-        let dois = metadataUris.split("\n").map(e => e.trim());
-        dois = removeDuplicates(dois);
-        evaluateMetadataInBatch(dois).then(data => {
+        let metadataRecordIds = metadataUris.split("\n").map(e => e.trim());
+        metadataRecordIds = removeDuplicates(metadataRecordIds);
+        evaluateMetadataInBatch(metadataRecordIds, templateId).then(data => {
             setEvaluationInProgress(false);
             navigate("/EvaluationResult",
                 {
@@ -59,9 +59,7 @@ export default function EvaluateMetadata() {
             <SimpleHeader/>
             <div id="appContent">
                 <div className="mainTitle">Evaluate Metadata</div>
-                <div className="mainSubtitle">Enter one or more metadata URIs followed by an optional CEDAR template
-                    ID
-                </div>
+                <div className="mainSubtitle">Enter one or more metadata URIs followed by an optional CEDAR template ID</div>
                 <div className="inputTextFieldContainer">
                     <TextField
                         id="inputMetadataUris"
