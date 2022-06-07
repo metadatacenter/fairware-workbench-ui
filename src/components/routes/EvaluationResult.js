@@ -38,11 +38,11 @@ export default function EvaluationReport() {
                         <Table size="small">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell>METADATA URI</TableCell>
-                                    <TableCell>TEMPLATE NAME</TableCell>
-                                    <TableCell># OF WARNINGS</TableCell>
-                                    <TableCell># OF ERRORS</TableCell>
-                                    <TableCell>SEE EVALUATION DETAILS</TableCell>
+                                    <TableCell align="center" width="10%">METADATA URI</TableCell>
+                                    <TableCell align="center" width="20%">TEMPLATE NAME</TableCell>
+                                    <TableCell align="center" width="15%"># OF WARNINGS</TableCell>
+                                    <TableCell align="center" width="15%"># OF ERRORS</TableCell>
+                                    <TableCell align="center" width="40%"></TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>

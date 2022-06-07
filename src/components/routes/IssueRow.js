@@ -18,14 +18,19 @@ export default function IssueRow({evaluationReport, metadataRecord, metadataInde
             <TableCell align="right">{issueLocation}</TableCell>
             <TableCell>{issueType}</TableCell>
             <TableCell>{repairCommand}</TableCell>
-            <TableCell>{valuePrint}</TableCell>
+            <TableCell align="right">{valuePrint}</TableCell>
             <TableCell>
-                <input type="text"
-                       data-idx={metadataIndex}
-                       className={issueLocation}
-                       onChange={handleValueChange}
-                       value={value}>
-                </input>
+                <div>
+                    <input style={{float: "left", width: "70%"}}
+                           id={`input-${metadataIndex}.${issueLocation}`}
+                           type="text"
+                           data-idx={metadataIndex}
+                           className={issueLocation}
+                           onChange={handleValueChange}>
+                    </input>
+                    <button style={{float: "left"}}>Use Original
+                    </button>
+                </div>
             </TableCell>
         </TableRow>
     )

@@ -17,26 +17,27 @@ export default function EvaluationRow({metadataEvaluation, metadataRecord, metad
     return (
         <React.Fragment>
             <TableRow key={metadataEvaluation.metadataRecordId} sx={{'& > *': {borderBottom: 'unset'}}}>
-                <TableCell>{metadataEvaluation.metadataRecordId}</TableCell>
-                <TableCell><a href={metadataEvaluation.metadataSpecification.templateUrl}
-                              target="_blank">{metadataEvaluation.metadataSpecification.templateName}</a></TableCell>
-                <TableCell>{metadataEvaluation.evaluationReport.evaluationReportItems
+                <TableCell align="right">{metadataEvaluation.metadataRecordId}</TableCell>
+                <TableCell align="center"><a href={metadataEvaluation.metadataSpecification.templateUrl}
+                                             target="_blank">{metadataEvaluation.metadataSpecification.templateName}</a></TableCell>
+                <TableCell align="center">{metadataEvaluation.evaluationReport.evaluationReportItems
                     .filter(report => report.issueDetails.issueLevel === 'WARNING').length}
                 </TableCell>
-                <TableCell>{metadataEvaluation.evaluationReport.evaluationReportItems
+                <TableCell align="center">{metadataEvaluation.evaluationReport.evaluationReportItems
                     .filter(report => report.issueDetails.issueLevel === 'ERROR').length}
                 </TableCell>
-                <TableCell>
-                    <IconButton
-                        aria-label="expand row"
-                        size="small"
-                        onClick={() => setOpen(!open)}>
-                        {open ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
-                    </IconButton>
+                <TableCell align="center">
+                    SEE EVALUATION DETAILS <IconButton
+                    aria-label="expand row"
+                    size="small"
+                    onClick={() => setOpen(!open)}>
+                    {open ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
+                </IconButton>
                 </TableCell>
             </TableRow>
             <TableRow>
-                <TableCell>
+                <TableCell></TableCell>
+                <TableCell colSpan={4}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <Box sx={{margin: 2}}>
                             <Typography variant="h6" gutterBottom component="div">
@@ -45,11 +46,11 @@ export default function EvaluationRow({metadataEvaluation, metadataRecord, metad
                             <Table size="small" aria-label="repair-form">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell align="center" width="40%">Issue location</TableCell>
+                                        <TableCell align="center" width="25%">Issue location</TableCell>
                                         <TableCell align="center">Issue Type</TableCell>
                                         <TableCell align="center">Repair Action</TableCell>
-                                        <TableCell align="center">Value</TableCell>
-                                        <TableCell align="center">Fix</TableCell>
+                                        <TableCell align="center" width="25%">Value</TableCell>
+                                        <TableCell align="center" width="30%">Fix</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
