@@ -27,7 +27,7 @@ export default function Home() {
             My research is not yet published</Button>
           <Button
             component={Link}
-            to="/FindMetadata"
+            to="/EvaluateMetadata"
             className={"mainButton"}
             variant={"contained"}
             size={"large"}>
