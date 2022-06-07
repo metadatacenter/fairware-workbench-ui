@@ -8,29 +8,32 @@ export default function IssueRow({evaluationReport, metadataRecord, metadataInde
     const issueLocation = issueDetails.issueLocation;
     const issueType = issueDetails.issueType;
     const repairCommand = evaluationReport.repairAction.repairCommand;
-    const value = _.get(metadataRecord, issueLocation);
-    let valuePrint = value + "";
-    if (typeof (value) === 'string') {
-        valuePrint = "\"" + value + "\"";
+    const originalValue = _.get(metadataRecord, issueLocation + ".original");
+    let originalValueRepresentation = originalValue + "";
+    if (typeof (originalValue) === 'string') {
+        originalValueRepresentation = "\"" + originalValue + "\"";
     }
+    const repairedValue = _.get(metadataRecord, issueLocation + ".replacedBy");
+    let repairedValueRepresentation = repairedValue + "";
+    if (typeof (repairedValue) === 'string') {
+        repairedValueRepresentation = "\"" + repairedValue + "\"";
+    }
+
     return (
         <TableRow key={`${metadataIndex}.${issueLocation}`}>
             <TableCell align="right">{issueLocation}</TableCell>
             <TableCell>{issueType}</TableCell>
             <TableCell>{repairCommand}</TableCell>
-            <TableCell align="right">{valuePrint}</TableCell>
+            <TableCell align="right">{originalValueRepresentation}</TableCell>
+            <TableCell align="right">{repairedValueRepresentation}</TableCell>
             <TableCell>
-                <div>
-                    <input style={{float: "left", width: "70%"}}
-                           id={`input-${metadataIndex}.${issueLocation}`}
-                           type="text"
-                           data-idx={metadataIndex}
-                           className={issueLocation}
-                           onChange={handleValueChange}>
-                    </input>
-                    <button style={{float: "left"}}>Use Original
-                    </button>
-                </div>
+                <input style={{float:"left", width:"100%", textAlign:"right"}}
+                       id={`input-${metadataIndex}.${issueLocation}`}
+                       type="text"
+                       data-idx={metadataIndex}
+                       className={issueLocation}
+                       onChange={handleValueChange}>
+                </input>
             </TableCell>
         </TableRow>
     )

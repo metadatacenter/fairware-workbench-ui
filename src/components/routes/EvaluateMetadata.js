@@ -8,6 +8,7 @@ import {evaluateMetadataInBatch} from "../../services/fairwareServices";
 import {removeDuplicates} from "../../util/commonUtil";
 import CircularProgress from "@mui/material/CircularProgress";
 import {useLocation, useNavigate} from 'react-router-dom';
+import _ from "lodash";
 
 export default function EvaluateMetadata() {
 
@@ -41,14 +42,22 @@ export default function EvaluateMetadata() {
         setEvaluationInProgress(true);
         let metadataRecordIds = metadataUris.split("\n").map(e => e.trim());
         metadataRecordIds = removeDuplicates(metadataRecordIds);
-        evaluateMetadataInBatch(metadataRecordIds, templateId).then(data => {
+        evaluateMetadataInBatch(metadataRecordIds, templateId).then(evaluationResults => {
+            evaluationResults.forEach((evaluationResult) => {
+                const metadataRecord = evaluationResult.metadataRecord;
+                evaluationResult.evaluationReport.evaluationReportItems.forEach((report) => {
+                    const issueLocation = report.issueDetails.issueLocation;
+                    const originalValue = _.get(metadataRecord, issueLocation);
+                    _.set(metadataRecord, issueLocation, {"original": originalValue, "replacedBy": null});
+                })
+            })
             setEvaluationInProgress(false);
             navigate("/EvaluationResult",
                 {
                     state: {
                         metadataUris: metadataUris,
                         templateId: templateId,
-                        results: data
+                        evaluationResults: evaluationResults
                     }
                 });
         });
@@ -65,6 +74,7 @@ export default function EvaluateMetadata() {
                         id="inputMetadataUris"
                         multiline
                         rows={10}
+                        inputProps={{style: {fontSize: 18, lineHeight: "25px"}}}
                         onChange={handleInputMetadataUriChange}
                         value={metadataUris}
                         helperText="Enter metadata URIs* (one per line)"
@@ -73,6 +83,7 @@ export default function EvaluateMetadata() {
                         id="inputTemplateId"
                         onChange={handleInputTemplateIdChange}
                         value={templateId}
+                        inputProps={{style: {fontSize: 18}}}
                         helperText="Enter CEDAR template ID"
                     />
                     <div className={"sampleInputButton"}>
