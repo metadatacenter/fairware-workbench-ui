@@ -7,6 +7,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import ResearchNotPublished from "./components/routes/ResearchNotPublished";
 import FindMetadata from "./components/routes/FindMetadata";
 import EvaluateMetadata from "./components/routes/EvaluateMetadata";
+import EvaluationResult from "./components/routes/EvaluationResult";
 import PrivacyPolicy from "./components/routes/PrivacyPolicy";
 import About from "./components/routes/About";
 import Support from "./components/routes/Support";
@@ -30,6 +31,7 @@ export default function App() {
                 <Route path="/ResearchNotPublished" element={<ResearchNotPublished/>}/>
                 <Route path="/FindMetadata" element={<FindMetadata/>}/>
                 <Route path="/EvaluateMetadata" element={<EvaluateMetadata/>}/>
+                <Route path="/EvaluationResult" element={<EvaluationResult/>}/>
                 <Route path="/MetadataRecords" element={<MetadataRecords/>}/>
                 <Route path="/MetadataEvaluationReport" element={<MetadataEvaluationReport/>}/>
                 <Route path="/SummaryReport" element={<SummaryReport/>}/>
