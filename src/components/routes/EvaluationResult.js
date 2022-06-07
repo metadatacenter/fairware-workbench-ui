@@ -20,7 +20,8 @@ export default function EvaluationReport() {
 
     function handleValueChange(event) {
         const repairedMetadata = [...metadataState];
-        _.set(repairedMetadata[0][event.target.dataset.idx]["metadataRecord"], event.target.className, event.target.value);
+        const metadataRecord = repairedMetadata[0][event.target.dataset.idx]["metadataRecord"];
+        _.set(metadataRecord, event.target.className, event.target.value);
         setMetadataState(repairedMetadata);
     }
 
