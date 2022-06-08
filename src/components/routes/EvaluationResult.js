@@ -23,9 +23,16 @@ export default function EvaluationReport() {
 
     function handleValueChange(event) {
         const repairedMetadata = [...metadataState];
-        const metadataRecord = repairedMetadata[event.target.dataset.idx]["metadataRecord"];
-        const issueLocation = event.target.className
-        _.set(metadataRecord, issueLocation + ".replacedBy", event.target.value);
+        const metadataIndex = event.target.dataset.idx
+        const metadataRecord = repairedMetadata[metadataIndex]["metadataRecord"];
+        const issueLocation = event.target.className;
+        const metadataTemplateFields = repairedMetadata[metadataIndex]["metadataSpecification"]["templateFieldNames"];
+        const expectedDataType = metadataTemplateFields[issueLocation];
+        let userInput = event.target.value;
+        if (expectedDataType === 'number') {
+            userInput = parseInt(userInput);
+        }
+        _.set(metadataRecord, issueLocation + ".replacedBy", userInput);
         setMetadataState(repairedMetadata);
     }
 
