@@ -17,7 +17,7 @@ export default function EvaluationRow({metadataEvaluation, metadataRecord, metad
     const [open, setOpen] = useState(false);
     return (
         <React.Fragment>
-            <TableRow key={metadataEvaluation.metadataRecordId} sx={{'& > *': {borderBottom: 'unset'}}}>
+            <TableRow sx={{'& > *': {borderBottom: 'unset'}}}>
                 <TableCell align="right">{metadataEvaluation.metadataRecordId}</TableCell>
                 <TableCell align="center"><a href={metadataEvaluation.metadataSpecification.templateUrl}
                                              target="_blank">{metadataEvaluation.metadataSpecification.templateName}</a></TableCell>
@@ -47,21 +47,23 @@ export default function EvaluationRow({metadataEvaluation, metadataRecord, metad
                             <Table size="small" aria-label="repair-form">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell align="center" width="25%">Issue location</TableCell>
+                                        <TableCell align="center" width="20%">Issue location</TableCell>
                                         <TableCell align="center">Issue Type</TableCell>
                                         <TableCell align="center">Repair Action</TableCell>
-                                        <TableCell align="center" width="20%">Old Value</TableCell>
-                                        <TableCell align="center" width="20%">New Value</TableCell>
-                                        <TableCell align="center" width="30%">Input User Fixes</TableCell>
+                                        <TableCell align="center" width="20%">Original Value</TableCell>
+                                        <TableCell align="center" width="20%">Replaced By</TableCell>
+                                        <TableCell align="center" width="20%">Input User Fixes</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {metadataEvaluation.evaluationReport.evaluationReportItems.map((report) => (
-                                        <IssueRow evaluationReport={report}
+                                    {metadataEvaluation.evaluationReport.evaluationReportItems.map((evaluationReport) => {
+                                        const issueLocation = evaluationReport.issueDetails.issueLocation;
+                                        return <IssueRow key={`${metadataIndex}.${issueLocation}`}
+                                                  evaluationReport={evaluationReport}
                                                   metadataRecord={metadataRecord}
                                                   metadataIndex={metadataIndex}
                                                   handleValueChange={handleValueChange}/>
-                                    ))}
+                                    })}
                                 </TableBody>
                             </Table>
                         </Box>

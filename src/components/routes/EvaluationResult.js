@@ -13,7 +13,7 @@ import _ from "lodash";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 
-export default function EvaluationReport() {
+export default function EvaluationResult() {
 
     const state = useLocation().state;
     const evaluationResults = state && state.evaluationResults ? state.evaluationResults : {};
@@ -58,8 +58,10 @@ export default function EvaluationReport() {
                             </TableHead>
                             <TableBody>
                                 {evaluationResults.map((metadataEvaluation, metadataIndex) => {
+                                    const metadataRecordId = metadataState[metadataIndex]["metadataRecordId"];
                                     const metadataRecord = metadataState[metadataIndex]["metadataRecord"];
-                                    return <EvaluationRow metadataEvaluation={metadataEvaluation}
+                                    return <EvaluationRow key={`evaluation-${metadataRecordId}`}
+                                                          metadataEvaluation={metadataEvaluation}
                                                           metadataRecord={metadataRecord}
                                                           metadataIndex={metadataIndex}
                                                           handleValueChange={handleValueChange}/>

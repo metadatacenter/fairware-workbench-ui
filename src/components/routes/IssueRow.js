@@ -20,7 +20,7 @@ export default function IssueRow({evaluationReport, metadataRecord, metadataInde
     }
 
     return (
-        <TableRow key={`${metadataIndex}.${issueLocation}`}>
+        <TableRow>
             <TableCell align="right">{issueLocation}</TableCell>
             <TableCell>{issueType}</TableCell>
             <TableCell>{repairCommand}</TableCell>
