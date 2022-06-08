@@ -56,14 +56,17 @@ export default function EvaluationRow({metadataEvaluation, metadataRecord, metad
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {metadataEvaluation.evaluationReport.evaluationReportItems.map((evaluationReport) => {
-                                        const issueLocation = evaluationReport.issueDetails.issueLocation;
-                                        return <IssueRow key={`${metadataIndex}.${issueLocation}`}
-                                                  evaluationReport={evaluationReport}
-                                                  metadataRecord={metadataRecord}
-                                                  metadataIndex={metadataIndex}
-                                                  handleValueChange={handleValueChange}/>
-                                    })}
+                                    {metadataEvaluation.evaluationReport.evaluationReportItems
+                                        .filter((evaluationReport) => evaluationReport.issueDetails.issueLevel === 'ERROR')
+                                        .map((evaluationReport) => {
+                                            const issueLocation = evaluationReport.issueDetails.issueLocation;
+                                            return <IssueRow key={`${metadataIndex}.${issueLocation}`}
+                                                             evaluationReport={evaluationReport}
+                                                             metadataRecord={metadataRecord}
+                                                             metadataIndex={metadataIndex}
+                                                             handleValueChange={handleValueChange}/>
+                                        })
+                                    }
                                 </TableBody>
                             </Table>
                         </Box>
