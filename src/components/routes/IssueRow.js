@@ -8,6 +8,7 @@ export default function IssueRow({evaluationReport, metadataRecord, metadataInde
     const issueLocation = issueDetails.issueLocation;
     const issueType = issueDetails.issueType;
     const repairCommand = evaluationReport.repairAction.repairCommand;
+    const valueSuggestion = evaluationReport.repairAction.valueSuggestion;
     const originalValue = _.get(metadataRecord, issueLocation + ".original");
     let originalValueRepresentation = originalValue + "";
     if (typeof (originalValue) === 'string') {
@@ -19,15 +20,36 @@ export default function IssueRow({evaluationReport, metadataRecord, metadataInde
         repairedValueRepresentation = "\"" + repairedValue + "\"";
     }
 
+    function RepairCommand() {
+        if (valueSuggestion != null) {
+            return (
+                <div>
+                    <div>{repairCommand}</div>
+                    <div>Suggestions:
+                        <ul style={{lineHeight: "0"}}>
+                            <li><pre><a href={valueSuggestion} target="_blank">{valueSuggestion}</a></pre></li>
+                        </ul>
+                    </div>
+                </div>
+            );
+        } else {
+            return (
+                <div>{repairCommand}</div>
+            );
+        }
+    }
+
     return (
         <TableRow>
             <TableCell align="right">{issueLocation}</TableCell>
             <TableCell>{issueType}</TableCell>
-            <TableCell>{repairCommand}</TableCell>
+            <TableCell>
+                <RepairCommand/>
+            </TableCell>
             <TableCell align="right">{originalValueRepresentation}</TableCell>
             <TableCell align="right">{repairedValueRepresentation}</TableCell>
             <TableCell>
-                <input style={{float:"left", width:"100%", textAlign:"right"}}
+                <input style={{float: "left", width: "100%", textAlign: "right"}}
                        id={`input-${metadataIndex}.${issueLocation}`}
                        type="text"
                        data-idx={metadataIndex}
