@@ -11,6 +11,7 @@ import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
 import TableBody from "@mui/material/TableBody";
 import IssueRow from "./IssueRow";
+import ShowMetadata from "./ShowMetadata";
 
 export default function EvaluationRow({metadataEvaluation, metadataRecord, metadataIndex, handleValueChange}) {
     const [open, setOpen] = useState(false);
@@ -63,6 +64,9 @@ export default function EvaluationRow({metadataEvaluation, metadataRecord, metad
                                     ))}
                                 </TableBody>
                             </Table>
+                        </Box>
+                        <Box style={{marginBottom: "1em"}}>
+                            <ShowMetadata metadataRecord={metadataRecord}/>
                         </Box>
                     </Collapse>
                 </TableCell>
