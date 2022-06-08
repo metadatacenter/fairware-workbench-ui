@@ -68,14 +68,14 @@ export default function EvaluationReport() {
                         </Table>
                     </TableContainer>
                 </div>
-                <div style={{margin: "auto", textAlign: "center"}} hidden={submitting}>
+                <div id={"submitMetadataButton"} hidden={submitting}>
                     <Button
                         className={"generalButton"}
                         variant={"contained"}
                         size={"large"}>
                         Submit Metadata</Button>
                 </div>
-                <div className={"submitEvaluation"}>
+                <div className={"submitMetadata"}>
                     <div className={"progressIndicator"}>
                         {submitting && <CircularProgress/>}
                     </div>

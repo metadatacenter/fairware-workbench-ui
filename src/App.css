@@ -102,7 +102,8 @@ h2 {
   margin: 8vh 1vw;
 }
 
-#findMetadataButtons {
+#findMetadataButtons,
+#submitMetadataButton {
   margin: auto;
   text-align: center;
 }
@@ -164,7 +165,8 @@ h2 {
   margin-top: 2vh;
 }
 
-.searchResults .evaluationResults .progressIndicator {
+.searchResults.progressIndicator,
+.submitMetadata.progressIndicator {
   margin-top: 6vh;
   text-align: center;
 }
