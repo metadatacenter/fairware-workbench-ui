@@ -8,7 +8,7 @@ export default function IssueRow({evaluationReport, metadataRecord, metadataInde
     const issueLocation = issueDetails.issueLocation;
     const issueType = issueDetails.issueType;
     const repairCommand = evaluationReport.repairAction.repairCommand;
-    const valueSuggestion = evaluationReport.repairAction.valueSuggestion;
+    const valueSuggestions = evaluationReport.repairAction.valueSuggestions;
     const originalValue = _.get(metadataRecord, issueLocation + ".original");
     let originalValueRepresentation = originalValue + "";
     if (typeof (originalValue) === 'string') {
@@ -21,13 +21,15 @@ export default function IssueRow({evaluationReport, metadataRecord, metadataInde
     }
 
     function RepairCommand() {
-        if (valueSuggestion != null) {
+        if (valueSuggestions != null) {
             return (
                 <div>
                     <div>{repairCommand}</div>
                     <div>Suggestions:
                         <ul style={{lineHeight: "0"}}>
-                            <li><pre><a href={valueSuggestion} target="_blank">{valueSuggestion}</a></pre></li>
+                            {valueSuggestions.map((valueSuggestion) => (
+                                <li><pre><a href={valueSuggestion} target="_blank">{valueSuggestion}</a></pre></li>
+                            ))}
                         </ul>
                     </div>
                 </div>
