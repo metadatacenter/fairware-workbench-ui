@@ -172,8 +172,8 @@ pre {
   margin-top: 2vh;
 }
 
-.searchResults.progressIndicator,
-.submitMetadata.progressIndicator {
+.searchResults .progressIndicator,
+.submitMetadata .progressIndicator {
   margin-top: 6vh;
   text-align: center;
 }
