@@ -15,7 +15,7 @@ export default function AppHeader() {
   const navigate = useNavigate();
   const location = useLocation();
   const results = location && location.state && location.state.results ? location.state.results : [];
-  console.log(results);
+
   function handleMyRecordsButtonClick(e, item) {
     navigate("/MetadataRecords",
       {
