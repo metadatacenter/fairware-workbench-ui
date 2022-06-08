@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {useLocation} from "react-router-dom";
-import AppHeader from "../common/AppHeader";
+import SimpleHeader from "../common/SimpleHeader";
 import AppFooter from "../common/AppFooter";
 import EvaluationRow from "./EvaluationRow";
 import TableContainer from "@mui/material/TableContainer";
@@ -38,7 +38,7 @@ export default function EvaluationResult() {
 
     return (
         <>
-            <AppHeader/>
+            <SimpleHeader/>
             <div id="appContent">
                 <h1>Metadata Evaluation Result</h1>
                 <div

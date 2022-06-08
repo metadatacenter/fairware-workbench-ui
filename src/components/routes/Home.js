@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@mui/material/Button";
 import {Link} from "react-router-dom";
-import AppHeader from "../common/AppHeader";
+import SimpleHeader from "../common/SimpleHeader";
 import AppFooter from "../common/AppFooter";
 import StyledEngineProvider from "@mui/material/StyledEngineProvider";
 import Typography from "@material-ui/core/Typography";
@@ -10,7 +10,7 @@ export default function Home() {
 
   return (
     <>
-      <AppHeader/>
+      <SimpleHeader/>
       <div id="appContent">
         <div className="mainTitle">Making data fair</div>
         <div className="mainSubtitle">Get suggestions for improving your metadata. Make your research data more
