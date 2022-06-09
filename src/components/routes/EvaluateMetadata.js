@@ -15,8 +15,8 @@ export default function EvaluateMetadata() {
     const navigate = useNavigate();
     const location = useLocation();
     const it = location && location.state
-                && location.state.metadataUris ? location.state.metadataUris : ""
-                && location.state.templateId ? location.state.templateId : "";
+    && location.state.metadataUris ? location.state.metadataUris : ""
+    && location.state.templateId ? location.state.templateId : "";
 
     const [metadataUris, setMetadataUris] = useState(it);
     const [templateId, setTemplateId] = useState(it);
@@ -51,11 +51,13 @@ export default function EvaluateMetadata() {
         evaluateMetadataInBatch(metadataRecordIds, templateId).then(evaluationResults => {
             evaluationResults.forEach((evaluationResult) => {
                 const metadataRecord = evaluationResult.metadataRecord;
-                evaluationResult.evaluationReport.evaluationReportItems.forEach((report) => {
-                    const issueLocation = report.issueDetails.issueLocation;
-                    const originalValue = _.get(metadataRecord, issueLocation);
-                    _.set(metadataRecord, issueLocation, {"original": originalValue, "replacedBy": null});
-                })
+                evaluationResult.evaluationReport.evaluationReportItems
+                    .filter((report) => report.issueDetails.issueLevel === "ERROR")
+                    .forEach((report) => {
+                        const issueLocation = report.issueDetails.issueLocation;
+                        const originalValue = _.get(metadataRecord, issueLocation);
+                        _.set(metadataRecord, issueLocation, {"original": originalValue, "replacedBy": null});
+                    })
             })
             setEvaluationInProgress(false);
             navigate("/EvaluationResult",
