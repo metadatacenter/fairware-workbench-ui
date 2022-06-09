@@ -42,14 +42,14 @@ export default function EvaluationResult() {
             <div id="appContent">
                 <h1>Metadata Evaluation Result</h1>
                 <div
-                    className={"title2"}>Evaluating <b>{evaluationResults.length}</b> metadata
+                    className={"title2"}>Evaluating <b>{evaluationResults.length}</b> metadata records
                 </div>
                 <div className={"evaluationResults"}>
                     <TableContainer className={"table"}>
                         <Table size="small">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell align="center" width="10%">METADATA URI</TableCell>
+                                    <TableCell align="center" width="10%">METADATA REFERENCE</TableCell>
                                     <TableCell align="center" width="20%">TEMPLATE NAME</TableCell>
                                     <TableCell align="center" width="15%"># OF WARNINGS</TableCell>
                                     <TableCell align="center" width="15%"># OF ERRORS</TableCell>

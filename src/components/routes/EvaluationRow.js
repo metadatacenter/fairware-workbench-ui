@@ -47,7 +47,7 @@ export default function EvaluationRow({metadataEvaluation, metadataRecord, metad
                             <Table size="small" aria-label="repair-form">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell align="center" width="20%">Issue location</TableCell>
+                                        <TableCell align="center" width="20%">Field Name</TableCell>
                                         <TableCell align="center">Issue Type</TableCell>
                                         <TableCell align="center">Repair Action</TableCell>
                                         <TableCell align="center" width="20%">Original Value</TableCell>

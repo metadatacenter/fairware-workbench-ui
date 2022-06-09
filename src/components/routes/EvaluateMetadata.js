@@ -74,7 +74,7 @@ export default function EvaluateMetadata() {
             <SimpleHeader/>
             <div id="appContent">
                 <div className="mainTitle">Evaluate Metadata</div>
-                <div className="mainSubtitle">Enter one or more metadata URIs followed by an optional CEDAR template ID</div>
+                <div className="mainSubtitle">Enter one or more metadata references followed by a CEDAR template ID</div>
                 <div className="inputTextFieldContainer">
                     <TextField
                         id="inputMetadataUris"
@@ -83,14 +83,14 @@ export default function EvaluateMetadata() {
                         inputProps={{style: {fontSize: 18, lineHeight: "25px"}}}
                         onChange={handleInputMetadataUriChange}
                         value={metadataUris}
-                        helperText="Enter metadata URIs* (one per line)"
+                        helperText="Enter metadata references* (one per line)"
                     />
                     <TextField
                         id="inputTemplateId"
                         onChange={handleInputTemplateIdChange}
                         value={templateId}
                         inputProps={{style: {fontSize: 18}}}
-                        helperText="Enter CEDAR template ID"
+                        helperText="Enter CEDAR template ID*"
                     />
                     <div className={"sampleInputButton"}>
                         <Link component="button" onClick={handleSampleInputClick}>sample input</Link>
@@ -104,7 +104,7 @@ export default function EvaluateMetadata() {
                         className={"generalButton"}
                         variant={"contained"}
                         size={"large"}>
-                        Start Evaluate</Button>
+                        Evaluate</Button>
                 </div>
 
                 <div className={"searchResults"}>
