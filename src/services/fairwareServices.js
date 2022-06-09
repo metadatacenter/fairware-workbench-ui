@@ -74,7 +74,13 @@ export function evaluateMetadataInBatch(metadataRecordIds, cedarTemplateId) {
     });
     requests.push(
         fetch(url, requestOptions)
-            .then(response => response.json()));
+            .then(response => {
+              if (response.status == 200) {
+                return response.json();
+              } else {
+                return {};
+              }
+            }));
   });
   return Promise.all(requests);
 }

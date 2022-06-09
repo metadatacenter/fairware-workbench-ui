@@ -48,22 +48,25 @@ export default function EvaluateMetadata() {
         metadataRecordIds = removeDuplicates(metadataRecordIds);
         evaluateMetadataInBatch(metadataRecordIds, templateId).then(evaluationResults => {
             evaluationResults.forEach((evaluationResult) => {
-                const metadataRecord = evaluationResult.metadataRecord;
-                evaluationResult.evaluationReport.evaluationReportItems
-                    .filter((report) => report.issueDetails.issueLevel === "ERROR")
-                    .forEach((report) => {
-                        const issueLocation = report.issueDetails.issueLocation;
-                        const originalValue = _.get(metadataRecord, issueLocation);
-                        _.set(metadataRecord, issueLocation, {"original": originalValue, "replacedBy": null});
-                    })
-            })
+                if (!_.isEmpty(evaluationResult)) {
+                    const metadataRecord = evaluationResult.metadataRecord;
+                    evaluationResult.evaluationReport.evaluationReportItems
+                        .filter((report) => report.issueDetails.issueLevel === "ERROR")
+                        .forEach((report) => {
+                            const issueLocation = report.issueDetails.issueLocation;
+                            const originalValue = _.get(metadataRecord, issueLocation);
+                            _.set(metadataRecord, issueLocation, {"original": originalValue, "replacedBy": null});
+                        })
+                }
+            });
+            const successEvaluationResults = evaluationResults.filter(evaluationResult => !_.isEmpty(evaluationResult))
             setEvaluationInProgress(false);
             navigate("/EvaluationResult",
                 {
                     state: {
                         metadataUris: metadataUris,
                         templateId: templateId,
-                        evaluationResults: evaluationResults
+                        evaluationResults: successEvaluationResults
                     }
                 });
         });
