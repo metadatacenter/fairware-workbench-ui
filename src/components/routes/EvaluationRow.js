@@ -48,9 +48,9 @@ export default function EvaluationRow({metadataEvaluation, metadataRecord, metad
                                 <TableHead>
                                     <TableRow>
                                         <TableCell align="center" width="20%">Field Name</TableCell>
+                                        <TableCell align="center" width="20%">Original Value</TableCell>
                                         <TableCell align="center">Issue Type</TableCell>
                                         <TableCell align="center">Repair Action</TableCell>
-                                        <TableCell align="center" width="20%">Original Value</TableCell>
                                         <TableCell align="center" width="20%">Replaced By</TableCell>
                                         <TableCell align="center" width="20%">Input User Fixes</TableCell>
                                     </TableRow>

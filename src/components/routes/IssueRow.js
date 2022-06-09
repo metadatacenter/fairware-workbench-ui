@@ -44,11 +44,11 @@ export default function IssueRow({evaluationReport, metadataRecord, metadataInde
     return (
         <TableRow>
             <TableCell align="right">{issueLocation}</TableCell>
+            <TableCell align="right">{originalValueRepresentation}</TableCell>
             <TableCell>{issueType}</TableCell>
             <TableCell>
                 <RepairCommand/>
             </TableCell>
-            <TableCell align="right">{originalValueRepresentation}</TableCell>
             <TableCell align="right">{repairedValueRepresentation}</TableCell>
             <TableCell>
                 <input style={{float: "left", width: "100%", textAlign: "right"}}
