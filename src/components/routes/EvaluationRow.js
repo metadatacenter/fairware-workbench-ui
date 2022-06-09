@@ -18,7 +18,7 @@ export default function EvaluationRow({metadataEvaluation, metadataRecord, metad
     return (
         <React.Fragment>
             <TableRow sx={{'& > *': {borderBottom: 'unset'}}}>
-                <TableCell align="right">{metadataEvaluation.metadataRecordId}</TableCell>
+                <TableCell align="center">{metadataEvaluation.metadataRecordId}</TableCell>
                 <TableCell align="center">
                     <a href={metadataEvaluation.metadataSpecification.templateUrl}
                        target="_blank">{metadataEvaluation.metadataSpecification.templateName}</a>
@@ -31,18 +31,18 @@ export default function EvaluationRow({metadataEvaluation, metadataRecord, metad
                 </TableCell>
                 <TableCell align="center">
                     SEE EVALUATION DETAILS <IconButton
-                    aria-label="expand row"
-                    size="small"
-                    onClick={() => setOpen(!open)}>
-                    {open ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
-                </IconButton>
+                        aria-label="expand row"
+                        size="small"
+                        onClick={() => setOpen(!open)}>
+                        {open ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
+                    </IconButton>
                 </TableCell>
             </TableRow>
-            <TableRow>
-                <TableCell></TableCell>
-                <TableCell colSpan={4}>
+            <TableRow style={{backgroundColor: "#fafafa"}}>
+                <TableCell style={{paddingBottom: 0, paddingTop: 0}}></TableCell>
+                <TableCell style={{paddingBottom: 0, paddingTop: 0}} colSpan={4}>
                     <Collapse in={open} timeout="auto" unmountOnExit>
-                        <Box sx={{margin: 2}}>
+                        <Box sx={{margin: 1}}>
                             <Typography variant="h6" gutterBottom component="div">
                                 Repair Form
                             </Typography>
@@ -52,7 +52,7 @@ export default function EvaluationRow({metadataEvaluation, metadataRecord, metad
                                         <TableCell align="center">Field Name</TableCell>
                                         <TableCell align="center">Original Value</TableCell>
                                         <TableCell align="center" width="10%">Issue Details</TableCell>
-                                        <TableCell align="center" width="30%">Replaced By</TableCell>
+                                        <TableCell align="center" width="35%">Replaced By</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>

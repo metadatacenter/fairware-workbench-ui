@@ -49,11 +49,11 @@ export default function EvaluationResult() {
                         <Table size="small">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell align="center" width="10%">METADATA REFERENCE</TableCell>
-                                    <TableCell align="center" width="20%">TEMPLATE NAME</TableCell>
+                                    <TableCell align="center" width="13%">METADATA REFERENCE</TableCell>
+                                    <TableCell align="center" width="30%">TEMPLATE NAME</TableCell>
                                     <TableCell align="center" width="15%"># OF WARNINGS</TableCell>
                                     <TableCell align="center" width="15%"># OF ERRORS</TableCell>
-                                    <TableCell align="center" width="40%"></TableCell>
+                                    <TableCell align="center" width="27%"></TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
