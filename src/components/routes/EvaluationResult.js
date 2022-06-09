@@ -70,18 +70,6 @@ export default function EvaluationResult() {
                         </Table>
                     </TableContainer>
                 </div>
-                <div id={"submitMetadataButton"} hidden={submitting}>
-                    <Button
-                        className={"generalButton"}
-                        variant={"contained"}
-                        size={"large"}>
-                        Submit Metadata</Button>
-                </div>
-                <div className={"submitMetadata"}>
-                    <div className={"progressIndicator"}>
-                        {submitting && <CircularProgress/>}
-                    </div>
-                </div>
             </div>
             <AppFooter/>
         </>
