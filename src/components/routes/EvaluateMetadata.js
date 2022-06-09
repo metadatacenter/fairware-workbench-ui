@@ -22,13 +22,11 @@ export default function EvaluateMetadata() {
     const [templateId, setTemplateId] = useState(it);
     const [evaluating, setEvaluationInProgress] = useState(false);
 
-    const sampleMetadataUris = "SAMN06235122" + "\n" +
-        "SAMN06238122" + "\n" +
-        "SAMN06238199" + "\n" +
-        "SAMN06218122" + "\n" +
-        "SAMN06290412" + "\n" +
-        "SAMN06290440" + "\n" +
-        "SAMN06290438";
+    const sampleMetadataUris = "SAMN01821557" + "\n" +
+        "SAMN09836229" + "\n" +
+        "SAMN06459514" + "\n" +
+        "SAMN03070109" + "\n" +
+        "SAMN04420088";
     const sampleTemplateId = "https://repo.metadatacenter.org/templates/db57119c-7860-4569-a3c0-2ced0e0364d1";
 
     function handleInputMetadataUriChange(event) {
