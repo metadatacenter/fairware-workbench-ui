@@ -19,8 +19,10 @@ export default function EvaluationRow({metadataEvaluation, metadataRecord, metad
         <React.Fragment>
             <TableRow sx={{'& > *': {borderBottom: 'unset'}}}>
                 <TableCell align="right">{metadataEvaluation.metadataRecordId}</TableCell>
-                <TableCell align="center"><a href={metadataEvaluation.metadataSpecification.templateUrl}
-                                             target="_blank">{metadataEvaluation.metadataSpecification.templateName}</a></TableCell>
+                <TableCell align="center">
+                    <a href={metadataEvaluation.metadataSpecification.templateUrl}
+                       target="_blank">{metadataEvaluation.metadataSpecification.templateName}</a>
+                </TableCell>
                 <TableCell align="center">{metadataEvaluation.evaluationReport.evaluationReportItems
                     .filter(report => report.issueDetails.issueLevel === 'WARNING').length}
                 </TableCell>
@@ -47,12 +49,10 @@ export default function EvaluationRow({metadataEvaluation, metadataRecord, metad
                             <Table size="small" aria-label="repair-form">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell align="center" width="20%">Field Name</TableCell>
-                                        <TableCell align="center" width="20%">Original Value</TableCell>
-                                        <TableCell align="center">Issue Type</TableCell>
-                                        <TableCell align="center">Repair Action</TableCell>
-                                        <TableCell align="center" width="20%">Replaced By</TableCell>
-                                        <TableCell align="center" width="20%">Input User Fixes</TableCell>
+                                        <TableCell align="center">Field Name</TableCell>
+                                        <TableCell align="center">Original Value</TableCell>
+                                        <TableCell align="center" width="10%">Issue Details</TableCell>
+                                        <TableCell align="center" width="30%">Replaced By</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>

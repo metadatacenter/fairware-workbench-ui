@@ -14,51 +14,66 @@ export default function IssueRow({evaluationReport, metadataRecord, metadataInde
     if (typeof (originalValue) === 'string') {
         originalValueRepresentation = "\"" + originalValue + "\"";
     }
-    const repairedValue = _.get(metadataRecord, issueLocation + ".replacedBy");
-    let repairedValueRepresentation = repairedValue + "";
-    if (typeof (repairedValue) === 'string') {
-        repairedValueRepresentation = "\"" + repairedValue + "\"";
+
+    function handleValueClicked(event) {
+        const inputElement = document.getElementById(`input-${metadataIndex}.${issueLocation}`);
+        const value = event.target.innerHTML;
+        const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+            window.HTMLInputElement.prototype,
+            "value"
+        ).set;
+        nativeInputValueSetter.call(inputElement, value);
+        const inputEvent = new Event("input", { bubbles: true});
+        inputElement.dispatchEvent(inputEvent);
     }
 
-    function RepairCommand() {
-        if (valueSuggestions != null) {
-            return (
-                <div>
-                    <div>{repairCommand}</div>
-                    <div>Suggestions:
-                        <ul style={{lineHeight: "0"}}>
-                            {valueSuggestions.map((valueSuggestion) => (
-                                <li><pre><a href={valueSuggestion} target="_blank">{valueSuggestion}</a></pre></li>
-                            ))}
-                        </ul>
+    if (valueSuggestions != null) {
+        return (<TableRow>
+                <TableCell align="right">{issueLocation}</TableCell>
+                <TableCell align="center">{originalValueRepresentation}</TableCell>
+                <TableCell align="center">{issueType}</TableCell>
+                <TableCell>
+                    <div>
+                        <div><input style={{float: "left", width: "100%"}}
+                                    id={`input-${metadataIndex}.${issueLocation}`}
+                                    type="text"
+                                    data-idx={metadataIndex}
+                                    className={issueLocation}
+                                    onInputCapture={handleValueChange}>
+                        </input></div>
+                        <div style={{paddingTop: "2em"}}><b>Value suggestions</b>:
+                            <ul style={{marginTop: "0"}}>
+                                {valueSuggestions.map((valueSuggestion, index) => (
+                                    <li>
+                                        <div key={`suggestion-${index}`}
+                                             style={{cursor: "pointer", textDecoration: "underline", color: "blue"}}
+                                             onClick={handleValueClicked}>{valueSuggestion}</div>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            );
-        } else {
-            return (
-                <div>{repairCommand}</div>
-            );
-        }
+                </TableCell>
+            </TableRow>
+        )
+    } else {
+        return (
+            <TableRow>
+                <TableCell align="right">{issueLocation}</TableCell>
+                <TableCell align="center">{originalValueRepresentation}</TableCell>
+                <TableCell align="center">{issueType}</TableCell>
+                <TableCell>
+                    <div>
+                        <div><input style={{float: "left", width: "100%"}}
+                                    id={`input-${metadataIndex}.${issueLocation}`}
+                                    type="text"
+                                    data-idx={metadataIndex}
+                                    className={issueLocation}
+                                    onChange={handleValueChange}>
+                        </input></div>
+                    </div>
+                </TableCell>
+            </TableRow>
+        )
     }
-
-    return (
-        <TableRow>
-            <TableCell align="right">{issueLocation}</TableCell>
-            <TableCell align="right">{originalValueRepresentation}</TableCell>
-            <TableCell>{issueType}</TableCell>
-            <TableCell>
-                <RepairCommand/>
-            </TableCell>
-            <TableCell align="right">{repairedValueRepresentation}</TableCell>
-            <TableCell>
-                <input style={{float: "left", width: "100%", textAlign: "right"}}
-                       id={`input-${metadataIndex}.${issueLocation}`}
-                       type="text"
-                       data-idx={metadataIndex}
-                       className={issueLocation}
-                       onChange={handleValueChange}>
-                </input>
-            </TableCell>
-        </TableRow>
-    )
 }
