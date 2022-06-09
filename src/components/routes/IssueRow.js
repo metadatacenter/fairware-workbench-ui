@@ -14,6 +14,7 @@ export default function IssueRow({evaluationReport, metadataRecord, metadataInde
     if (typeof (originalValue) === 'string') {
         originalValueRepresentation = "\"" + originalValue + "\"";
     }
+    const newValue = _.get(metadataRecord, issueLocation + ".replacedBy");
 
     function handleValueClicked(event) {
         const inputElement = document.getElementById(`input-${metadataIndex}.${issueLocation}`);
@@ -23,7 +24,7 @@ export default function IssueRow({evaluationReport, metadataRecord, metadataInde
             "value"
         ).set;
         nativeInputValueSetter.call(inputElement, value);
-        const inputEvent = new Event("input", { bubbles: true});
+        const inputEvent = new Event("input", {bubbles: true});
         inputElement.dispatchEvent(inputEvent);
     }
 
@@ -39,7 +40,8 @@ export default function IssueRow({evaluationReport, metadataRecord, metadataInde
                                     type="text"
                                     data-idx={metadataIndex}
                                     className={issueLocation}
-                                    onInputCapture={handleValueChange}>
+                                    onInputCapture={handleValueChange}
+                                    value={newValue}>
                         </input></div>
                         <div style={{paddingTop: "2em"}}><b>Value suggestions</b>:
                             <ul style={{marginTop: "0"}}>
@@ -69,7 +71,8 @@ export default function IssueRow({evaluationReport, metadataRecord, metadataInde
                                     type="text"
                                     data-idx={metadataIndex}
                                     className={issueLocation}
-                                    onChange={handleValueChange}>
+                                    onChange={handleValueChange}
+                                    value={newValue}>
                         </input></div>
                     </div>
                 </TableCell>
