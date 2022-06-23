@@ -1,12 +1,13 @@
 import * as React from 'react';
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import './App.css';
 import CssBaseline from '@mui/material/CssBaseline';
 import StyledEngineProvider from "@mui/material/StyledEngineProvider";
 import Home from "./components/routes/Home";
-import {BrowserRouter, Route, Routes} from "react-router-dom";
 import ResearchNotPublished from "./components/routes/ResearchNotPublished";
 import FindMetadata from "./components/routes/FindMetadata";
 import EvaluateMetadata from "./components/routes/EvaluateMetadata";
+import EvaluationReport from "./components/routes/evaluation/EvaluationReport";
 import EvaluationResult from "./components/routes/EvaluationResult";
 import PrivacyPolicy from "./components/routes/PrivacyPolicy";
 import About from "./components/routes/About";
@@ -31,6 +32,7 @@ export default function App() {
                 <Route path="/ResearchNotPublished" element={<ResearchNotPublished/>}/>
                 <Route path="/FindMetadata" element={<FindMetadata/>}/>
                 <Route path="/EvaluateMetadata" element={<EvaluateMetadata/>}/>
+                <Route path="/EvaluationReport" element={<EvaluationReport/>}/>
                 <Route path="/EvaluationResult" element={<EvaluationResult/>}/>
                 <Route path="/MetadataRecords" element={<MetadataRecords/>}/>
                 <Route path="/MetadataEvaluationReport" element={<MetadataEvaluationReport/>}/>

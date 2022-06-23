@@ -1,9 +1,9 @@
+import React from "react";
 import _ from "lodash";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell/TableCell";
-import React from "react";
 
-export default function IssueRow({evaluationReport, metadataRecord, metadataIndex, handleValueChange}) {
+export default function IssueRow({metadataRecord, metadataIndex, evaluationReport, handleValueChange}) {
     const issueDetails = evaluationReport.issueDetails;
     const issueLocation = issueDetails.issueLocation;
     const issueType = issueDetails.issueType;

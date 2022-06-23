@@ -1,23 +1,20 @@
 import React, {useState} from "react";
 import {useLocation} from "react-router-dom";
-import SimpleHeader from "../common/SimpleHeader";
-import AppFooter from "../common/AppFooter";
-import EvaluationRow from "./EvaluationRow";
+import _ from "lodash";
 import TableContainer from "@mui/material/TableContainer";
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell/TableCell";
 import TableBody from "@mui/material/TableBody";
-import _ from "lodash";
-import Button from "@mui/material/Button";
-import CircularProgress from "@mui/material/CircularProgress";
+import EvaluationRow from "./EvaluationRow";
+import SimpleHeader from "../common/SimpleHeader";
+import AppFooter from "../common/AppFooter";
 
 export default function EvaluationResult() {
 
     const state = useLocation().state;
     const evaluationResults = state && state.evaluationResults ? state.evaluationResults : {};
-
     const [metadataState, setMetadataState] = useState([...evaluationResults]);
     const [submitting, setSubmissionInProgress] = useState(false);
 
@@ -49,22 +46,22 @@ export default function EvaluationResult() {
                         <Table size="small">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell align="center" width="13%">METADATA REFERENCE</TableCell>
-                                    <TableCell align="center" width="30%">TEMPLATE NAME</TableCell>
-                                    <TableCell align="center" width="15%"># OF WARNINGS</TableCell>
-                                    <TableCell align="center" width="15%"># OF ERRORS</TableCell>
-                                    <TableCell align="center" width="27%"></TableCell>
+                                    <TableCell align="center" width="20%">METADATA REFERENCE</TableCell>
+                                    <TableCell align="center" width="20%">TEMPLATE NAME</TableCell>
+                                    <TableCell align="center" width="15%"># OF ISSUES</TableCell>
+                                    <TableCell align="center" width="15%">PREVIEW</TableCell>
+                                    <TableCell align="center" width="15%">DOWNLOAD</TableCell>
+                                    <TableCell align="center" width="15%"></TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {evaluationResults.map((metadataEvaluation, metadataIndex) => {
+                                {evaluationResults.map((metadataEvaluationResult, metadataIndex) => {
                                     const metadataRecordId = metadataState[metadataIndex]["metadataRecordId"];
                                     const metadataRecord = metadataState[metadataIndex]["metadataRecord"];
                                     return <EvaluationRow key={`evaluation-${metadataRecordId}`}
-                                                          metadataEvaluation={metadataEvaluation}
                                                           metadataRecord={metadataRecord}
                                                           metadataIndex={metadataIndex}
-                                                          handleValueChange={handleValueChange}/>
+                                                          metadataEvaluationResult={metadataEvaluationResult}/>
                                 })}
                             </TableBody>
                         </Table>

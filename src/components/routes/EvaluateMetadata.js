@@ -1,14 +1,14 @@
 import React, {useState} from "react";
-import Button from "@mui/material/Button";
-import SimpleHeader from "../common/SimpleHeader";
-import AppFooter from "../common/AppFooter";
-import TextField from "@mui/material/TextField";
-import Link from '@mui/material/Link';
-import {evaluateMetadataInBatch} from "../../services/fairwareServices";
-import {removeDuplicates} from "../../util/commonUtil";
-import CircularProgress from "@mui/material/CircularProgress";
 import {useLocation, useNavigate} from 'react-router-dom';
 import _ from "lodash";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Link from '@mui/material/Link';
+import CircularProgress from "@mui/material/CircularProgress";
+import SimpleHeader from "../common/SimpleHeader";
+import AppFooter from "../common/AppFooter";
+import {evaluateMetadataInBatch} from "../../services/fairwareServices";
+import {removeDuplicates} from "../../util/commonUtil";
 
 export default function EvaluateMetadata() {
 
