@@ -6,6 +6,7 @@ import TableCell from "@mui/material/TableCell/TableCell";
 export default function IssueItem({metadataRecord, metadataIndex, evaluationReport, handleValueChange}) {
     const issueDetails = evaluationReport.issueDetails;
     const issueLocation = issueDetails.issueLocation;
+    const issueCategory = issueDetails.issueCategory;
     const issueType = issueDetails.issueType;
     const valueSuggestions = evaluationReport.repairAction.valueSuggestions;
     if (valueSuggestions != null) {
@@ -46,9 +47,17 @@ export default function IssueItem({metadataRecord, metadataIndex, evaluationRepo
             </div>
         );
     }
+    let fieldName = issueLocation;
+    if (issueCategory === "FIELD_ERROR") {
+        fieldName = <span style={{color: "red"}}>{issueLocation}</span>
+    }
+    let fieldValue = originalValueRepresentation;
+    if (issueCategory === "VALUE_ERROR") {
+        fieldValue = <span style={{color: "red"}}>{originalValueRepresentation}</span>
+    }
     return (<TableRow>
-            <TableCell align="right">{issueLocation}</TableCell>
-            <TableCell align="center">{originalValueRepresentation}</TableCell>
+            <TableCell align="center">{fieldName}</TableCell>
+            <TableCell align="center">{fieldValue}</TableCell>
             <TableCell align="center">{issueType}</TableCell>
             <TableCell>
                 <div>
