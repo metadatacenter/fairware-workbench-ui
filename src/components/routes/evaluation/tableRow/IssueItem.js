@@ -28,55 +28,39 @@ export default function IssueItem({metadataRecord, metadataIndex, evaluationRepo
         inputElement.dispatchEvent(inputEvent);
     }
 
-    if (valueSuggestions != null) {
-        return (<TableRow>
-                <TableCell align="right">{issueLocation}</TableCell>
-                <TableCell align="center">{originalValueRepresentation}</TableCell>
-                <TableCell align="center">{issueType}</TableCell>
-                <TableCell>
-                    <div>
-                        <div><input style={{float: "left", width: "100%"}}
-                                    id={`input-${metadataIndex}.${issueLocation}`}
-                                    type="text"
-                                    data-idx={metadataIndex}
-                                    className={issueLocation}
-                                    onInputCapture={handleValueChange}
-                                    value={newValue}>
-                        </input></div>
-                        <div style={{paddingTop: "2em"}}><b>Value suggestions</b>:
-                            <ul style={{marginTop: "0"}}>
-                                {valueSuggestions.map((valueSuggestion, index) => (
-                                    <li>
-                                        <div key={`suggestion-${index}`}
-                                             style={{cursor: "pointer", textDecoration: "underline", color: "blue"}}
-                                             onClick={handleValueClicked}>{valueSuggestion}</div>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                </TableCell>
-            </TableRow>
-        )
-    } else {
-        return (
-            <TableRow>
-                <TableCell align="right">{issueLocation}</TableCell>
-                <TableCell align="center">{originalValueRepresentation}</TableCell>
-                <TableCell align="center">{issueType}</TableCell>
-                <TableCell>
-                    <div>
-                        <div><input style={{float: "left", width: "100%"}}
-                                    id={`input-${metadataIndex}.${issueLocation}`}
-                                    type="text"
-                                    data-idx={metadataIndex}
-                                    className={issueLocation}
-                                    onChange={handleValueChange}
-                                    value={newValue}>
-                        </input></div>
-                    </div>
-                </TableCell>
-            </TableRow>
-        )
+    let suggestionList;
+    if (valueSuggestions != null && valueSuggestions.length > 1) {
+        suggestionList = (
+            <div style={{paddingTop: "2em"}}><b>Value suggestions</b>:
+                <ul style={{marginTop: "0"}}>
+                    {valueSuggestions.map((valueSuggestion, index) => (
+                        <li>
+                            <div key={`suggestion-${index}`}
+                                 style={{cursor: "pointer", textDecoration: "underline", color: "blue"}}
+                                 onClick={handleValueClicked}>{valueSuggestion}</div>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        );
     }
+    return (<TableRow>
+            <TableCell align="right">{issueLocation}</TableCell>
+            <TableCell align="center">{originalValueRepresentation}</TableCell>
+            <TableCell align="center">{issueType}</TableCell>
+            <TableCell>
+                <div>
+                    <div><input style={{float: "left", width: "100%"}}
+                                id={`input-${metadataIndex}.${issueLocation}`}
+                                type="text"
+                                data-idx={metadataIndex}
+                                className={issueLocation}
+                                onInputCapture={handleValueChange}
+                                value={newValue}>
+                    </input></div>
+                    {suggestionList}
+                </div>
+            </TableCell>
+        </TableRow>
+    )
 }
