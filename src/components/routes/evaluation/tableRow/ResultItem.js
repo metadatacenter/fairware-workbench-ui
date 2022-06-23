@@ -10,7 +10,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 export default function ResultItem({metadataRecord, metadataIndex, metadataEvaluationResult}) {
     const navigate = useNavigate();
 
-    function handleStartEvaluateButtonClick() {
+    function handleViewReportButtonClick() {
         debugger
         navigate("/EvaluationReport",
             {
@@ -36,11 +36,11 @@ export default function ResultItem({metadataRecord, metadataIndex, metadataEvalu
                 <TableCell align="center"><SvgIcon component={DownloadIcon} inheritViewBox /></TableCell>
                 <TableCell align="center">
                     <Button
-                        onClick={handleStartEvaluateButtonClick}
+                        onClick={handleViewReportButtonClick}
                         className={"generalButton"}
                         variant={"contained"}
                         size={"large"}>
-                        Evaluate</Button>
+                        View Report</Button>
                 </TableCell>
             </TableRow>
         </React.Fragment>
