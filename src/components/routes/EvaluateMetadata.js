@@ -76,14 +76,14 @@ export default function EvaluateMetadata() {
         <>
             <SimpleHeader/>
             <div id="appContent">
-                <div className="mainTitle">Evaluate Metadata</div>
+                <div className="mainTitle" style={{marginTop: "4vh"}}>Evaluate Metadata</div>
                 <div className="mainSubtitle">Enter one or more metadata references followed by a CEDAR template ID</div>
                 <div className="inputTextFieldContainer">
                     <TextField
                         id="inputMetadataUris"
                         multiline
-                        rows={10}
-                        inputProps={{style: {fontSize: 18, lineHeight: "25px"}}}
+                        rows={8}
+                        inputProps={{style: {fontSize: 18, lineHeight: "24px"}}}
                         onChange={handleInputMetadataUriChange}
                         value={metadataUris}
                         helperText="Enter metadata references* (one per line)"
