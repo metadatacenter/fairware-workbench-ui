@@ -100,7 +100,7 @@ export default function EvaluateMetadata() {
                     </div>
                 </div>
 
-                <div id={"findMetadataButtons"} hidden={evaluating}>
+                <div id={"evaluateButton"} hidden={evaluating}>
                     <Button
                         disabled={metadataUris.trim().length === 0}
                         onClick={handleStartEvaluateButtonClick}
@@ -110,7 +110,7 @@ export default function EvaluateMetadata() {
                         Evaluate</Button>
                 </div>
 
-                <div className={"searchResults"}>
+                <div className={"evaluateMetadata"}>
                     <div className={"progressIndicator"}>
                         {evaluating && <CircularProgress/>}
                     </div>

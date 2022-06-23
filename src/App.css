@@ -110,6 +110,7 @@ pre {
 }
 
 #findMetadataButtons,
+#evaluateButton,
 #submitChangesButton {
   margin: auto;
   text-align: center;
@@ -173,6 +174,7 @@ pre {
 }
 
 .searchResults .progressIndicator,
+.evaluateMetadata .progressIndicator,
 .submitMetadata .progressIndicator {
   margin-top: 6vh;
   text-align: center;
