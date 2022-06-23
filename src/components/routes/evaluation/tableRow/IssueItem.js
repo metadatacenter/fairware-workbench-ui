@@ -7,8 +7,10 @@ export default function IssueItem({metadataRecord, metadataIndex, evaluationRepo
     const issueDetails = evaluationReport.issueDetails;
     const issueLocation = issueDetails.issueLocation;
     const issueType = issueDetails.issueType;
-    const repairCommand = evaluationReport.repairAction.repairCommand;
     const valueSuggestions = evaluationReport.repairAction.valueSuggestions;
+    if (valueSuggestions != null) {
+        _.set(metadataRecord, issueLocation + ".replacedBy", valueSuggestions[0])
+    }
     const originalValue = _.get(metadataRecord, issueLocation + ".original");
     let originalValueRepresentation = originalValue + "";
     if (typeof (originalValue) === 'string') {
