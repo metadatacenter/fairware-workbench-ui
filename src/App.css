@@ -175,7 +175,7 @@ pre {
 
 .searchResults .progressIndicator,
 .evaluateMetadata .progressIndicator,
-.submitMetadata .progressIndicator {
+.submitChanges .progressIndicator {
   margin-top: 6vh;
   text-align: center;
 }

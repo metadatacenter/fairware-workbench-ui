@@ -62,7 +62,7 @@ export default function EvaluationReport() {
                     size={"large"}>
                     Submit Changes</Button>
             </div>
-            <div className={"submittingChanges"}>
+            <div className={"submitChanges"}>
                 <div className={"progressIndicator"}>
                     {submitting && <CircularProgress/>}
                 </div>
