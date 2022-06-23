@@ -27,6 +27,10 @@ export default function EvaluationReport() {
         navigate(-1);
     }
 
+    function handleBackButton() {
+        navigate(-1);
+    }
+
     function handleTabChange(event, value) {
         setTabValue(value);
     }
@@ -61,6 +65,12 @@ export default function EvaluationReport() {
                     variant={"contained"}
                     size={"large"}>
                     Submit Changes</Button>
+                <Button
+                    onClick={handleBackButton}
+                    className={"generalButton"}
+                    variant={"contained"}
+                    size={"large"}>
+                    Back</Button>
             </div>
             <div className={"submitChanges"}>
                 <div className={"progressIndicator"}>
