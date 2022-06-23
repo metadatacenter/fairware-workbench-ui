@@ -4,7 +4,7 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell/TableCell";
 import Button from "@mui/material/Button";
 
-export default function EvaluationRow({metadataRecord, metadataIndex, metadataEvaluationResult}) {
+export default function ResultItem({metadataRecord, metadataIndex, metadataEvaluationResult}) {
     const navigate = useNavigate();
 
     function handleStartEvaluateButtonClick() {

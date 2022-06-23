@@ -3,7 +3,7 @@ import _ from "lodash";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell/TableCell";
 
-export default function IssueRow({metadataRecord, metadataIndex, evaluationReport, handleValueChange}) {
+export default function IssueItem({metadataRecord, metadataIndex, evaluationReport, handleValueChange}) {
     const issueDetails = evaluationReport.issueDetails;
     const issueLocation = issueDetails.issueLocation;
     const issueType = issueDetails.issueType;

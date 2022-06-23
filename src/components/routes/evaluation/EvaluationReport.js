@@ -5,8 +5,8 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
-import EvaluationListView from "./EvaluationListView";
-import EvaluationMetadataView from "./EvaluationMetadataView";
+import ReportListView from "./ReportListView";
+import ReportMetadataView from "./ReportMetadataView";
 import SimpleHeader from "../../common/SimpleHeader";
 import AppFooter from "../../common/AppFooter";
 
@@ -49,10 +49,10 @@ export default function EvaluationReport() {
                         <Tab label="Metadata View"/>
                     </Tabs>
                 </Paper>
-                {tabValue === 0 && <EvaluationListView metadataRecord={metadataRecord}
-                                                       metadataIndex={metadataIndex}
-                                                       metadataEvaluationResult={metadataEvaluationResult}/>}
-                {tabValue === 1 && <EvaluationMetadataView/>}
+                {tabValue === 0 && <ReportListView metadataRecord={metadataRecord}
+                                                   metadataIndex={metadataIndex}
+                                                   metadataEvaluationResult={metadataEvaluationResult}/>}
+                {tabValue === 1 && <ReportMetadataView/>}
             </div>
             <div id={"submitChangesButton"} hidden={submitting}>
                 <Button

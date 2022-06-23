@@ -5,9 +5,9 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import IssueRow from "../IssueRow";
+import IssueItem from "./tableRow/IssueItem";
 
-export default function EvaluationListView({metadataRecord, metadataIndex, metadataEvaluationResult}) {
+export default function ReportListView({metadataRecord, metadataIndex, metadataEvaluationResult}) {
 
     return (
         <TableContainer className={"table"}>
@@ -25,10 +25,10 @@ export default function EvaluationListView({metadataRecord, metadataIndex, metad
                         .filter((evaluationReport) => evaluationReport.issueDetails.issueLevel === 'ERROR')
                         .map((evaluationReport) => {
                             const issueLocation = evaluationReport.issueDetails.issueLocation;
-                            return <IssueRow key={`${metadataIndex}.${issueLocation}`}
-                                             metadataRecord={metadataRecord}
-                                             metadataIndex={metadataIndex}
-                                             evaluationReport={evaluationReport}/>
+                            return <IssueItem key={`${metadataIndex}.${issueLocation}`}
+                                              metadataRecord={metadataRecord}
+                                              metadataIndex={metadataIndex}
+                                              evaluationReport={evaluationReport}/>
                         })
                     }
                 </TableBody>

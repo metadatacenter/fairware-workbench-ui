@@ -7,11 +7,11 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell/TableCell";
 import TableBody from "@mui/material/TableBody";
-import EvaluationRow from "./EvaluationRow";
-import SimpleHeader from "../common/SimpleHeader";
-import AppFooter from "../common/AppFooter";
+import ResultItem from "./tableRow/ResultItem";
+import SimpleHeader from "../../common/SimpleHeader";
+import AppFooter from "../../common/AppFooter";
 
-export default function EvaluationResult() {
+export default function EvaluationResultTable() {
 
     const state = useLocation().state;
     const evaluationResults = state && state.evaluationResults ? state.evaluationResults : {};
@@ -58,10 +58,10 @@ export default function EvaluationResult() {
                                 {evaluationResults.map((metadataEvaluationResult, metadataIndex) => {
                                     const metadataRecordId = metadataState[metadataIndex]["metadataRecordId"];
                                     const metadataRecord = metadataState[metadataIndex]["metadataRecord"];
-                                    return <EvaluationRow key={`evaluation-${metadataRecordId}`}
-                                                          metadataRecord={metadataRecord}
-                                                          metadataIndex={metadataIndex}
-                                                          metadataEvaluationResult={metadataEvaluationResult}/>
+                                    return <ResultItem key={`evaluation-${metadataRecordId}`}
+                                                       metadataRecord={metadataRecord}
+                                                       metadataIndex={metadataIndex}
+                                                       metadataEvaluationResult={metadataEvaluationResult}/>
                                 })}
                             </TableBody>
                         </Table>
