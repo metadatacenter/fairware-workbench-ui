@@ -1,23 +1,40 @@
 import React from "react";
-import _ from "lodash";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell/TableCell";
 
-export default function IssueItem({metadataRecord, metadataIndex, evaluationReport, handleValueChange}) {
+export default function IssueItem({metadataRecord, metadataIndex, evaluationReport}) {
     const issueDetails = evaluationReport.issueDetails;
     const issueLocation = issueDetails.issueLocation;
     const issueCategory = issueDetails.issueCategory;
     const issueType = issueDetails.issueType;
-    const valueSuggestions = evaluationReport.repairAction.valueSuggestions;
-    if (valueSuggestions != null) {
-        _.set(metadataRecord, issueLocation + ".replacedBy", valueSuggestions[0])
+    const repairAction = evaluationReport.repairAction;
+    const valueSuggestions = repairAction.valueSuggestions;
+    const patches = evaluationReport.patches;
+    debugger
+    const oldValue = metadataRecord[issueLocation];
+    let oldValueRepresentation = JSON.stringify(oldValue);
+
+    let suggestedValue = "";
+    if (issueCategory === "VALUE_ERROR") {
+        suggestedValue = patches[0].value;
+    } else if (issueCategory === "FIELD_ERROR") {
+        suggestedValue = patches[0].path;
     }
-    const originalValue = _.get(metadataRecord, issueLocation + ".original");
-    let originalValueRepresentation = originalValue + "";
-    if (typeof (originalValue) === 'string') {
-        originalValueRepresentation = "\"" + originalValue + "\"";
-    }
-    const newValue = _.get(metadataRecord, issueLocation + ".replacedBy");
+
+    // function handleValueChange(event) {
+    //     const repairedMetadata = [...metadataState];
+    //     const metadataIndex = event.target.dataset.idx
+    //     const metadataRecord = repairedMetadata[metadataIndex]["metadataRecord"];
+    //     const issueLocation = event.target.className;
+    //     const metadataTemplateFields = repairedMetadata[metadataIndex]["metadataSpecification"]["templateFieldNames"];
+    //     const expectedDataType = metadataTemplateFields[issueLocation];
+    //     let userInput = event.target.value;
+    //     if (expectedDataType === 'number') {
+    //         userInput = parseInt(userInput);
+    //     }
+    //     // _.set(metadataRecord, issueLocation + ".replacedBy", userInput);
+    //     setMetadataState(repairedMetadata);
+    // }
 
     function handleValueClicked(event) {
         const inputElement = document.getElementById(`input-${metadataIndex}.${issueLocation}`);
@@ -51,9 +68,9 @@ export default function IssueItem({metadataRecord, metadataIndex, evaluationRepo
     if (issueCategory === "FIELD_ERROR") {
         fieldName = <span style={{color: "red"}}>{issueLocation}</span>
     }
-    let fieldValue = originalValueRepresentation;
+    let fieldValue = oldValueRepresentation;
     if (issueCategory === "VALUE_ERROR") {
-        fieldValue = <span style={{color: "red"}}>{originalValueRepresentation}</span>
+        fieldValue = <span style={{color: "red"}}>{oldValueRepresentation}</span>
     }
     return (<TableRow>
             <TableCell align="center">{fieldName}</TableCell>
@@ -66,8 +83,7 @@ export default function IssueItem({metadataRecord, metadataIndex, evaluationRepo
                                 type="text"
                                 data-idx={metadataIndex}
                                 className={issueLocation}
-                                onInputCapture={handleValueChange}
-                                value={newValue}>
+                                value={suggestedValue}>
                     </input></div>
                     {suggestionList}
                 </div>

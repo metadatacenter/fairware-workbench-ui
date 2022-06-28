@@ -49,13 +49,34 @@ export default function EvaluateMetadata() {
         evaluateMetadataInBatch(metadataRecordIds, templateId).then(evaluationResults => {
             evaluationResults.forEach((evaluationResult) => {
                 if (!_.isEmpty(evaluationResult)) {
-                    const metadataRecord = evaluationResult.metadataRecord;
                     evaluationResult.evaluationReport.evaluationReportItems
-                        .filter((report) => report.issueDetails.issueLevel === "ERROR")
                         .forEach((report) => {
-                            const issueLocation = report.issueDetails.issueLocation;
-                            const originalValue = _.get(metadataRecord, issueLocation);
-                            _.set(metadataRecord, issueLocation, {"original": originalValue, "replacedBy": null});
+                            Object.assign(report, { patches: [] });
+                            const issueDetails = report.issueDetails;
+                            const issueCategory = issueDetails.issueCategory;
+                            const issueLocation = issueDetails.issueLocation;
+                            const valueSuggestions = report.repairAction.valueSuggestions;
+                            let valueSuggestion = ""
+                            if (valueSuggestions.length != 0) {
+                                valueSuggestion = valueSuggestions[0]
+                            }
+                            if (issueCategory === "VALUE_ERROR") {
+                                report.patches.push({
+                                    op: "replace",
+                                    path: "/" + issueLocation,
+                                    value: valueSuggestion
+                                })
+                            } else if (issueCategory === "FIELD_ERROR") {
+                                report.patches.push({
+                                    op: "move",
+                                    from: "/" + issueLocation,
+                                    path: "/" + valueSuggestion
+                                })
+                                report.patches.push({
+                                    op: "remove",
+                                    path: "/" + issueLocation
+                                })
+                            }
                         })
                 }
             });

@@ -18,21 +18,6 @@ export default function EvaluationResultTable() {
     const [metadataState, setMetadataState] = useState([...evaluationResults]);
     const [submitting, setSubmissionInProgress] = useState(false);
 
-    function handleValueChange(event) {
-        const repairedMetadata = [...metadataState];
-        const metadataIndex = event.target.dataset.idx
-        const metadataRecord = repairedMetadata[metadataIndex]["metadataRecord"];
-        const issueLocation = event.target.className;
-        const metadataTemplateFields = repairedMetadata[metadataIndex]["metadataSpecification"]["templateFieldNames"];
-        const expectedDataType = metadataTemplateFields[issueLocation];
-        let userInput = event.target.value;
-        if (expectedDataType === 'number') {
-            userInput = parseInt(userInput);
-        }
-        _.set(metadataRecord, issueLocation + ".replacedBy", userInput);
-        setMetadataState(repairedMetadata);
-    }
-
     return (
         <>
             <SimpleHeader/>
