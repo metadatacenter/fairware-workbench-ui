@@ -56,7 +56,9 @@ export default function EvaluationReport() {
                 {tabValue === 0 && <ReportListView metadataRecord={metadataRecord}
                                                    metadataIndex={metadataIndex}
                                                    metadataEvaluationResult={metadataEvaluationResult}/>}
-                {tabValue === 1 && <ReportMetadataView/>}
+                {tabValue === 1 && <ReportMetadataView metadataRecord={metadataRecord}
+                                                       metadataIndex={metadataIndex}
+                                                       metadataEvaluationResult={metadataEvaluationResult}/>}
             </div>
             <div id={"submitChangesButton"} hidden={submitting}>
                 <Button
