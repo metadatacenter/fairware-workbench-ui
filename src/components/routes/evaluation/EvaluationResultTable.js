@@ -16,7 +16,6 @@ export default function EvaluationResultTable() {
     const state = useLocation().state;
     const evaluationResults = state && state.evaluationResults ? state.evaluationResults : {};
     const [metadataState, setMetadataState] = useState([...evaluationResults]);
-    const [submitting, setSubmissionInProgress] = useState(false);
 
     return (
         <>
@@ -40,13 +39,9 @@ export default function EvaluationResultTable() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {evaluationResults.map((metadataEvaluationResult, metadataIndex) => {
-                                    const metadataRecordId = metadataState[metadataIndex]["metadataRecordId"];
-                                    const metadataRecord = metadataState[metadataIndex]["metadataRecord"];
-                                    return <ResultItem key={`evaluation-${metadataRecordId}`}
-                                                       metadataRecord={metadataRecord}
-                                                       metadataIndex={metadataIndex}
-                                                       metadataEvaluationResult={metadataEvaluationResult}/>
+                                {evaluationResults.map((evaluationResult, index) => {
+                                    return <ResultItem metadataIndex={index}
+                                                       metadataEvaluationResult={evaluationResult}/>
                                 })}
                             </TableBody>
                         </Table>

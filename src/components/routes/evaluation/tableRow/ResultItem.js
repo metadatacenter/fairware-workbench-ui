@@ -7,7 +7,7 @@ import SvgIcon from '@mui/material/SvgIcon';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import DownloadIcon from '@mui/icons-material/Download';
 
-export default function ResultItem({metadataRecord, metadataIndex, metadataEvaluationResult}) {
+export default function ResultItem({metadataIndex, metadataEvaluationResult}) {
     const navigate = useNavigate();
 
     function handleViewReportButtonClick() {
@@ -15,7 +15,6 @@ export default function ResultItem({metadataRecord, metadataIndex, metadataEvalu
         navigate("/EvaluationReport",
             {
                 state: {
-                    metadataRecord: metadataRecord,
                     metadataIndex: metadataIndex,
                     metadataEvaluationResult: metadataEvaluationResult
                 }
@@ -24,13 +23,14 @@ export default function ResultItem({metadataRecord, metadataIndex, metadataEvalu
 
     return (
         <React.Fragment>
-            <TableRow sx={{'& > *': {borderBottom: 'unset'}}}>
+            <TableRow key={`metadata-${metadataIndex}`} sx={{'& > *': {borderBottom: 'unset'}}}>
                 <TableCell style={{fontSize: 16}} align="center">{metadataEvaluationResult.metadataRecordId}</TableCell>
                 <TableCell style={{fontSize: 16}} align="center">
                     <a href={metadataEvaluationResult.metadataSpecification.templateUrl}
                        target="_blank">{metadataEvaluationResult.metadataSpecification.templateName}</a>
                 </TableCell>
-                <TableCell style={{fontSize: 16}} align="center">{metadataEvaluationResult.evaluationReport.evaluationReportItems.length}
+                <TableCell style={{fontSize: 16}} align="center">
+                    {metadataEvaluationResult.evaluationReport.evaluationReportItems.length}
                 </TableCell>
                 <TableCell align="center"><SvgIcon component={VisibilityIcon} inheritViewBox /></TableCell>
                 <TableCell align="center"><SvgIcon component={DownloadIcon} inheritViewBox /></TableCell>

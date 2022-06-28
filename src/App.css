@@ -34,10 +34,11 @@ pre {
 .title2 {
   font-size: 1.7rem;
   font-weight: normal;
+  margin: 10px auto;
 }
 
 .title3 {
-  font-size: 1.4rem;
+  font-size: 1.15rem;
   font-weight: normal;
 }
 
@@ -81,7 +82,8 @@ pre {
 #appContent {
   color: var(--color3);
   flex: 1;
-  margin: 2vh 2vw;
+  width: 94%;
+  margin: 2vh auto;
 }
 
 #appFooter {
@@ -181,7 +183,7 @@ pre {
 }
 
 .table {
-  margin: 2vh auto;
+  margin: 3vh auto;
 }
 
 .wrapIcon {

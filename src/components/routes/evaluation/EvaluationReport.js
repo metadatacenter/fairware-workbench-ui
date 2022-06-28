@@ -15,9 +15,16 @@ export default function EvaluationReport() {
     const navigate = useNavigate();
     const location = useLocation();
     const state = location.state;
-    const metadataRecord = state.metadataRecord;
     const metadataIndex = state.metadataIndex;
     const metadataEvaluationResult = state.metadataEvaluationResult;
+    const metadataRecordId = metadataEvaluationResult.metadataRecordId;
+    const metadataRecord = metadataEvaluationResult.metadataRecord;
+    const metadataSpecification = metadataEvaluationResult.metadataSpecification;
+    const templateName = metadataSpecification.templateName;
+    const templateUrl = metadataSpecification.templateUrl;
+
+    const evaluationReport = metadataEvaluationResult.evaluationReport;
+    const issueCount = evaluationReport.evaluationReportItems.length;
 
     const [tabValue, setTabValue] = useState(0);
     const [submitting, setSubmissionInProgress] = useState(false);
@@ -40,10 +47,12 @@ export default function EvaluationReport() {
             <SimpleHeader/>
             <div id="appContent">
                 <h1>Metadata Evaluation Report</h1>
-                <div
-                    className={"title2"}><b>XX</b> issues
+                <div className={"title2"}>Found <b>{issueCount}</b> issues</div>
+                <div className={"title3"}>Metadata: {metadataRecordId}</div>
+                <div className={"title3"}>
+                    Template: <a href={templateUrl} target="_blank">{templateName}</a>
                 </div>
-                <Paper className={"evaluationResults"}>
+                <Paper style={{marginTop: "2em", boxShadow: "none", borderBottom: "3px solid #e4e4e4"}}>
                     <Tabs
                         value={tabValue}
                         onChange={handleTabChange}
