@@ -10,22 +10,21 @@ import IssueItem from "./tableRow/IssueItem";
 export default function ReportListView({metadataRecord, metadataIndex, metadataEvaluationResult}) {
 
     return (
-        <TableContainer className={"table"}>
+        <TableContainer className="table">
             <Table size="small">
                 <TableHead>
                     <TableRow>
-                        <TableCell align="center" width="25%">FIELD NAME</TableCell>
-                        <TableCell align="center" width="25%">FIELD VALUE</TableCell>
-                        <TableCell align="center" width="20%">ISSUE</TableCell>
-                        <TableCell align="center" width="30%">SUGGESTED REPAIR</TableCell>
+                        <TableCell style={{fontSize: 18}} align="center" width="25%">FIELD NAME</TableCell>
+                        <TableCell style={{fontSize: 18}} align="center" width="25%">FIELD VALUE</TableCell>
+                        <TableCell style={{fontSize: 18}} align="center" width="20%">ISSUE</TableCell>
+                        <TableCell style={{fontSize: 18}} align="center" width="30%">SUGGESTED REPAIR</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {metadataEvaluationResult.evaluationReport.evaluationReportItems
                         .filter((evaluationReport) => evaluationReport.issueDetails.issueLevel === 'ERROR')
-                        .map((evaluationReport) => {
-                            const issueLocation = evaluationReport.issueDetails.issueLocation;
-                            return <IssueItem key={`${metadataIndex}.${issueLocation}`}
+                        .map((evaluationReport, index) => {
+                            return <IssueItem issueIndex={index}
                                               metadataRecord={metadataRecord}
                                               metadataIndex={metadataIndex}
                                               evaluationReport={evaluationReport}/>

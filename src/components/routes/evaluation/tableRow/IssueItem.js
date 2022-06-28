@@ -1,8 +1,9 @@
 import React from "react";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell/TableCell";
+import TextField from "@mui/material/TextField";
 
-export default function IssueItem({metadataRecord, metadataIndex, evaluationReport}) {
+export default function IssueItem({issueIndex, metadataRecord, metadataIndex, evaluationReport}) {
     const issueDetails = evaluationReport.issueDetails;
     const issueLocation = issueDetails.issueLocation;
     const issueCategory = issueDetails.issueCategory;
@@ -51,7 +52,7 @@ export default function IssueItem({metadataRecord, metadataIndex, evaluationRepo
     let suggestionList;
     if (valueSuggestions != null && valueSuggestions.length > 1) {
         suggestionList = (
-            <div style={{paddingTop: "2em"}}><b>Value suggestions</b>:
+            <div style={{fontSize: 16, paddingTop: "0.6em"}}><b>Value suggestions</b>:
                 <ul style={{marginTop: "0"}}>
                     {valueSuggestions.map((valueSuggestion, index) => (
                         <li>
@@ -72,19 +73,27 @@ export default function IssueItem({metadataRecord, metadataIndex, evaluationRepo
     if (issueCategory === "VALUE_ERROR") {
         fieldValue = <span style={{color: "red"}}>{oldValueRepresentation}</span>
     }
-    return (<TableRow>
-            <TableCell align="center">{fieldName}</TableCell>
-            <TableCell align="center">{fieldValue}</TableCell>
-            <TableCell align="center">{issueType}</TableCell>
-            <TableCell>
+
+    let rowColor = "#ffffff"
+    if (issueIndex % 2 == 1) {
+        rowColor = "#f4f4f4";
+    }
+    return (
+        <TableRow>
+            <TableCell style={{fontSize: 16, backgroundColor: rowColor}} align="center">{fieldName}</TableCell>
+            <TableCell style={{fontSize: 16, backgroundColor: rowColor}} align="center">{fieldValue}</TableCell>
+            <TableCell style={{fontSize: 16, backgroundColor: rowColor}} align="center">{issueType}</TableCell>
+            <TableCell style={{fontSize: 16, backgroundColor: rowColor}}>
                 <div>
-                    <div><input style={{float: "left", width: "100%"}}
-                                id={`input-${metadataIndex}.${issueLocation}`}
-                                type="text"
-                                data-idx={metadataIndex}
-                                className={issueLocation}
-                                value={suggestedValue}>
-                    </input></div>
+                    <div><TextField id={`issue-${issueIndex}`}
+                                    fullWidth
+                                    data-idx={metadataIndex}
+                                    className={issueLocation}
+                                    value={suggestedValue}
+                                    size="small"
+                                    margin="dense"
+                                    InputProps={{style: {fontSize: 18, backgroundColor: "#ffffff"}}}>
+                    </TextField></div>
                     {suggestionList}
                 </div>
             </TableCell>

@@ -25,12 +25,12 @@ export default function ResultItem({metadataRecord, metadataIndex, metadataEvalu
     return (
         <React.Fragment>
             <TableRow sx={{'& > *': {borderBottom: 'unset'}}}>
-                <TableCell align="center">{metadataEvaluationResult.metadataRecordId}</TableCell>
-                <TableCell align="center">
+                <TableCell style={{fontSize: 16}} align="center">{metadataEvaluationResult.metadataRecordId}</TableCell>
+                <TableCell style={{fontSize: 16}} align="center">
                     <a href={metadataEvaluationResult.metadataSpecification.templateUrl}
                        target="_blank">{metadataEvaluationResult.metadataSpecification.templateName}</a>
                 </TableCell>
-                <TableCell align="center">{metadataEvaluationResult.evaluationReport.evaluationReportItems.length}
+                <TableCell style={{fontSize: 16}} align="center">{metadataEvaluationResult.evaluationReport.evaluationReportItems.length}
                 </TableCell>
                 <TableCell align="center"><SvgIcon component={VisibilityIcon} inheritViewBox /></TableCell>
                 <TableCell align="center"><SvgIcon component={DownloadIcon} inheritViewBox /></TableCell>
