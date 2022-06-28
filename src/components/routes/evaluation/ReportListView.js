@@ -14,10 +14,10 @@ export default function ReportListView({metadataRecord, metadataIndex, metadataE
             <Table size="small">
                 <TableHead>
                     <TableRow>
-                        <TableCell style={{fontSize: 18}} align="center" width="25%">FIELD NAME</TableCell>
-                        <TableCell style={{fontSize: 18}} align="center" width="25%">FIELD VALUE</TableCell>
-                        <TableCell style={{fontSize: 18}} align="center" width="20%">ISSUE</TableCell>
-                        <TableCell style={{fontSize: 18}} align="center" width="30%">SUGGESTED REPAIR</TableCell>
+                        <TableCell style={{fontSize: 18}} align="center">FIELD NAME</TableCell>
+                        <TableCell style={{fontSize: 18}} align="center">FIELD VALUE</TableCell>
+                        <TableCell style={{fontSize: 18}} align="center">ISSUE</TableCell>
+                        <TableCell style={{fontSize: 18}} align="center">SUGGESTED REPAIR</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
