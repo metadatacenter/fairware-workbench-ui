@@ -2,6 +2,7 @@ import React from "react";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell/TableCell";
 import TextField from "@mui/material/TextField";
+import Chip from "@mui/material/Chip";
 
 export default function IssueItem({issueIndex, metadataRecord, metadataIndex, evaluationReport}) {
     const issueDetails = evaluationReport.issueDetails;
@@ -65,23 +66,31 @@ export default function IssueItem({issueIndex, metadataRecord, metadataIndex, ev
             </div>
         );
     }
+    let textColor = "#000000";
     let fieldName = issueLocation;
     if (issueCategory === "FIELD_ERROR") {
-        fieldName = <span style={{color: "red"}}>{issueLocation}</span>
+        textColor = "#ff0000";
     }
+    let chipColor = "primary";
     let fieldValue = oldValueRepresentation;
     if (issueCategory === "VALUE_ERROR") {
-        fieldValue = <span style={{color: "red"}}>{oldValueRepresentation}</span>
+        chipColor = "error"
     }
-
-    let rowColor = "#ffffff"
+    let rowColor = "#ffffff";
     if (issueIndex % 2 == 1) {
         rowColor = "#f4f4f4";
     }
     return (
         <TableRow>
-            <TableCell style={{fontSize: 16, backgroundColor: rowColor}} align="center">{fieldName}</TableCell>
-            <TableCell style={{fontSize: 16, backgroundColor: rowColor}} align="center">{fieldValue}</TableCell>
+            <TableCell style={{fontSize: 16, backgroundColor: rowColor}} align="center">
+                <span style={{color: textColor}}>{fieldName}</span>
+            </TableCell>
+            <TableCell style={{fontSize: 16, backgroundColor: rowColor}} align="center">
+                <Chip style={{fontSize: 16}}
+                      color={chipColor}
+                      label={fieldValue}
+                      size="small"/>
+            </TableCell>
             <TableCell style={{fontSize: 16, backgroundColor: rowColor}} align="center">{issueType}</TableCell>
             <TableCell style={{fontSize: 16, backgroundColor: rowColor}}>
                 <div>
