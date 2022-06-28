@@ -12,7 +12,6 @@ export default function IssueItem({issueIndex, metadataRecord, metadataIndex, ev
     const repairAction = evaluationReport.repairAction;
     const valueSuggestions = repairAction.valueSuggestions;
     const patches = evaluationReport.patches;
-    debugger
     const oldValue = metadataRecord[issueLocation];
     let oldValueRepresentation = JSON.stringify(oldValue);
 

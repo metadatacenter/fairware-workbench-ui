@@ -11,7 +11,6 @@ export default function ResultItem({metadataIndex, metadataEvaluationResult}) {
     const navigate = useNavigate();
 
     function handleViewReportButtonClick() {
-        debugger
         navigate("/EvaluationReport",
             {
                 state: {
