@@ -3,6 +3,7 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell/TableCell";
 import TextField from "@mui/material/TextField";
 import Chip from "@mui/material/Chip";
+import Autocomplete from "@mui/material/Autocomplete";
 
 export default function IssueItem({issueIndex, metadataRecord, metadataIndex, evaluationReport}) {
     const issueDetails = evaluationReport.issueDetails;
@@ -49,22 +50,25 @@ export default function IssueItem({issueIndex, metadataRecord, metadataIndex, ev
         inputElement.dispatchEvent(inputEvent);
     }
 
-    let suggestionList;
-    if (valueSuggestions != null && valueSuggestions.length > 1) {
-        suggestionList = (
-            <div style={{fontSize: 16, paddingTop: "0.6em"}}><b>Value suggestions</b>:
-                <ul style={{marginTop: "0"}}>
-                    {valueSuggestions.map((valueSuggestion, index) => (
-                        <li>
-                            <div key={`suggestion-${index}`}
-                                 style={{cursor: "pointer", textDecoration: "underline", color: "blue"}}
-                                 onClick={handleValueClicked}>{valueSuggestion}</div>
-                        </li>
-                    ))}
-                </ul>
-            </div>
+    let suggestedRepairField;
+    if (valueSuggestions.length == 1) {
+        suggestedRepairField = (
+            <TextField style={{backgroundColor: "#ffffff"}}
+                       fullWidth
+                       defaultValue={suggestedValue}/>
+        )
+    } else {
+        suggestedRepairField = (
+            <Autocomplete disablePortal
+                          options={valueSuggestions}
+                          defaultValue={suggestedValue}
+                          renderInput={(params) =>
+                              <TextField style={{backgroundColor: "#ffffff"}}
+                                         fullWidth {...params} />
+                          }/>
         );
     }
+
     let textColor = "#000000";
     let fieldName = issueLocation;
     if (issueCategory === "FIELD_ERROR") {
@@ -91,20 +95,7 @@ export default function IssueItem({issueIndex, metadataRecord, metadataIndex, ev
                       size="small"/>
             </TableCell>
             <TableCell style={{fontSize: 16, backgroundColor: rowColor}} align="center">{issueType}</TableCell>
-            <TableCell style={{fontSize: 16, backgroundColor: rowColor}}>
-                <div>
-                    <div><TextField id={`issue-${issueIndex}`}
-                                    fullWidth
-                                    data-idx={metadataIndex}
-                                    className={issueLocation}
-                                    value={suggestedValue}
-                                    size="small"
-                                    margin="dense"
-                                    InputProps={{style: {fontSize: 18, backgroundColor: "#ffffff"}}}>
-                    </TextField></div>
-                    {suggestionList}
-                </div>
-            </TableCell>
+            <TableCell style={{fontSize: 16, backgroundColor: rowColor}}>{suggestedRepairField}</TableCell>
         </TableRow>
     )
 }

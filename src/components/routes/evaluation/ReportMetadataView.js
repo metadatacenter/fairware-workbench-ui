@@ -7,7 +7,7 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell/TableCell";
 import TextField from "@mui/material/TextField";
 import Chip from "@mui/material/Chip";
-import _ from "lodash";
+import Autocomplete from "@mui/material/Autocomplete";
 
 export default function ReportMetadataView({metadataRecord, metadataIndex, metadataEvaluationResult}) {
 
@@ -29,8 +29,7 @@ export default function ReportMetadataView({metadataRecord, metadataIndex, metad
                             .filter((item) => item.issueDetails.issueLocation === fieldName);
                         let issueType = "";
                         let chipColor = "primary";
-                        let suggestedRepair = "";
-                        let suggestionList;
+                        let suggestedRepairField;
                         if (issue.length != 0) {
                             issueType = issue[0].issueDetails.issueType;
                             const issueCategory = issue[0].issueDetails.issueCategory;
@@ -45,34 +44,23 @@ export default function ReportMetadataView({metadataRecord, metadataIndex, metad
                             }
 
                             const valueSuggestions = issue[0].repairAction.valueSuggestions;
-                            if (valueSuggestions != null && valueSuggestions.length > 1) {
-                                suggestedValue = valueSuggestions[0];
-                                suggestionList = (
-                                    <div style={{paddingTop: "0.6em"}}><b>Value suggestions</b>:
-                                        <ul style={{marginTop: "0"}}>
-                                            {valueSuggestions.map((valueSuggestion, index) => (
-                                                <li>
-                                                    <div key={`suggestion-${index}`}
-                                                         style={{cursor: "pointer", textDecoration: "underline", color: "blue"}}>{valueSuggestion}</div>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
+                            if (valueSuggestions.length == 1) {
+                                suggestedRepairField = (
+                                    <TextField style={{backgroundColor: "#ffffff"}}
+                                               fullWidth
+                                               defaultValue={suggestedValue}/>
+                                )
+                            } else {
+                                suggestedRepairField = (
+                                    <Autocomplete disablePortal
+                                                  options={valueSuggestions}
+                                                  defaultValue={suggestedValue}
+                                                  renderInput={(params) =>
+                                                      <TextField style={{backgroundColor: "#ffffff"}}
+                                                                 fullWidth {...params} />
+                                                  }/>
                                 );
                             }
-                            suggestedRepair = (
-                                <div>
-                                    <div><TextField id={`issue-${issueIndex}`}
-                                                    fullWidth
-                                                    data-idx={metadataIndex}
-                                                    value={suggestedValue}
-                                                    size="small"
-                                                    margin="dense"
-                                                    InputProps={{style: {fontSize: 18, backgroundColor: "#ffffff"}}}>
-                                    </TextField></div>
-                                    {suggestionList}
-                                </div>
-                            )
                         }
                         if (typeof (value) === 'object') {
                             return (<></>);
@@ -99,7 +87,7 @@ export default function ReportMetadataView({metadataRecord, metadataIndex, metad
                                             />
                                         </TableCell>
                                         <TableCell style={{fontSize: 16}} align="center">{issueType}</TableCell>
-                                        <TableCell style={{fontSize: 16}}>{suggestedRepair}</TableCell>
+                                        <TableCell style={{fontSize: 16}}>{suggestedRepairField}</TableCell>
                                     </TableRow>
                                 </>
                             );
