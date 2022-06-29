@@ -8,6 +8,8 @@ import TableCell from "@mui/material/TableCell/TableCell";
 import TextField from "@mui/material/TextField";
 import Chip from "@mui/material/Chip";
 import Autocomplete from "@mui/material/Autocomplete";
+import ErrorIcon from "@mui/icons-material/Error";
+import WarningIcon from "@mui/icons-material/Warning";
 
 export default function ReportMetadataView({metadataRecord, metadataIndex, metadataEvaluationResult}) {
 
@@ -27,11 +29,20 @@ export default function ReportMetadataView({metadataRecord, metadataIndex, metad
                         const value = metadataRecord[fieldName];
                         const issue = metadataEvaluationResult.evaluationReport.evaluationReportItems
                             .filter((item) => item.issueDetails.issueLocation === fieldName);
-                        let issueType = "";
+                        let issueTypeChip;
                         let chipColor = "primary";
                         let suggestedRepairField;
                         if (issue.length != 0) {
-                            issueType = issue[0].issueDetails.issueType;
+                            const issueType = issue[0].issueDetails.issueType;
+                            const issueLevel = issue[0].issueDetails.issueLevel;
+                            if (issueLevel === "ERROR") {
+                                issueTypeChip = <Chip icon={<ErrorIcon/>} label={issueType} color="error"/>
+                            } else if (issueLevel === "WARNING") {
+                                issueTypeChip = <Chip icon={<WarningIcon/>} label={issueType} color="warning"/>
+                            } else {
+                                issueTypeChip = <Chip label={issueType}/>
+                            }
+
                             const issueCategory = issue[0].issueDetails.issueCategory;
                             const patches = issue[0].patches;
                             chipColor = "error";
@@ -81,12 +92,11 @@ export default function ReportMetadataView({metadataRecord, metadataIndex, metad
                                                 InputProps={{
                                                     startAdornment: <Chip style={{fontSize: 16}}
                                                                           color={chipColor}
-                                                                          size="small"
                                                                           label={JSON.stringify(metadataRecord[fieldName])}/>,
                                                 }}
                                             />
                                         </TableCell>
-                                        <TableCell style={{fontSize: 16}} align="center">{issueType}</TableCell>
+                                        <TableCell style={{fontSize: 16}} align="center">{issueTypeChip}</TableCell>
                                         <TableCell style={{fontSize: 16}}>{suggestedRepairField}</TableCell>
                                     </TableRow>
                                 </>
