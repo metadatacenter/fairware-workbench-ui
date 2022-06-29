@@ -129,7 +129,7 @@ pre {
 .sampleInputButton {
   text-align: right;
   width: 60vw;
-  margin: -24px auto auto;
+  margin: 0px auto auto;
   text-transform: none;
 }
 
