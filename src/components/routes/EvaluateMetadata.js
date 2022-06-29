@@ -9,6 +9,8 @@ import SimpleHeader from "../common/SimpleHeader";
 import AppFooter from "../common/AppFooter";
 import {evaluateMetadataInBatch} from "../../services/fairwareServices";
 import {removeDuplicates} from "../../util/commonUtil";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 
 export default function EvaluateMetadata() {
 
@@ -21,6 +23,7 @@ export default function EvaluateMetadata() {
     const [metadataUris, setMetadataUris] = useState(it);
     const [templateId, setTemplateId] = useState(it);
     const [evaluating, setEvaluationInProgress] = useState(false);
+    const [hide, setHideField] = useState(false)
 
     const sampleMetadataUris = "SAMN01821557" + "\n" +
         "SAMN09836229" + "\n" +
@@ -37,8 +40,11 @@ export default function EvaluateMetadata() {
         setTemplateId(event.target.value);
     }
 
-    function handleSampleInputClick() {
+    function handleSampleInputMetadataClick() {
         setMetadataUris(sampleMetadataUris);
+    }
+
+    function handleSampleInputTemplateClick() {
         setTemplateId(sampleTemplateId);
     }
 
@@ -51,7 +57,7 @@ export default function EvaluateMetadata() {
                 if (!_.isEmpty(evaluationResult)) {
                     evaluationResult.evaluationReport.evaluationReportItems
                         .forEach((report) => {
-                            Object.assign(report, { patches: [] });
+                            Object.assign(report, {patches: []});
                             const issueDetails = report.issueDetails;
                             const issueCategory = issueDetails.issueCategory;
                             const issueLocation = issueDetails.issueLocation;
@@ -93,33 +99,48 @@ export default function EvaluateMetadata() {
         });
     }
 
+    function toggleHide() {
+        setHideField((hide) => !hide);
+    };
+
     return (
         <>
             <SimpleHeader/>
             <div id="appContent">
                 <div className="mainTitle" style={{marginTop: "4vh"}}>Evaluate Metadata</div>
-                <div className="mainSubtitle">Enter one or more metadata references followed by a CEDAR template ID</div>
+                <div className="mainSubtitle">Enter one or more metadata references followed by a CEDAR template ID
+                </div>
                 <div className="inputTextFieldContainer">
                     <TextField
                         required
                         id="inputMetadataUris"
                         multiline
                         rows={8}
-                        style={{marginBottom: "20px"}}
                         inputProps={{style: {fontSize: 18, lineHeight: "24px"}}}
                         onChange={handleInputMetadataUriChange}
                         value={metadataUris}
-                        label="Metadata reference"
-                    />
-                    <TextField
-                        id="inputTemplateId"
-                        onChange={handleInputTemplateIdChange}
-                        value={templateId}
-                        inputProps={{style: {fontSize: 18}}}
-                        label="CEDAR template IRI"
+                        label="Enter metadata references (one per line)"
                     />
                     <div className="sampleInputButton">
-                        <Link component="button" onClick={handleSampleInputClick}>sample input</Link>
+                        <Link component="button" onClick={handleSampleInputMetadataClick}>sample input</Link>
+                    </div>
+                    {hide && (
+                        <>
+                            <TextField
+                                id="inputTemplateId"
+                                style={{marginTop: "20px"}}
+                                onChange={handleInputTemplateIdChange}
+                                value={templateId}
+                                inputProps={{style: {fontSize: 18}}}
+                                label="CEDAR template IRI"
+                            />
+                            <div className="sampleInputButton">
+                                <Link component="button" onClick={handleSampleInputTemplateClick}>sample input</Link>
+                            </div>
+                        </>)}
+                    <div style={{marginTop: "5px", textAlign: "left"}}>
+                        <FormControlLabel control={<Checkbox onChange={toggleHide}/>}
+                                          label="I have the CEDAR template reference for making the evaluation"/>
                     </div>
                 </div>
 

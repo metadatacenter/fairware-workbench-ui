@@ -129,7 +129,7 @@ pre {
 .sampleInputButton {
   text-align: right;
   width: 60vw;
-  margin: 0px auto auto;
+  margin: -30px auto auto;
   text-transform: none;
 }
 
@@ -138,6 +138,7 @@ pre {
 .inputTextFieldContainer {
   text-align: center;
   margin: 3vh auto;
+  width: 65%;
 }
 
 #mainInputTextField {
