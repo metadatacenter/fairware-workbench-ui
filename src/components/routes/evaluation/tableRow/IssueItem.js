@@ -67,6 +67,7 @@ export default function IssueItem({issueIndex, metadataRecord, metadataIndex, ev
         suggestedRepairField = (
             <TextField style={{backgroundColor: "#ffffff"}}
                        fullWidth
+                       size="small"
                        defaultValue={suggestedValue}/>
         )
     } else {
@@ -74,6 +75,7 @@ export default function IssueItem({issueIndex, metadataRecord, metadataIndex, ev
             <Autocomplete disablePortal
                           options={valueSuggestions}
                           defaultValue={suggestedValue}
+                          size="small"
                           renderInput={(params) =>
                               <TextField style={{backgroundColor: "#ffffff"}}
                                          fullWidth {...params} />

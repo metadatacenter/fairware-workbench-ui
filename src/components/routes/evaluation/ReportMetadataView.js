@@ -59,6 +59,7 @@ export default function ReportMetadataView({metadataRecord, metadataIndex, metad
                                 suggestedRepairField = (
                                     <TextField style={{backgroundColor: "#ffffff"}}
                                                fullWidth
+                                               size="small"
                                                defaultValue={suggestedValue}/>
                                 )
                             } else {
@@ -66,6 +67,7 @@ export default function ReportMetadataView({metadataRecord, metadataIndex, metad
                                     <Autocomplete disablePortal
                                                   options={valueSuggestions}
                                                   defaultValue={suggestedValue}
+                                                  size="small"
                                                   renderInput={(params) =>
                                                       <TextField style={{backgroundColor: "#ffffff"}}
                                                                  fullWidth {...params} />
