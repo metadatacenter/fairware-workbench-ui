@@ -17,7 +17,7 @@ export default function Home() {
         <>
             <SimpleHeader/>
             <div id="appContent">
-                <div className="mainTitle">MAKING DATA FAIR</div>
+                <div className="mainTitle" style={{marginTop: "10vh"}}>MAKING DATA FAIR</div>
                 <div className="mainSubtitle">Get suggestions for improving your metadata. Make your research data more
                     Findable,
                     Accessible, Interoperable
@@ -34,34 +34,34 @@ export default function Home() {
                 </div>
                 <Typography align={"center"}><Link to={"/PrivacyPolicy"}>How this tool uses your
                     data</Link></Typography>
-                <div style={{marginTop: "12vh"}}>
+                <div style={{marginTop: "12vh", textAlign: "center"}}>
                     <Box
                         component="img"
-                        sx={{height: 100}}
+                        sx={{height: 90}}
                         alt="Wellcome Trust logo"
                         src={wellcomeLogo}
                     />
                     <Box
                         component="img"
-                        sx={{height: 100}}
+                        sx={{height: 90}}
                         alt="Canadian Institutes of Health Research logo"
                         src={cihrLogo}
                     />
                     <Box
                         component="img"
-                        sx={{height: 100}}
+                        sx={{height: 90}}
                         alt="National Institute for Health and Care Research logo"
                         src={nihrLogo}
                     />
                     <Box
                         component="img"
-                        sx={{height: 100}}
+                        sx={{height: 90}}
                         alt="Swiss National Science Foundation logo"
                         src={snsfLogo}
                     />
                     <Box
                         component="img"
-                        sx={{height: 100}}
+                        sx={{height: 90}}
                         alt="FWF der Wissenschaftsfonds logo"
                         src={fwfLogo}
                     />
