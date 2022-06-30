@@ -15,7 +15,6 @@ export default function EvaluationResultTable() {
 
     const state = useLocation().state;
     const evaluationResults = state && state.evaluationResults ? state.evaluationResults : {};
-    const [metadataState, setMetadataState] = useState([...evaluationResults]);
 
     return (
         <>
