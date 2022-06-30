@@ -63,7 +63,7 @@ export default function IssueItem({issueIndex, metadataRecord, metadataIndex, ev
     }
 
     let suggestedRepairField;
-    if (valueSuggestions.length == 1) {
+    if (valueSuggestions.length === 1) {
         suggestedRepairField = (
             <TextField style={{backgroundColor: "#ffffff"}}
                        fullWidth

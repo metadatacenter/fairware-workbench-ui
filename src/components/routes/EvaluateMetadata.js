@@ -7,7 +7,7 @@ import Link from '@mui/material/Link';
 import CircularProgress from "@mui/material/CircularProgress";
 import SimpleHeader from "../common/SimpleHeader";
 import AppFooter from "../common/AppFooter";
-import {evaluateMetadataInBatch} from "../../services/fairwareServices";
+import {evaluateMetadataInBatch, searchMetadataInBatch} from "../../services/fairwareServices";
 import {removeDuplicates} from "../../util/commonUtil";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
@@ -52,51 +52,81 @@ export default function EvaluateMetadata() {
         setEvaluationInProgress(true);
         let metadataRecordIds = metadataUris.split("\n").map(e => e.trim());
         metadataRecordIds = removeDuplicates(metadataRecordIds);
-        evaluateMetadataInBatch(metadataRecordIds, templateId).then(evaluationResults => {
-            evaluationResults.forEach((evaluationResult) => {
-                if (!_.isEmpty(evaluationResult)) {
-                    evaluationResult.evaluationReport.evaluationReportItems
-                        .forEach((report) => {
-                            Object.assign(report, {patches: []});
-                            const issueDetails = report.issueDetails;
-                            const issueCategory = issueDetails.issueCategory;
-                            const issueLocation = issueDetails.issueLocation;
-                            const valueSuggestions = report.repairAction.valueSuggestions;
-                            let valueSuggestion = ""
-                            if (valueSuggestions.length != 0) {
-                                valueSuggestion = valueSuggestions[0]
-                            }
-                            if (issueCategory === "VALUE_ERROR") {
-                                report.patches.push({
-                                    op: "replace",
-                                    path: "/" + issueLocation,
-                                    value: valueSuggestion
-                                })
-                            } else if (issueCategory === "FIELD_ERROR") {
-                                report.patches.push({
-                                    op: "move",
-                                    from: "/" + issueLocation,
-                                    path: "/" + valueSuggestion
-                                })
-                                report.patches.push({
-                                    op: "remove",
-                                    path: "/" + issueLocation
-                                })
-                            }
-                        })
+        if (templateId.trim().length === 0) {
+            searchMetadata(metadataRecordIds);
+        } else {
+            evaluateMetadata(metadataRecordIds, templateId);
+        }
+    }
+
+    async function searchMetadata(metadataRecordIds) {
+        const evaluationResults = [];
+        const searchResults = await searchMetadataInBatch(metadataRecordIds);
+        searchResults.forEach((searchResult) => {
+            if (!_.isEmpty(searchResult)) {
+                const metadataIndex = searchResult.metadataIndex;
+                const evaluationResult = {
+                    metadataRecordId: metadataIndex.metadataRecordId,
+                    metadataRecordName: metadataIndex.metadataRecordName,
+                    metadataRecord: metadataIndex.metadataRecord,
+                    metadataSpecification: {},
+                    evaluationReport: {}
+                };
+                evaluationResults.push(evaluationResult);
+            }
+        });
+        setEvaluationInProgress(false);
+        navigate("/EvaluationResult",
+            {
+                state: {
+                    evaluationResults: evaluationResults
                 }
             });
-            const successEvaluationResults = evaluationResults.filter(evaluationResult => !_.isEmpty(evaluationResult))
-            setEvaluationInProgress(false);
-            navigate("/EvaluationResult",
-                {
-                    state: {
-                        metadataUris: metadataUris,
-                        templateId: templateId,
-                        evaluationResults: successEvaluationResults
-                    }
-                });
+    }
+
+    async function evaluateMetadata(metadataRecordIds, templateId) {
+        const evaluationResults = await evaluateMetadataInBatch(metadataRecordIds, templateId);
+        evaluationResults.forEach((evaluationResult) => {
+            if (!_.isEmpty(evaluationResult)) {
+                evaluationResult.evaluationReport.evaluationReportItems
+                    .forEach((report) => {
+                        Object.assign(report, {patches: []});
+                        const issueDetails = report.issueDetails;
+                        const issueCategory = issueDetails.issueCategory;
+                        const issueLocation = issueDetails.issueLocation;
+                        const valueSuggestions = report.repairAction.valueSuggestions;
+                        let valueSuggestion = ""
+                        if (valueSuggestions.length !== 0) {
+                            valueSuggestion = valueSuggestions[0]
+                        }
+                        if (issueCategory === "VALUE_ERROR") {
+                            report.patches.push({
+                                op: "replace",
+                                path: "/" + issueLocation,
+                                value: valueSuggestion
+                            })
+                        } else if (issueCategory === "FIELD_ERROR") {
+                            report.patches.push({
+                                op: "move",
+                                from: "/" + issueLocation,
+                                path: "/" + valueSuggestion
+                            })
+                            report.patches.push({
+                                op: "remove",
+                                path: "/" + issueLocation
+                            })
+                        }
+                    })
+            }
         });
+        const successEvaluationResults = evaluationResults.filter(evaluationResult => !_.isEmpty(evaluationResult))
+        setEvaluationInProgress(false);
+        navigate("/EvaluationResult",
+            {
+                state: {
+                    evaluationResults: successEvaluationResults
+                }
+            });
     }
 
     function toggleHide() {
@@ -140,7 +170,7 @@ export default function EvaluateMetadata() {
                         </>)}
                     <div style={{marginTop: "5px", textAlign: "left"}}>
                         <FormControlLabel control={<Checkbox onChange={toggleHide}/>}
-                                          label="I have the CEDAR template reference for making the evaluation"/>
+                                          label="I have the CEDAR template reference for the evaluation"/>
                     </div>
                 </div>
 
