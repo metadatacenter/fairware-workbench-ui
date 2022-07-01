@@ -27,12 +27,6 @@ export default function EvaluationReport() {
     const issueCount = evaluationReport.evaluationReportItems.length;
 
     const [tabValue, setTabValue] = useState(0);
-    const [submitting, setSubmissionInProgress] = useState(false);
-
-    function handleSubmitChangesButton() {
-        setSubmissionInProgress(true);
-        navigate(-1);
-    }
 
     function handleBackButton() {
         navigate(-1);
@@ -52,7 +46,21 @@ export default function EvaluationReport() {
                 <div className={"title3"}>
                     Template: <a href={templateUrl} target="_blank">{templateName}</a>
                 </div>
-                <Paper style={{marginTop: "2em", boxShadow: "none", borderBottom: "3px solid #e4e4e4"}}>
+
+                <div style={{textAlign: "right"}}>
+                    <Button
+                        className={"generalButton"}
+                        variant={"contained"}
+                        size={"large"}>
+                        Download (PDF)</Button>
+                    <Button
+                        className={"generalButton"}
+                        variant={"contained"}
+                        size={"large"}>
+                        Download (JSON)</Button>
+                </div>
+
+                <Paper style={{marginTop: "-2em", boxShadow: "none", borderBottom: "3px solid #e4e4e4"}}>
                     <Tabs
                         value={tabValue}
                         onChange={handleTabChange}
@@ -68,24 +76,13 @@ export default function EvaluationReport() {
                 {tabValue === 1 && <ReportMetadataView metadataRecord={metadataRecord}
                                                        metadataIndex={metadataIndex}
                                                        metadataEvaluationResult={metadataEvaluationResult}/>}
-            </div>
-            <div id={"submitChangesButton"} hidden={submitting}>
-                <Button
-                    onClick={handleSubmitChangesButton}
-                    className={"generalButton"}
-                    variant={"contained"}
-                    size={"large"}>
-                    Submit Changes</Button>
-                <Button
-                    onClick={handleBackButton}
-                    className={"generalButton"}
-                    variant={"contained"}
-                    size={"large"}>
-                    Back</Button>
-            </div>
-            <div className={"submitChanges"}>
-                <div className={"progressIndicator"}>
-                    {submitting && <CircularProgress/>}
+                <div style={{textAlign: "center"}}>
+                    <Button
+                        onClick={handleBackButton}
+                        className={"generalButton"}
+                        variant={"contained"}
+                        size={"large"}>
+                        Go Back</Button>
                 </div>
             </div>
             <AppFooter/>
