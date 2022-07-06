@@ -1,4 +1,5 @@
 import {
+    FAIRWARE_TEMPLATE_RECOMMEND_URL,
     FAIRWARE_METADATA_EVALUATE_URL,
     FAIRWARE_METADATA_SEARCH_URL,
     FAIRWARE_METADATA_SUMMARY_REPORT_URL
@@ -47,6 +48,25 @@ export function evaluateMetadata(metadataRecords) {
     });
     return Promise.all(requests);
 };
+
+export async function recommendMetadataTemplate(metadataRecordId) {
+    let url = FAIRWARE_TEMPLATE_RECOMMEND_URL;
+    const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'text/plain'
+        },
+        body: metadataRecordId
+    }
+    return await fetch(url, requestOptions)
+        .then(response => {
+            let result = {};
+            if (response.ok) {
+                result = response.json();
+            }
+            return result;
+        });
+}
 
 export async function searchMetadataInBatch(metadataRecordIds) {
     let url = FAIRWARE_METADATA_SEARCH_URL;

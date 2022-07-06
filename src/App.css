@@ -18,10 +18,18 @@ body {
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
 }
 
-h1 {
+h1.pageTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 0;
 }
 
-h2 {
+h2.subTitle {
+  font-size: 1.2rem;
+  font-weight: normal;
+  margin-top: 10px;
+  margin-bottom: 0;
 }
 
 pre {
@@ -172,8 +180,9 @@ pre {
   font-size: 1.5rem;
 }
 
-.searchResults {
-  margin-top: 2vh;
+.searchResults,
+.recommendationResult {
+  margin-top: 4vh;
 }
 
 .searchResults .progressIndicator,

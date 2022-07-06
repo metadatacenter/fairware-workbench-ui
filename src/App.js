@@ -9,6 +9,7 @@ import FindMetadata from "./components/routes/FindMetadata";
 import EvaluateMetadata from "./components/routes/EvaluateMetadata";
 import EvaluationReport from "./components/routes/evaluation/EvaluationReport";
 import EvaluationResultTable from "./components/routes/evaluation/EvaluationResultTable";
+import SelectTemplate from "./components/routes/selection/SelectTemplate";
 import PrivacyPolicy from "./components/routes/PrivacyPolicy";
 import About from "./components/routes/About";
 import Support from "./components/routes/Support";
@@ -35,6 +36,7 @@ export default function App() {
                 <Route path="/EvaluationReport" element={<EvaluationReport/>}/>
                 <Route path="/EvaluationResult" element={<EvaluationResultTable/>}/>
                 <Route path="/MetadataRecords" element={<MetadataRecords/>}/>
+                <Route path="/SelectTemplate" element={<SelectTemplate/>}/>
                 <Route path="/MetadataEvaluationReport" element={<MetadataEvaluationReport/>}/>
                 <Route path="/SummaryReport" element={<SummaryReport/>}/>
                 <Route path="/PrivacyPolicy" element={<PrivacyPolicy/>}/>

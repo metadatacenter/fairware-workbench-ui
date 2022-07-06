@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import SvgIcon from '@mui/material/SvgIcon';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import DownloadIcon from '@mui/icons-material/Download';
+import {recommendMetadataTemplate} from "../../../../services/fairwareServices";
 
 export default function ResultItem({metadataIndex, metadataEvaluationResult}) {
 
@@ -63,7 +64,7 @@ export default function ResultItem({metadataIndex, metadataEvaluationResult}) {
         } else {
             actionButtonComponent = (
                 <Button
-                    onClick={handleViewReportButtonClick}
+                    onClick={handleSelectTemplateButtonClick}
                     className={"generalButton"}
                     variant={"contained"}
                     size={"large"}>
@@ -81,6 +82,18 @@ export default function ResultItem({metadataIndex, metadataEvaluationResult}) {
                     metadataEvaluationResult: metadataEvaluationResult
                 }
             });
+    }
+
+    async function handleSelectTemplateButtonClick() {
+        const metadataRecordId = metadataEvaluationResult.metadataRecordId;
+        const response = await recommendMetadataTemplate(metadataRecordId);
+        navigate("/SelectTemplate",
+            {
+                state: {
+                    metadataRecordId: metadataRecordId,
+                    recommendationResult: response
+                }
+            })
     }
 
     return (
