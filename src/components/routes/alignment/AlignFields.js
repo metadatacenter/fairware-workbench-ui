@@ -7,6 +7,10 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell/TableCell";
 import Button from "@mui/material/Button";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import PublicIcon from "@mui/icons-material/Public";
+import LooksOneIcon from "@mui/icons-material/LooksOne";
+import LooksTwoIcon from "@mui/icons-material/LooksTwo";
+import Looks3Icon from "@mui/icons-material/Looks3";
 import SvgIcon from "@mui/material/SvgIcon";
 import TableHead from "@mui/material/TableHead";
 import TextField from "@mui/material/TextField";
@@ -86,6 +90,34 @@ export default function AlignFields() {
     return (
         <>
             <SimpleHeader/>
+            <div id="appSubHeader">
+                <div style={{
+                    width: "25%",
+                    float: "left",
+                    paddingLeft: "100px",
+                    display: "flex",
+                    alignItems: "center",
+                    flexWrap: "wrap"
+                }}>
+                    <SvgIcon component={PublicIcon} inheritViewBox/>&nbsp;&nbsp;
+                    <span>{metadataArtifact.metadataId}</span>
+                </div>
+                <div style={{
+                    width: "70%",
+                    float: "left",
+                    paddingLeft: "200px",
+                    display: "flex",
+                    alignItems: "center",
+                    flexWrap: "wrap"
+                }}>
+                    <SvgIcon style={{color: "#1e5aab"}} component={LooksOneIcon} inheritViewBox/>&nbsp;&nbsp;
+                    <span style={{color: "#1e5aab", fontWeight: "bold"}}>Select Template</span>&nbsp;&nbsp;━&nbsp;&nbsp;
+                    <SvgIcon style={{color: "#1e5aab"}} component={LooksTwoIcon} inheritViewBox/>&nbsp;&nbsp;
+                    <span style={{color: "#1e5aab", fontWeight: "bold"}}>Align Fields</span>&nbsp;&nbsp;━&nbsp;&nbsp;
+                    <SvgIcon style={{color: "#aaaaaa"}} component={Looks3Icon} inheritViewBox/>&nbsp;&nbsp;
+                    <span style={{color: "#aaaaaa", fontWeight: ""}}>Repair Metadata</span>
+                </div>
+            </div>
             <div id="appContent">
                 <h1 className="pageTitle">Align Fields</h1>
                 <h2 className="subTitle">Template: {metadataSpecification.templateName}</h2>

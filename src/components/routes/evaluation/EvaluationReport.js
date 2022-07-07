@@ -4,7 +4,11 @@ import Paper from "@mui/material/Paper";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Button from "@mui/material/Button";
-import CircularProgress from "@mui/material/CircularProgress";
+import SvgIcon from "@mui/material/SvgIcon";
+import PublicIcon from "@mui/icons-material/Public";
+import LooksOneIcon from "@mui/icons-material/LooksOne";
+import LooksTwoIcon from "@mui/icons-material/LooksTwo";
+import Looks3Icon from "@mui/icons-material/Looks3";
 import ReportListView from "./ReportListView";
 import ReportMetadataView from "./ReportMetadataView";
 import SimpleHeader from "../../common/SimpleHeader";
@@ -44,6 +48,34 @@ export default function EvaluationReport() {
     return (
         <>
             <SimpleHeader/>
+            <div id="appSubHeader">
+                <div style={{
+                    width: "25%",
+                    float: "left",
+                    paddingLeft: "100px",
+                    display: "flex",
+                    alignItems: "center",
+                    flexWrap: "wrap"
+                }}>
+                    <SvgIcon component={PublicIcon} inheritViewBox/>&nbsp;&nbsp;
+                    <span>{metadataArtifact.metadataId}</span>
+                </div>
+                <div style={{
+                    width: "70%",
+                    float: "left",
+                    paddingLeft: "200px",
+                    display: "flex",
+                    alignItems: "center",
+                    flexWrap: "wrap"
+                }}>
+                    <SvgIcon style={{color: "#1e5aab"}} component={LooksOneIcon} inheritViewBox/>&nbsp;&nbsp;
+                    <span style={{color: "#1e5aab", fontWeight: "bold"}}>Select Template</span>&nbsp;&nbsp;━&nbsp;&nbsp;
+                    <SvgIcon style={{color: "#1e5aab"}} component={LooksTwoIcon} inheritViewBox/>&nbsp;&nbsp;
+                    <span style={{color: "#1e5aab", fontWeight: "bold"}}>Align Fields</span>&nbsp;&nbsp;━&nbsp;&nbsp;
+                    <SvgIcon style={{color: "#1e5aab"}} component={Looks3Icon} inheritViewBox/>&nbsp;&nbsp;
+                    <span style={{color: "#1e5aab", fontWeight: "bold"}}>Repair Metadata</span>
+                </div>
+            </div>
             <div id="appContent">
                 <h1>Metadata Evaluation Report</h1>
                 <div className={"title2"}>Found <b>{issueCount}</b> issues</div>

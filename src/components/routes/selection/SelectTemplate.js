@@ -8,6 +8,11 @@ import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import Radio from "@mui/material/Radio";
 import Button from "@mui/material/Button";
+import PublicIcon from '@mui/icons-material/Public';
+import LooksOneIcon from '@mui/icons-material/LooksOne';
+import LooksTwoIcon from '@mui/icons-material/LooksTwo';
+import Looks3Icon from '@mui/icons-material/Looks3';
+import SvgIcon from "@mui/material/SvgIcon";
 import SimpleHeader from "../../common/SimpleHeader";
 import AppFooter from "../../common/AppFooter";
 import ProgressBar from "./ProgressBar";
@@ -53,6 +58,34 @@ export default function SelectTemplate() {
     return (
         <>
             <SimpleHeader/>
+            <div id="appSubHeader">
+                <div style={{
+                    width: "25%",
+                    float: "left",
+                    paddingLeft: "100px",
+                    display: "flex",
+                    alignItems: "center",
+                    flexWrap: "wrap"
+                }}>
+                    <SvgIcon component={PublicIcon} inheritViewBox/>&nbsp;&nbsp;
+                    <span>{metadataArtifact.metadataId}</span>
+                </div>
+                <div style={{
+                    width: "70%",
+                    float: "left",
+                    paddingLeft: "200px",
+                    display: "flex",
+                    alignItems: "center",
+                    flexWrap: "wrap"
+                }}>
+                    <SvgIcon style={{color: "#1e5aab"}} component={LooksOneIcon} inheritViewBox/>&nbsp;&nbsp;
+                    <span style={{color: "#1e5aab", fontWeight: "bold"}}>Select Template</span>&nbsp;&nbsp;━&nbsp;&nbsp;
+                    <SvgIcon style={{color: "#aaaaaa"}} component={LooksTwoIcon} inheritViewBox/>&nbsp;&nbsp;
+                    <span style={{color: "#aaaaaa", fontWeight: ""}}>Align Fields</span>&nbsp;&nbsp;━&nbsp;&nbsp;
+                    <SvgIcon style={{color: "#aaaaaa"}} component={Looks3Icon} inheritViewBox/>&nbsp;&nbsp;
+                    <span style={{color: "#aaaaaa", fontWeight: ""}}>Repair Metadata</span>
+                </div>
+            </div>
             <div id="appContent">
                 <h1 class="pageTitle">Select a Metadata Template</h1>
                 <h2 class="subTitle">We will use the selected CEDAR template to evaluate the
@@ -100,7 +133,8 @@ export default function SelectTemplate() {
                                                 </TableCell>
                                                 <TableCell>
                                                     <ProgressBar completed={matchingRate.toFixed(0)}/>
-                                                    <span style={{fontSize: 14}}>{matchingFields} / {metadataFieldsCount} fields are matched</span>
+                                                    <span
+                                                        style={{fontSize: 14}}>{matchingFields} / {metadataFieldsCount} fields are matched</span>
                                                 </TableCell>
                                             </TableRow>
                                         )
