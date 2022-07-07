@@ -174,13 +174,13 @@ export default function EvaluateMetadata() {
                 </div>
                 <div style={{width: "100%", textAlign: "center", margin: "3vh auto"}}>
                     <div id={"evaluateButton"} hidden={evaluating}>
-                        <Button
-                            disabled={metadataUris.trim().length === 0}
-                            onClick={handleStartEvaluateButtonClick}
-                            className={"generalButton"}
-                            variant={"contained"}
-                            size={"large"}>
-                            Evaluate</Button>
+                        <Button disabled={metadataUris.trim().length === 0}
+                                onClick={handleStartEvaluateButtonClick}
+                                className={"generalButton"}
+                                variant={"contained"}
+                                size={"large"}>
+                            Start Evaluating
+                        </Button>
                     </div>
                     <div className={"evaluateMetadata"}>
                         <div className={"progressIndicator"}>

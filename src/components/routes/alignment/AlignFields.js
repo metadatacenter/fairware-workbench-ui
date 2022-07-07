@@ -182,7 +182,7 @@ export default function AlignFields() {
                             className={"generalButton"}
                             variant={"contained"}
                             size={"large"}>
-                        View Report
+                        View Evaluation Report
                     </Button>
                 </div>
                 <div className={"evaluateMetadata"}>
