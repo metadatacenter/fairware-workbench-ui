@@ -6,7 +6,9 @@ import TableCell from "@mui/material/TableCell/TableCell";
 import Button from "@mui/material/Button";
 import SvgIcon from '@mui/material/SvgIcon';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import DownloadIcon from '@mui/icons-material/Download';
+import FileDownloadOffIcon from '@mui/icons-material/FileDownloadOff';
 import {recommendMetadataTemplate} from "../../../../services/fairwareServices";
 
 export default function ResultItem({metadataIndex, metadataEvaluationResult}) {
@@ -17,9 +19,11 @@ export default function ResultItem({metadataIndex, metadataEvaluationResult}) {
     const metadataSpecification = metadataEvaluationResult.metadataSpecification;
     const evaluationReport = metadataEvaluationResult.evaluationReport;
 
-    let templateNameComponent = getTemplateNameComponent(metadataSpecification);
-    let numberOfIssuesComponent = getNumberOfIssuesComponent(evaluationReport);
-    let actionButtonComponent = getActionButtonComponent(evaluationReport);
+    const templateNameComponent = getTemplateNameComponent(metadataSpecification);
+    const numberOfIssuesComponent = getNumberOfIssuesComponent(evaluationReport);
+    const actionButtonComponent = getActionButtonComponent(evaluationReport);
+    const visibilityIconComponent = getVisibilityIconComponent(evaluationReport);
+    const downloadIconComponent = getDownloadIconComponent(evaluationReport);
 
     function getTemplateNameComponent(metadataSpecification) {
         let templateNameComponent;
@@ -51,6 +55,34 @@ export default function ResultItem({metadataIndex, metadataEvaluationResult}) {
         return numberOfIssuesComponent;
     }
 
+    function getVisibilityIconComponent(evaluationReport) {
+        let visibilityIconComponent;
+        if (!_.isEmpty(evaluationReport)) {
+            visibilityIconComponent = (
+                <SvgIcon component={VisibilityIcon} inheritViewBox/>
+            );
+        } else {
+            visibilityIconComponent = (
+                <SvgIcon component={VisibilityOffIcon} inheritViewBox/>
+            );
+        }
+        return visibilityIconComponent;
+    }
+
+    function getDownloadIconComponent(evaluationReport) {
+        let downloadIconComponent;
+        if (!_.isEmpty(evaluationReport)) {
+            downloadIconComponent = (
+                <SvgIcon component={DownloadIcon} inheritViewBox/>
+            );
+        } else {
+            downloadIconComponent = (
+                <SvgIcon component={FileDownloadOffIcon} inheritViewBox/>
+            );
+        }
+        return downloadIconComponent;
+    }
+
     function getActionButtonComponent(evaluationReport) {
         let actionButtonComponent;
         if (!_.isEmpty(evaluationReport)) {
@@ -60,7 +92,7 @@ export default function ResultItem({metadataIndex, metadataEvaluationResult}) {
                     className={"generalButton"}
                     variant={"contained"}
                     size={"large"}>
-                    View Report</Button>
+                    View Evalution Report</Button>
             );
         } else {
             actionButtonComponent = (
@@ -110,8 +142,8 @@ export default function ResultItem({metadataIndex, metadataEvaluationResult}) {
                 <TableCell className={"cell center"}>{metadataArtifact.metadataId}</TableCell>
                 <TableCell className={"cell center"}>{templateNameComponent}</TableCell>
                 <TableCell className={"cell center"}>{numberOfIssuesComponent}</TableCell>
-                <TableCell className={"cell center"}><SvgIcon component={VisibilityIcon} inheritViewBox/></TableCell>
-                <TableCell className={"cell center"}><SvgIcon component={DownloadIcon} inheritViewBox/></TableCell>
+                <TableCell className={"cell center"}>{visibilityIconComponent}</TableCell>
+                <TableCell className={"cell center"}>{downloadIconComponent}</TableCell>
                 <TableCell className={"cell center"}>{actionButtonComponent}</TableCell>
             </TableRow>
         </>
