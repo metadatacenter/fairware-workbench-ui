@@ -77,12 +77,11 @@ export default function EvaluationReport() {
                 </div>
             </div>
             <div id="appContent">
-                <h1>Metadata Evaluation Report</h1>
-                <div className={"title2"}>Found <b>{issueCount}</b> issues</div>
-                <div className={"title3"}>Metadata: {metadataId}</div>
-                <div className={"title3"}>
+                <h1 className="pageTitle">Metadata Evaluation Report</h1>
+                <h2 className={"subTitle"}>Found <b>{issueCount}</b> issues</h2>
+                <h2 className={"subTitle"}>
                     Template: <a href={templateUrl} target="_blank">{templateName}</a>
-                </div>
+                </h2>
 
                 <div style={{textAlign: "right"}}>
                     <Button

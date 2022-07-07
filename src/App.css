@@ -190,7 +190,9 @@ pre {
 }
 
 .searchResults,
-.recommendationResult {
+.recommendationResults,
+.alignmentResults,
+.evaluationResults {
   margin-top: 2vh;
 }
 

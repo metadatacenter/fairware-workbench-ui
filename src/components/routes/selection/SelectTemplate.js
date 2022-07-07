@@ -87,10 +87,9 @@ export default function SelectTemplate() {
                 </div>
             </div>
             <div id="appContent">
-                <h1 class="pageTitle">Select a Metadata Template</h1>
-                <h2 class="subTitle">We will use the selected CEDAR template to evaluate the
-                    metadata.</h2>
-                <div className={"recommendationResult"}>
+                <h1 className="pageTitle">Select a Metadata Template</h1>
+                <h2 className="subTitle">We will use the selected CEDAR template to evaluate the metadata.</h2>
+                <div className={"recommendationResults"}>
                     <TableContainer className={"table"}>
                         <Table size="small">
                             <TableHead>

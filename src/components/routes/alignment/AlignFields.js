@@ -120,8 +120,10 @@ export default function AlignFields() {
             </div>
             <div id="appContent">
                 <h1 className="pageTitle">Align Fields</h1>
-                <h2 className="subTitle">Template: {metadataSpecification.templateName}</h2>
-                <div className={"recommendationResult"}>
+                <h2 className={"subTitle"}>
+                    Template: <a href={metadataSpecification.templateUrl} target="_blank">{metadataSpecification.templateName}</a>
+                </h2>
+                <div className={"alignmentResults"}>
                     <TableContainer className={"table"} style={{width: "50%"}}>
                         <Table size="small">
                             <TableHead>

@@ -20,21 +20,19 @@ export default function EvaluationResultTable() {
         <>
             <SimpleHeader/>
             <div id="appContent">
-                <h1>Metadata Evaluation Result</h1>
-                <div
-                    className={"title2"}>Evaluating <b>{evaluationResults.length}</b> metadata records
-                </div>
+                <h1 className="pageTitle">Metadata Evaluation Result</h1>
+                <h2 className="subTitle">Evaluating <b>{evaluationResults.length}</b> metadata records</h2>
                 <div className={"evaluationResults"}>
                     <TableContainer className={"table"}>
                         <Table size="small">
                             <TableHead>
                                 <TableRow>
                                     <TableCell className={"header"} width="20%">METADATA REFERENCE</TableCell>
-                                    <TableCell className={"header"} width="20%">TEMPLATE NAME</TableCell>
+                                    <TableCell className={"header"} width="25%">TEMPLATE NAME</TableCell>
                                     <TableCell className={"header"} width="15%"># OF ISSUES</TableCell>
-                                    <TableCell className={"header"} width="15%">PREVIEW</TableCell>
-                                    <TableCell className={"header"} width="15%">DOWNLOAD</TableCell>
-                                    <TableCell className={"header"} width="15%"></TableCell>
+                                    <TableCell className={"header"} width="10%">PREVIEW</TableCell>
+                                    <TableCell className={"header"} width="10%">DOWNLOAD</TableCell>
+                                    <TableCell className={"header"} width="20%"></TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
