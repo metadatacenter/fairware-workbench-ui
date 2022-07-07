@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {useLocation, useNavigate} from 'react-router-dom';
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -11,8 +11,10 @@ import SvgIcon from "@mui/material/SvgIcon";
 import TableHead from "@mui/material/TableHead";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
+import CircularProgress from "@mui/material/CircularProgress";
 import SimpleHeader from "../../common/SimpleHeader";
 import AppFooter from "../../common/AppFooter";
+import {evaluateMetadata} from "../../../services/fairwareServices";
 
 export default function AlignFields() {
 
@@ -26,24 +28,67 @@ export default function AlignFields() {
     const templateFields = Object.keys(metadataSpecification.templateFields);
     const alignmentReport = state.alignmentReport;
 
+    const [evaluating, setEvaluationInProgress] = useState(false);
 
     function handleBackButton() {
         navigate(-1);
     }
 
     async function handleContinueButton() {
+        setEvaluationInProgress(true);
+        const metadataId = metadataArtifact.metadataId;
+        const templateId = metadataSpecification.templateId;
+        const fieldAlignments = alignmentReport.fieldAlignments;
+        const response = await evaluateMetadata(metadataId, templateId, fieldAlignments);
+        const evaluationReport = response.evaluationReport;
+        evaluationReport.evaluationReportItems
+            .forEach((reportItem) => {
+                Object.assign(reportItem, {patches: []});
+                const metadataIssue = reportItem.metadataIssue;
+                const issueCategory = metadataIssue.issueCategory;
+                const issueLocation = metadataIssue.issueLocation;
+                const valueSuggestions = reportItem.repairAction.valueSuggestions;
+                let valueSuggestion = ""
+                if (valueSuggestions.length !== 0) {
+                    valueSuggestion = valueSuggestions[0]
+                }
+                if (issueCategory === "VALUE_ERROR") {
+                    reportItem.patches.push({
+                        op: "replace",
+                        path: "/" + issueLocation,
+                        value: valueSuggestion
+                    })
+                } else if (issueCategory === "FIELD_ERROR") {
+                    reportItem.patches.push({
+                        op: "move",
+                        from: "/" + issueLocation,
+                        path: "/" + valueSuggestion
+                    })
+                    reportItem.patches.push({
+                        op: "remove",
+                        path: "/" + issueLocation
+                    })
+                }
+            });
+        setEvaluationInProgress(false);
         navigate("/EvaluationReport",
             {
-                state: {}
-            })
+                state: {
+                    metadataIndex: metadataIndex,
+                    metadataArtifact: metadataArtifact,
+                    metadataSpecification: metadataSpecification,
+                    alignmentReport: alignmentReport,
+                    evaluationReport: evaluationReport
+                }
+            });
     }
 
     return (
         <>
             <SimpleHeader/>
             <div id="appContent">
-                <h1 class="pageTitle">Align Fields</h1>
-                <h2 class="subTitle">Template: {metadataSpecification.templateName}</h2>
+                <h1 className="pageTitle">Align Fields</h1>
+                <h2 className="subTitle">Template: {metadataSpecification.templateName}</h2>
                 <div className={"recommendationResult"}>
                     <TableContainer className={"table"} style={{width: "50%"}}>
                         <Table size="small">
@@ -64,7 +109,7 @@ export default function AlignFields() {
                                             <TableCell className={"cell"} style={{backgroundColor: rowColor}}>
                                                 {metadataField}
                                             </TableCell>
-                                            <TableCell className={"cell"}  style={{backgroundColor: rowColor}}>
+                                            <TableCell className={"cell"} style={{backgroundColor: rowColor}}>
                                                 <SvgIcon component={ArrowForwardIcon}
                                                          inheritViewBox/>
                                             </TableCell>
@@ -88,18 +133,25 @@ export default function AlignFields() {
                 </div>
             </div>
             <div style={{textAlign: "center", marginBottom: "5vh"}}>
-                <Button
-                    onClick={handleBackButton}
-                    className={"generalButton"}
-                    variant={"contained"}
-                    size={"large"}>
-                    Go Back</Button>
-                <Button
-                    onClick={handleContinueButton}
-                    className={"generalButton"}
-                    variant={"contained"}
-                    size={"large"}>
-                    Continue</Button>
+                <div hidden={evaluating}>
+                    <Button
+                        onClick={handleBackButton}
+                        className={"generalButton"}
+                        variant={"contained"}
+                        size={"large"}>
+                        Go Back</Button>
+                    <Button
+                        onClick={handleContinueButton}
+                        className={"generalButton"}
+                        variant={"contained"}
+                        size={"large"}>
+                        Continue</Button>
+                </div>
+                <div className={"evaluateMetadata"}>
+                    <div className={"progressIndicator"}>
+                        {evaluating && <CircularProgress/>}
+                    </div>
+                </div>
             </div>
             <AppFooter/>
         </>
