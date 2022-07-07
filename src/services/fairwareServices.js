@@ -2,7 +2,8 @@ import {
     FAIRWARE_TEMPLATE_RECOMMEND_URL,
     FAIRWARE_METADATA_EVALUATE_URL,
     FAIRWARE_METADATA_SEARCH_URL,
-    FAIRWARE_METADATA_SUMMARY_REPORT_URL
+    FAIRWARE_METADATA_SUMMARY_REPORT_URL,
+    FAIRWARE_METADATA_ALIGN_URL
 } from "../constants";
 
 const delay = (ms = 100) => new Promise(r => setTimeout(r, ms));
@@ -58,6 +59,28 @@ export async function recommendMetadataTemplate(metadataRecordId) {
         },
         body: metadataRecordId
     }
+    return await fetch(url, requestOptions)
+        .then(response => {
+            let result = {};
+            if (response.ok) {
+                result = response.json();
+            }
+            return result;
+        });
+}
+
+export async function alignMetadataFields(metadataId, templateId) {
+    let url = FAIRWARE_METADATA_ALIGN_URL;
+    let requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            'metadataId': metadataId,
+            'templateId': templateId
+        })
+    };
     return await fetch(url, requestOptions)
         .then(response => {
             let result = {};

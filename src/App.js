@@ -17,6 +17,7 @@ import Resources from "./components/routes/Resources";
 import MetadataRecords from "./components/routes/MetadataRecords";
 import MetadataEvaluationReport from "./components/routes/MetadataEvaluationReport";
 import SummaryReport from "./components/routes/summaryReport/SummaryReport";
+import AlignFields from "./components/routes/alignment/AlignFields";
 
 export default function App() {
 
@@ -37,6 +38,7 @@ export default function App() {
                 <Route path="/EvaluationResult" element={<EvaluationResultTable/>}/>
                 <Route path="/MetadataRecords" element={<MetadataRecords/>}/>
                 <Route path="/SelectTemplate" element={<SelectTemplate/>}/>
+                <Route path="/AlignFields" element={<AlignFields/>}/>
                 <Route path="/MetadataEvaluationReport" element={<MetadataEvaluationReport/>}/>
                 <Route path="/SummaryReport" element={<SummaryReport/>}/>
                 <Route path="/PrivacyPolicy" element={<PrivacyPolicy/>}/>

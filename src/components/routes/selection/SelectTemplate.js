@@ -7,16 +7,19 @@ import TableCell from "@mui/material/TableCell/TableCell";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import Radio from "@mui/material/Radio";
+import Button from "@mui/material/Button";
 import SimpleHeader from "../../common/SimpleHeader";
 import AppFooter from "../../common/AppFooter";
 import ProgressBar from "./ProgressBar";
-import Button from "@mui/material/Button";
+import {alignMetadataFields} from "../../../services/fairwareServices";
 
 export default function SelectTemplate() {
 
     const navigate = useNavigate();
     const location = useLocation();
     const state = location.state;
+
+    const metadataIndex = state.metadataIndex;
 
     const metadataEvaluationResult = state.metadataEvaluationResult;
     const metadataArtifact = metadataEvaluationResult.metadataArtifact;
@@ -34,8 +37,17 @@ export default function SelectTemplate() {
         navigate(-1);
     }
 
-    function handleContinueButton() {
-        navigate(-1);
+    async function handleContinueButton() {
+        const response = await alignMetadataFields(metadataId, selectedTemplate);
+        navigate("/AlignFields",
+            {
+                state: {
+                    metadataIndex: metadataIndex,
+                    metadataArtifact: response.metadataArtifact,
+                    metadataSpecification: response.metadataSpecification,
+                    alignmentReport: response.alignmentReport
+                }
+            })
     }
 
     return (
@@ -53,9 +65,12 @@ export default function SelectTemplate() {
                                     <TableCell style={{fontSize: 18}} align="center" width="1%"></TableCell>
                                     <TableCell style={{fontSize: 18}} align="center" width="30%">TEMPLATE
                                         NAME</TableCell>
-                                    <TableCell style={{fontSize: 18}} align="center" width="30%">TEMPLATE DESCRIPTION</TableCell>
-                                    <TableCell style={{fontSize: 18}} align="center" width="10%">TEMPLATE VERSION</TableCell>
-                                    <TableCell style={{fontSize: 18}} align="center" width="10%">RECOMMENDATION SCORE</TableCell>
+                                    <TableCell style={{fontSize: 18}} align="center" width="30%">TEMPLATE
+                                        DESCRIPTION</TableCell>
+                                    <TableCell style={{fontSize: 18}} align="center" width="10%">TEMPLATE
+                                        VERSION</TableCell>
+                                    <TableCell style={{fontSize: 18}} align="center" width="10%">RECOMMENDATION
+                                        SCORE</TableCell>
                                     <TableCell style={{fontSize: 18}} align="center" width="19%">MATCHED
                                         FIELDS</TableCell>
                                 </TableRow>
