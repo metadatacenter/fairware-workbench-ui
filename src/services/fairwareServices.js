@@ -6,7 +6,7 @@ import {
     FAIRWARE_TEMPLATE_RECOMMEND_URL
 } from "../constants";
 
-const delay = (ms = 125) => new Promise(r => setTimeout(r, ms));
+const delay = (ms = 200) => new Promise(r => setTimeout(r, ms));
 
 // TODO: Remove this
 export function searchMetadataByDois(uris) {
