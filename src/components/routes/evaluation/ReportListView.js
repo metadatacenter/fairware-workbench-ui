@@ -22,12 +22,12 @@ export default function ReportListView({metadataRecord, metadataIndex, metadataE
                 </TableHead>
                 <TableBody>
                     {metadataEvaluationResult.evaluationReport.evaluationReportItems
-                        .filter((evaluationReport) => evaluationReport.issueDetails.issueLevel === 'ERROR')
-                        .map((evaluationReport, index) => {
+                        .filter((reportItem) => reportItem.metadataIssue.issueLevel === 'ERROR')
+                        .map((reportItem, index) => {
                             return <IssueItem issueIndex={index}
                                               metadataRecord={metadataRecord}
                                               metadataIndex={metadataIndex}
-                                              evaluationReport={evaluationReport}/>
+                                              evaluationReport={reportItem}/>
                         })
                     }
                 </TableBody>

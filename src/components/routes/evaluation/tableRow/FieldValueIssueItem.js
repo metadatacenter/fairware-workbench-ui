@@ -16,8 +16,8 @@ export default function FieldValueIssueItem({fieldValue, evaluationReport}) {
     if (!_.isEmpty(evaluationReport)) {
         chipColor = "error";
 
-        const issueType = evaluationReport.issueDetails.issueType;
-        const issueLevel = evaluationReport.issueDetails.issueLevel;
+        const issueType = evaluationReport.metadataIssue.issueType;
+        const issueLevel = evaluationReport.metadataIssue.issueLevel;
         if (issueLevel === "ERROR") {
             issueTypeChipComponent = <Chip icon={<ErrorIcon/>} label={issueType} color="error"/>
         } else if (issueLevel === "WARNING") {

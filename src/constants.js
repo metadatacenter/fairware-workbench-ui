@@ -3,7 +3,7 @@ export const DOI_BASE_URI = "https://doi.org/";
 
 /*** FAIRware Constants ***/
 const FAIRWARE_API_BASE_URL = "http://localhost:9090/";
-export const FAIRWARE_TEMPLATE_RECOMMEND_URL = FAIRWARE_API_BASE_URL + "template/recommend/id"
+export const FAIRWARE_TEMPLATE_RECOMMEND_URL = FAIRWARE_API_BASE_URL + "template/recommend"
 export const FAIRWARE_METADATA_SEARCH_URL = FAIRWARE_API_BASE_URL + "metadata/search";
 export const FAIRWARE_METADATA_EVALUATE_URL = FAIRWARE_API_BASE_URL + "metadata/evaluate";
 export const FAIRWARE_METADATA_SUMMARY_REPORT_URL = FAIRWARE_API_BASE_URL + "metadata/report";

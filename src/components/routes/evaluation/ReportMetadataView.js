@@ -25,11 +25,11 @@ export default function ReportMetadataView({metadataRecord, metadataEvaluationRe
                     {Object.keys(metadataRecord).map((fieldName) => {
                         const fieldValue = metadataRecord[fieldName];
                         const fieldNameEvaluationReport = metadataEvaluationResult.evaluationReport.evaluationReportItems
-                            .find((evaluationReport) => evaluationReport.issueDetails.issueLocation === fieldName
-                                && evaluationReport.issueDetails.issueCategory === "FIELD_ERROR");
+                            .find((reportItem) => reportItem.metadataIssue.issueLocation === fieldName
+                                && reportItem.metadataIssue.issueCategory === "FIELD_ERROR");
                         const fieldValueEvaluationReport = metadataEvaluationResult.evaluationReport.evaluationReportItems
-                            .find((evaluationReport) => evaluationReport.issueDetails.issueLocation === fieldName
-                                && evaluationReport.issueDetails.issueCategory === "VALUE_ERROR");
+                            .find((reportItem) => reportItem.metadataIssue.issueLocation === fieldName
+                                && reportItem.metadataIssue.issueCategory === "VALUE_ERROR");
                         return (
                             <>
                                 <FieldNameIssueItem fieldName={fieldName}

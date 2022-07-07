@@ -18,8 +18,11 @@ export default function SelectTemplate() {
     const location = useLocation();
     const state = location.state;
 
-    const metadataRecordId = state.metadataRecordId;
-    const recommendationResult = state.recommendationResult;
+    const metadataEvaluationResult = state.metadataEvaluationResult;
+    const metadataArtifact = metadataEvaluationResult.metadataArtifact;
+    const metadataId = metadataArtifact.metadataId;
+
+    const recommendationReport = state.recommendationReport;
 
     const [selectedTemplate, setSelectedTemplate] = useState();
 
@@ -58,16 +61,16 @@ export default function SelectTemplate() {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {recommendationResult.recommendations.slice(0, 10)
+                                {recommendationReport.recommendations.slice(0, 10)
                                     .map((recommendation, index) => {
-                                        const template = recommendation.templateExtract;
+                                        const template = recommendation.resourceExtract;
                                         const templateId = template['@id'];
                                         const templateName = template['schema:name'];
                                         const templateDescription = template['schema:description'] ? template['schema:description'] : "-";
                                         const templateVersion = template['pav:version'];
                                         const recommendationScore = recommendation['recommendationScore'];
                                         const matchingFields = recommendation['sourceFieldsMatched'];
-                                        const metadataFieldsCount = recommendationResult.requestSummary.sourceFieldsCount;
+                                        const metadataFieldsCount = recommendationReport.requestSummary.sourceFieldsCount;
                                         const templateFieldsCount = recommendation['targetFieldsCount'];
                                         const matchingRate = matchingFields * 100 / metadataFieldsCount;
                                         return (
@@ -97,7 +100,7 @@ export default function SelectTemplate() {
                     </TableContainer>
                 </div>
             </div>
-            <div style={{textAlign: "center"}}>
+            <div style={{textAlign: "center", marginBottom: "5vh"}}>
                 <Button
                     onClick={handleBackButton}
                     className={"generalButton"}

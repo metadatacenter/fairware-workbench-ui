@@ -13,6 +13,7 @@ export default function ResultItem({metadataIndex, metadataEvaluationResult}) {
 
     const navigate = useNavigate();
 
+    const metadataArtifact = metadataEvaluationResult.metadataArtifact;
     const metadataSpecification = metadataEvaluationResult.metadataSpecification;
     const evaluationReport = metadataEvaluationResult.evaluationReport;
 
@@ -85,13 +86,14 @@ export default function ResultItem({metadataIndex, metadataEvaluationResult}) {
     }
 
     async function handleSelectTemplateButtonClick() {
-        const metadataRecordId = metadataEvaluationResult.metadataRecordId;
-        const response = await recommendMetadataTemplate(metadataRecordId);
+        const metadataId = metadataArtifact.metadataId;
+        const response = await recommendMetadataTemplate(metadataId);
         navigate("/SelectTemplate",
             {
                 state: {
-                    metadataRecordId: metadataRecordId,
-                    recommendationResult: response
+                    metadataIndex: metadataIndex,
+                    metadataEvaluationResult: metadataEvaluationResult,
+                    recommendationReport: response
                 }
             })
     }
@@ -99,7 +101,7 @@ export default function ResultItem({metadataIndex, metadataEvaluationResult}) {
     return (
         <>
             <TableRow key={`metadata-${metadataIndex}`} sx={{'& > *': {borderBottom: 'unset'}}}>
-                <TableCell style={{fontSize: 16}} align="center">{metadataEvaluationResult.metadataRecordId}</TableCell>
+                <TableCell style={{fontSize: 16}} align="center">{metadataArtifact.metadataId}</TableCell>
                 <TableCell style={{fontSize: 16}} align="center">{templateNameComponent}</TableCell>
                 <TableCell style={{fontSize: 16}} align="center">{numberOfIssuesComponent}</TableCell>
                 <TableCell align="center"><SvgIcon component={VisibilityIcon} inheritViewBox/></TableCell>

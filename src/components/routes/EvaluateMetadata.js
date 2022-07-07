@@ -64,12 +64,11 @@ export default function EvaluateMetadata() {
         const searchResults = await searchMetadataInBatch(metadataRecordIds);
         searchResults.forEach((searchResult) => {
             if (!_.isEmpty(searchResult)) {
-                const metadataIndex = searchResult.metadataIndex;
+                const metadataArtifact = searchResult.metadataArtifact;
                 const evaluationResult = {
-                    metadataRecordId: metadataIndex.metadataRecordId,
-                    metadataRecordName: metadataIndex.metadataRecordName,
-                    metadataRecord: metadataIndex.metadataRecord,
+                    metadataArtifact: metadataArtifact,
                     metadataSpecification: {},
+                    alignmentReport: {},
                     evaluationReport: {}
                 };
                 evaluationResults.push(evaluationResult);
@@ -89,29 +88,29 @@ export default function EvaluateMetadata() {
         evaluationResults.forEach((evaluationResult) => {
             if (!_.isEmpty(evaluationResult)) {
                 evaluationResult.evaluationReport.evaluationReportItems
-                    .forEach((report) => {
-                        Object.assign(report, {patches: []});
-                        const issueDetails = report.issueDetails;
-                        const issueCategory = issueDetails.issueCategory;
-                        const issueLocation = issueDetails.issueLocation;
-                        const valueSuggestions = report.repairAction.valueSuggestions;
+                    .forEach((reportItem) => {
+                        Object.assign(reportItem, {patches: []});
+                        const metadataIssue = reportItem.metadataIssue;
+                        const issueCategory = metadataIssue.issueCategory;
+                        const issueLocation = metadataIssue.issueLocation;
+                        const valueSuggestions = reportItem.repairAction.valueSuggestions;
                         let valueSuggestion = ""
                         if (valueSuggestions.length !== 0) {
                             valueSuggestion = valueSuggestions[0]
                         }
                         if (issueCategory === "VALUE_ERROR") {
-                            report.patches.push({
+                            reportItem.patches.push({
                                 op: "replace",
                                 path: "/" + issueLocation,
                                 value: valueSuggestion
                             })
                         } else if (issueCategory === "FIELD_ERROR") {
-                            report.patches.push({
+                            reportItem.patches.push({
                                 op: "move",
                                 from: "/" + issueLocation,
                                 path: "/" + valueSuggestion
                             })
-                            report.patches.push({
+                            reportItem.patches.push({
                                 op: "remove",
                                 path: "/" + issueLocation
                             })

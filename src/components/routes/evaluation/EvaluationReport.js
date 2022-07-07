@@ -15,15 +15,21 @@ export default function EvaluationReport() {
     const navigate = useNavigate();
     const location = useLocation();
     const state = location.state;
+
     const metadataIndex = state.metadataIndex;
     const metadataEvaluationResult = state.metadataEvaluationResult;
-    const metadataRecordId = metadataEvaluationResult.metadataRecordId;
-    const metadataRecord = metadataEvaluationResult.metadataRecord;
+
+    const metadataArtifact = metadataEvaluationResult.metadataArtifact;
+    const metadataId = metadataArtifact.metadataId;
+    const metadataRecord = metadataArtifact.metadataRecord;
+
     const metadataSpecification = metadataEvaluationResult.metadataSpecification;
     const templateName = metadataSpecification.templateName;
     const templateUrl = metadataSpecification.templateUrl;
 
+    const alignmentReport = metadataEvaluationResult.alignmentReport;
     const evaluationReport = metadataEvaluationResult.evaluationReport;
+
     const issueCount = evaluationReport.evaluationReportItems.length;
 
     const [tabValue, setTabValue] = useState(0);
@@ -42,7 +48,7 @@ export default function EvaluationReport() {
             <div id="appContent">
                 <h1>Metadata Evaluation Report</h1>
                 <div className={"title2"}>Found <b>{issueCount}</b> issues</div>
-                <div className={"title3"}>Metadata: {metadataRecordId}</div>
+                <div className={"title3"}>Metadata: {metadataId}</div>
                 <div className={"title3"}>
                     Template: <a href={templateUrl} target="_blank">{templateName}</a>
                 </div>

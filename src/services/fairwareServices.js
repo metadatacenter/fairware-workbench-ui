@@ -105,7 +105,7 @@ export async function evaluateMetadataInBatch(metadataRecordIds, cedarTemplateId
     for (let i = 0; i < metadataRecordIds.length; i++) {
         await delay();
         requestOptions.body = JSON.stringify({
-            metadataRecordId: metadataRecordIds[i],
+            metadataId: metadataRecordIds[i],
             templateId: cedarTemplateId
         });
         const res = await fetch(url, requestOptions)

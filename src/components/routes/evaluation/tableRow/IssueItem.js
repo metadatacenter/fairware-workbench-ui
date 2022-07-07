@@ -8,11 +8,12 @@ import ErrorIcon from '@mui/icons-material/Error';
 import WarningIcon from '@mui/icons-material/Warning';
 
 export default function IssueItem({issueIndex, metadataRecord, metadataIndex, evaluationReport}) {
-    const issueDetails = evaluationReport.issueDetails;
-    const issueLocation = issueDetails.issueLocation;
-    const issueCategory = issueDetails.issueCategory;
-    const issueType = issueDetails.issueType;
-    const issueLevel = issueDetails.issueLevel;
+
+    const metadataIssue = evaluationReport.metadataIssue;
+    const issueLocation = metadataIssue.issueLocation;
+    const issueCategory = metadataIssue.issueCategory;
+    const issueType = metadataIssue.issueType;
+    const issueLevel = metadataIssue.issueLevel;
     const repairAction = evaluationReport.repairAction;
     const valueSuggestions = repairAction.valueSuggestions;
     const patches = evaluationReport.patches;
