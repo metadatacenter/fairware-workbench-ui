@@ -6,7 +6,7 @@ import {
     FAIRWARE_METADATA_ALIGN_URL
 } from "../constants";
 
-const delay = (ms = 100) => new Promise(r => setTimeout(r, ms));
+const delay = (ms = 125) => new Promise(r => setTimeout(r, ms));
 
 // TODO: Remove this
 export function searchMetadataByDois(uris) {
