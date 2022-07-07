@@ -172,20 +172,20 @@ export default function EvaluateMetadata() {
                                           label="I have the CEDAR template reference for the evaluation"/>
                     </div>
                 </div>
-
-                <div id={"evaluateButton"} hidden={evaluating}>
-                    <Button
-                        disabled={metadataUris.trim().length === 0}
-                        onClick={handleStartEvaluateButtonClick}
-                        className={"generalButton"}
-                        variant={"contained"}
-                        size={"large"}>
-                        Evaluate</Button>
-                </div>
-
-                <div className={"evaluateMetadata"}>
-                    <div className={"progressIndicator"}>
-                        {evaluating && <CircularProgress/>}
+                <div style={{width: "100%", textAlign: "center", margin: "3vh auto"}}>
+                    <div id={"evaluateButton"} hidden={evaluating}>
+                        <Button
+                            disabled={metadataUris.trim().length === 0}
+                            onClick={handleStartEvaluateButtonClick}
+                            className={"generalButton"}
+                            variant={"contained"}
+                            size={"large"}>
+                            Evaluate</Button>
+                    </div>
+                    <div className={"evaluateMetadata"}>
+                        <div className={"progressIndicator"}>
+                            {evaluating && <CircularProgress/>}
+                        </div>
                     </div>
                 </div>
             </div>

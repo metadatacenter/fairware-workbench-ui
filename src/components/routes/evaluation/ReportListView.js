@@ -10,14 +10,14 @@ import IssueItem from "./tableRow/IssueItem";
 export default function ReportListView({metadataIndex, metadataRecord, evaluationReport}) {
 
     return (
-        <TableContainer className="table">
+        <TableContainer className="table" style={{marginBottom: "2vh"}}>
             <Table size="small">
                 <TableHead>
                     <TableRow>
-                        <TableCell style={{fontSize: 18}} align="center">FIELD NAME</TableCell>
-                        <TableCell style={{fontSize: 18}} align="center">FIELD VALUE</TableCell>
-                        <TableCell style={{fontSize: 18}} align="center">ISSUE</TableCell>
-                        <TableCell style={{fontSize: 18}} align="center">SUGGESTED REPAIR</TableCell>
+                        <TableCell className="header">FIELD NAME</TableCell>
+                        <TableCell className="header">FIELD VALUE</TableCell>
+                        <TableCell className="header">ISSUE</TableCell>
+                        <TableCell className="header">SUGGESTED REPAIR</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>

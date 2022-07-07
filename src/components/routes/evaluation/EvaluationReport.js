@@ -13,6 +13,7 @@ import ReportListView from "./ReportListView";
 import ReportMetadataView from "./ReportMetadataView";
 import SimpleHeader from "../../common/SimpleHeader";
 import AppFooter from "../../common/AppFooter";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export default function EvaluationReport() {
 
@@ -76,6 +77,14 @@ export default function EvaluationReport() {
                     <span style={{color: "#1e5aab", fontWeight: "bold"}}>Repair Metadata</span>
                 </div>
             </div>
+            <div style={{width: "100%", paddingTop: "0.5vh", paddingLeft: "40px", marginBottom: "-3vh"}}>
+                <Button onClick={handleBackButton}
+                        className={"generalButton"}
+                        size={"large"}
+                        startIcon={<ArrowBackIcon/>}>
+                    Go Back
+                </Button>
+            </div>
             <div id="appContent">
                 <h1 className="pageTitle">Metadata Evaluation Report</h1>
                 <h2 className={"subTitle"}>Found <b>{issueCount}</b> issues</h2>
@@ -112,14 +121,6 @@ export default function EvaluationReport() {
                 {tabValue === 1 && <ReportMetadataView metadataIndex={metadataIndex}
                                                        metadataRecord={metadataRecord}
                                                        evaluationReport={evaluationReport}/>}
-                <div style={{textAlign: "center"}}>
-                    <Button
-                        onClick={handleBackButton}
-                        className={"generalButton"}
-                        variant={"contained"}
-                        size={"large"}>
-                        Go Back</Button>
-                </div>
             </div>
             <AppFooter/>
         </>

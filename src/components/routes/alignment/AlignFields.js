@@ -19,6 +19,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import SimpleHeader from "../../common/SimpleHeader";
 import AppFooter from "../../common/AppFooter";
 import {evaluateMetadata} from "../../../services/fairwareServices";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 export default function AlignFields() {
 
@@ -38,7 +39,7 @@ export default function AlignFields() {
         navigate(-1);
     }
 
-    async function handleContinueButton() {
+    async function handleViewReportButton() {
         setEvaluationInProgress(true);
         const metadataId = metadataArtifact.metadataId;
         const templateId = metadataSpecification.templateId;
@@ -118,10 +119,19 @@ export default function AlignFields() {
                     <span style={{color: "#aaaaaa", fontWeight: ""}}>Repair Metadata</span>
                 </div>
             </div>
+            <div style={{width: "100%", paddingTop: "0.5vh", paddingLeft: "40px", marginBottom: "-3vh"}}>
+                <Button onClick={handleBackButton}
+                        className={"generalButton"}
+                        size={"large"}
+                        startIcon={<ArrowBackIcon/>}>
+                    Go Back
+                </Button>
+            </div>
             <div id="appContent">
                 <h1 className="pageTitle">Align Fields</h1>
                 <h2 className={"subTitle"}>
-                    Template: <a href={metadataSpecification.templateUrl} target="_blank">{metadataSpecification.templateName}</a>
+                    Template: <a href={metadataSpecification.templateUrl}
+                                 target="_blank">{metadataSpecification.templateName}</a>
                 </h2>
                 <div className={"alignmentResults"}>
                     <TableContainer className={"table"} style={{width: "50%"}}>
@@ -166,20 +176,14 @@ export default function AlignFields() {
                     </TableContainer>
                 </div>
             </div>
-            <div style={{textAlign: "center", marginBottom: "5vh"}}>
+            <div style={{width: "100%", textAlign: "center", margin: "3vh auto"}}>
                 <div hidden={evaluating}>
-                    <Button
-                        onClick={handleBackButton}
-                        className={"generalButton"}
-                        variant={"contained"}
-                        size={"large"}>
-                        Go Back</Button>
-                    <Button
-                        onClick={handleContinueButton}
-                        className={"generalButton"}
-                        variant={"contained"}
-                        size={"large"}>
-                        Continue</Button>
+                    <Button onClick={handleViewReportButton}
+                            className={"generalButton"}
+                            variant={"contained"}
+                            size={"large"}>
+                        View Report
+                    </Button>
                 </div>
                 <div className={"evaluateMetadata"}>
                     <div className={"progressIndicator"}>

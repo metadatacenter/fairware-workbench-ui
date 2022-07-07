@@ -12,6 +12,7 @@ import PublicIcon from '@mui/icons-material/Public';
 import LooksOneIcon from '@mui/icons-material/LooksOne';
 import LooksTwoIcon from '@mui/icons-material/LooksTwo';
 import Looks3Icon from '@mui/icons-material/Looks3';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SvgIcon from "@mui/material/SvgIcon";
 import SimpleHeader from "../../common/SimpleHeader";
 import AppFooter from "../../common/AppFooter";
@@ -86,6 +87,14 @@ export default function SelectTemplate() {
                     <span style={{color: "#aaaaaa", fontWeight: ""}}>Repair Metadata</span>
                 </div>
             </div>
+            <div style={{width: "100%", paddingTop: "0.5vh", paddingLeft: "40px", marginBottom: "-3vh"}}>
+                <Button onClick={handleBackButton}
+                        className={"generalButton"}
+                        size={"large"}
+                        startIcon={<ArrowBackIcon/>}>
+                    Go Back
+                </Button>
+            </div>
             <div id="appContent">
                 <h1 className="pageTitle">Select a Metadata Template</h1>
                 <h2 className="subTitle">We will use the selected CEDAR template to evaluate the metadata.</h2>
@@ -143,19 +152,13 @@ export default function SelectTemplate() {
                     </TableContainer>
                 </div>
             </div>
-            <div style={{textAlign: "center", marginBottom: "5vh"}}>
-                <Button
-                    onClick={handleBackButton}
-                    className={"generalButton"}
-                    variant={"contained"}
-                    size={"large"}>
-                    Go Back</Button>
-                <Button
-                    onClick={handleContinueButton}
-                    className={"generalButton"}
-                    variant={"contained"}
-                    size={"large"}>
-                    Continue</Button>
+            <div style={{width: "100%", textAlign: "center", margin: "3vh auto"}}>
+                <Button onClick={handleContinueButton}
+                        className={"generalButton"}
+                        variant={"contained"}
+                        size={"large"}>
+                    Continue
+                </Button>
             </div>
             <AppFooter/>
         </>

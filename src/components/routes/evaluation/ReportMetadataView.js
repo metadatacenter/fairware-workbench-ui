@@ -11,14 +11,13 @@ import FieldValueIssueItem from "./tableRow/FieldValueIssueItem";
 export default function ReportMetadataView({metadataIndex, metadataRecord, evaluationReport}) {
 
     return (
-
-        <TableContainer className={"table"}>
+        <TableContainer className={"table"} style={{marginBottom: "5vh"}}>
             <Table size="small">
                 <TableHead>
                     <TableRow>
-                        <TableCell style={{fontSize: 18}} align="center" width="25%">METADATA</TableCell>
-                        <TableCell style={{fontSize: 18}} align="center" width="25%">ISSUE</TableCell>
-                        <TableCell style={{fontSize: 18}} align="center" width="30%">SUGGESTED REPAIR</TableCell>
+                        <TableCell className="header" width="25%">METADATA</TableCell>
+                        <TableCell className="header" width="25%">ISSUE</TableCell>
+                        <TableCell className="header" width="30%">SUGGESTED REPAIR</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
