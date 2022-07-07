@@ -1,9 +1,9 @@
 import {
-    FAIRWARE_TEMPLATE_RECOMMEND_URL,
+    FAIRWARE_METADATA_ALIGN_URL,
     FAIRWARE_METADATA_EVALUATE_URL,
     FAIRWARE_METADATA_SEARCH_URL,
     FAIRWARE_METADATA_SUMMARY_REPORT_URL,
-    FAIRWARE_METADATA_ALIGN_URL
+    FAIRWARE_TEMPLATE_RECOMMEND_URL
 } from "../constants";
 
 const delay = (ms = 125) => new Promise(r => setTimeout(r, ms));
@@ -26,28 +26,6 @@ export function searchMetadataByDois(uris) {
         }
         return Promise.reject(response);
     });
-};
-
-// TODO: Remove this
-export function evaluateMetadata(metadataRecords) {
-    let url = FAIRWARE_METADATA_EVALUATE_URL;
-    let requestOptions = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    };
-    let requests = [];
-    metadataRecords.forEach(function (record) {
-        requestOptions.body = JSON.stringify({
-            metadataRecordId: record.uri,
-            templateId: record.schemaId
-        });
-        requests.push(
-            fetch(url, requestOptions)
-                .then(response => response.json()));
-    });
-    return Promise.all(requests);
 };
 
 export async function recommendMetadataTemplate(metadataRecordId) {
@@ -116,6 +94,30 @@ export async function searchMetadataInBatch(metadataRecordIds) {
     return results;
 }
 
+export async function evaluateMetadata(metadataId, templateId, fieldAlignments) {
+    let url = FAIRWARE_METADATA_EVALUATE_URL;
+    let requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body:
+            JSON.stringify({
+                metadataId: metadataId,
+                templateId: templateId,
+                fieldAlignments: fieldAlignments
+            })
+    };
+    return await fetch(url, requestOptions)
+        .then(response => {
+            let result = {};
+            if (response.ok) {
+                result = response.json();
+            }
+            return result;
+        });
+}
+
 export async function evaluateMetadataInBatch(metadataRecordIds, cedarTemplateId) {
     let url = FAIRWARE_METADATA_EVALUATE_URL;
     let requestOptions = {
@@ -178,17 +180,3 @@ function projectMetadataAndTemplateId(searchResults) {
     }
     return projectionResults;
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
