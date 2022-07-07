@@ -26,8 +26,9 @@ export default function SelectTemplate() {
     const metadataId = metadataArtifact.metadataId;
 
     const recommendationReport = state.recommendationReport;
+    const topTemplate = recommendationReport.recommendations[0].resourceExtract['@id'];
 
-    const [selectedTemplate, setSelectedTemplate] = useState();
+    const [selectedTemplate, setSelectedTemplate] = useState(topTemplate);
 
     function handleSelectionChanged(event) {
         setSelectedTemplate(event.target.value);
