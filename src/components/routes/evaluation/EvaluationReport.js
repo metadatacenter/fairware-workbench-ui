@@ -17,18 +17,17 @@ export default function EvaluationReport() {
     const state = location.state;
 
     const metadataIndex = state.metadataIndex;
-    const metadataEvaluationResult = state.metadataEvaluationResult;
 
-    const metadataArtifact = metadataEvaluationResult.metadataArtifact;
+    const metadataArtifact = state.metadataArtifact;
     const metadataId = metadataArtifact.metadataId;
     const metadataRecord = metadataArtifact.metadataRecord;
 
-    const metadataSpecification = metadataEvaluationResult.metadataSpecification;
+    const metadataSpecification = state.metadataSpecification;
     const templateName = metadataSpecification.templateName;
     const templateUrl = metadataSpecification.templateUrl;
 
-    const alignmentReport = metadataEvaluationResult.alignmentReport;
-    const evaluationReport = metadataEvaluationResult.evaluationReport;
+    const alignmentReport = state.alignmentReport;
+    const evaluationReport = state.evaluationReport;
 
     const issueCount = evaluationReport.evaluationReportItems.length;
 
@@ -76,12 +75,12 @@ export default function EvaluationReport() {
                         <Tab label="Metadata View"/>
                     </Tabs>
                 </Paper>
-                {tabValue === 0 && <ReportListView metadataRecord={metadataRecord}
-                                                   metadataIndex={metadataIndex}
-                                                   metadataEvaluationResult={metadataEvaluationResult}/>}
-                {tabValue === 1 && <ReportMetadataView metadataRecord={metadataRecord}
-                                                       metadataIndex={metadataIndex}
-                                                       metadataEvaluationResult={metadataEvaluationResult}/>}
+                {tabValue === 0 && <ReportListView metadataIndex={metadataIndex}
+                                                   metadataRecord={metadataRecord}
+                                                   evaluationReport={evaluationReport}/>}
+                {tabValue === 1 && <ReportMetadataView metadataIndex={metadataIndex}
+                                                       metadataRecord={metadataRecord}
+                                                       evaluationReport={evaluationReport}/>}
                 <div style={{textAlign: "center"}}>
                     <Button
                         onClick={handleBackButton}

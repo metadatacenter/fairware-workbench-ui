@@ -8,16 +8,16 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell/TableCell";
 
-export default function FieldValueIssueItem({fieldValue, evaluationReport}) {
+export default function FieldValueIssueItem({fieldValue, evaluationReportItem}) {
 
     let chipColor = "primary";
     let issueTypeChipComponent;
     let suggestedRepairFieldComponent;
-    if (!_.isEmpty(evaluationReport)) {
+    if (!_.isEmpty(evaluationReportItem)) {
         chipColor = "error";
 
-        const issueType = evaluationReport.metadataIssue.issueType;
-        const issueLevel = evaluationReport.metadataIssue.issueLevel;
+        const issueType = evaluationReportItem.metadataIssue.issueType;
+        const issueLevel = evaluationReportItem.metadataIssue.issueLevel;
         if (issueLevel === "ERROR") {
             issueTypeChipComponent = <Chip icon={<ErrorIcon/>} label={issueType} color="error"/>
         } else if (issueLevel === "WARNING") {
@@ -26,9 +26,9 @@ export default function FieldValueIssueItem({fieldValue, evaluationReport}) {
             issueTypeChipComponent = <Chip label={issueType}/>
         }
 
-        const patches = evaluationReport.patches;
+        const patches = evaluationReportItem.patches;
         const suggestedValue = patches[0].value;
-        const valueSuggestions = evaluationReport.repairAction.valueSuggestions;
+        const valueSuggestions = evaluationReportItem.repairAction.valueSuggestions;
         if (valueSuggestions.length === 1) {
             suggestedRepairFieldComponent = (
                 <TextField style={{backgroundColor: "#ffffff"}}

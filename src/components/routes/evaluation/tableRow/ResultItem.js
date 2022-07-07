@@ -80,7 +80,10 @@ export default function ResultItem({metadataIndex, metadataEvaluationResult}) {
             {
                 state: {
                     metadataIndex: metadataIndex,
-                    metadataEvaluationResult: metadataEvaluationResult
+                    metadataArtifact: metadataEvaluationResult.metadataArtifact,
+                    metadataSpecification: metadataEvaluationResult.metadataSpecification,
+                    alignmentReport: metadataEvaluationResult.alignmentReport,
+                    evaluationReport: metadataEvaluationResult.evaluationReport
                 }
             });
     }
@@ -92,7 +95,10 @@ export default function ResultItem({metadataIndex, metadataEvaluationResult}) {
             {
                 state: {
                     metadataIndex: metadataIndex,
-                    metadataEvaluationResult: metadataEvaluationResult,
+                    metadataArtifact: metadataEvaluationResult.metadataArtifact,
+                    metadataSpecification: metadataEvaluationResult.metadataSpecification,
+                    alignmentReport: metadataEvaluationResult.alignmentReport,
+                    evaluationReport: metadataEvaluationResult.evaluationReport,
                     recommendationReport: response
                 }
             })

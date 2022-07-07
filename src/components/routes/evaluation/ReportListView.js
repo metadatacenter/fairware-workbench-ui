@@ -7,7 +7,7 @@ import TableCell from "@mui/material/TableCell/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import IssueItem from "./tableRow/IssueItem";
 
-export default function ReportListView({metadataRecord, metadataIndex, metadataEvaluationResult}) {
+export default function ReportListView({metadataIndex, metadataRecord, evaluationReport}) {
 
     return (
         <TableContainer className="table">
@@ -21,12 +21,12 @@ export default function ReportListView({metadataRecord, metadataIndex, metadataE
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {metadataEvaluationResult.evaluationReport.evaluationReportItems
+                    {evaluationReport.evaluationReportItems
                         .filter((reportItem) => reportItem.metadataIssue.issueLevel === 'ERROR')
                         .map((reportItem, index) => {
                             return <IssueItem issueIndex={index}
-                                              metadataRecord={metadataRecord}
                                               metadataIndex={metadataIndex}
+                                              metadataRecord={metadataRecord}
                                               evaluationReport={reportItem}/>
                         })
                     }

@@ -8,7 +8,7 @@ import TableCell from "@mui/material/TableCell/TableCell";
 import FieldNameIssueItem from "./tableRow/FieldNameIssueItem";
 import FieldValueIssueItem from "./tableRow/FieldValueIssueItem";
 
-export default function ReportMetadataView({metadataRecord, metadataEvaluationResult}) {
+export default function ReportMetadataView({metadataIndex, metadataRecord, evaluationReport}) {
 
     return (
 
@@ -24,18 +24,18 @@ export default function ReportMetadataView({metadataRecord, metadataEvaluationRe
                 <TableBody>
                     {Object.keys(metadataRecord).map((fieldName) => {
                         const fieldValue = metadataRecord[fieldName];
-                        const fieldNameEvaluationReport = metadataEvaluationResult.evaluationReport.evaluationReportItems
+                        const fieldNameEvaluationReport = evaluationReport.evaluationReportItems
                             .find((reportItem) => reportItem.metadataIssue.issueLocation === fieldName
                                 && reportItem.metadataIssue.issueCategory === "FIELD_ERROR");
-                        const fieldValueEvaluationReport = metadataEvaluationResult.evaluationReport.evaluationReportItems
+                        const fieldValueEvaluationReport = evaluationReport.evaluationReportItems
                             .find((reportItem) => reportItem.metadataIssue.issueLocation === fieldName
                                 && reportItem.metadataIssue.issueCategory === "VALUE_ERROR");
                         return (
                             <>
                                 <FieldNameIssueItem fieldName={fieldName}
-                                                    evaluationReport={fieldNameEvaluationReport}/>
+                                                    evaluationReportItem={fieldNameEvaluationReport}/>
                                 <FieldValueIssueItem fieldValue={fieldValue}
-                                                     evaluationReport={fieldValueEvaluationReport}/>
+                                                     evaluationReportItem={fieldValueEvaluationReport}/>
                             </>
                         )
                     })}

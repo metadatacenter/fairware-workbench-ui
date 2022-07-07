@@ -21,8 +21,7 @@ export default function SelectTemplate() {
 
     const metadataIndex = state.metadataIndex;
 
-    const metadataEvaluationResult = state.metadataEvaluationResult;
-    const metadataArtifact = metadataEvaluationResult.metadataArtifact;
+    const metadataArtifact = state.metadataArtifact;
     const metadataId = metadataArtifact.metadataId;
 
     const recommendationReport = state.recommendationReport;

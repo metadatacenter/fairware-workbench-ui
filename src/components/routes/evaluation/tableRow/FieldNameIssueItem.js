@@ -2,7 +2,7 @@ import React from "react";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell/TableCell";
 
-export default function FieldNameIssueItem({fieldName, evaluationReport}) {
+export default function FieldNameIssueItem({fieldName, evaluationReportItem}) {
 
     return (
         <TableRow>
