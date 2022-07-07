@@ -49,13 +49,9 @@ export default function AlignFields() {
                         <Table size="small">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell style={{fontSize: 18}} align="center" width="46%">
-                                        METADATA FIELD
-                                    </TableCell>
-                                    <TableCell style={{fontSize: 18}} align="center" width="8%"></TableCell>
-                                    <TableCell style={{fontSize: 18}} align="center" width="46%">
-                                        TEMPLATE FIELD
-                                    </TableCell>
+                                    <TableCell className={"header"} width="46%">METADATA FIELD</TableCell>
+                                    <TableCell className={"header"} width="8%"></TableCell>
+                                    <TableCell className={"header"} width="46%">TEMPLATE FIELD</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -65,14 +61,14 @@ export default function AlignFields() {
                                         .filter((alignment) => alignment.metadataFieldPath === metadataField)
                                     const defaultValue = foundValue.length != 0 ? foundValue[0].templateFieldPath : "";
                                     return (<TableRow key={`field-alignment-${index}`}>
-                                            <TableCell style={{fontSize: 16, backgroundColor: rowColor}}>
+                                            <TableCell className={"cell"} style={{backgroundColor: rowColor}}>
                                                 {metadataField}
                                             </TableCell>
-                                            <TableCell style={{backgroundColor: rowColor}}>
+                                            <TableCell className={"cell"}  style={{backgroundColor: rowColor}}>
                                                 <SvgIcon component={ArrowForwardIcon}
                                                          inheritViewBox/>
                                             </TableCell>
-                                            <TableCell style={{backgroundColor: rowColor}}>
+                                            <TableCell className={"cell"} style={{backgroundColor: rowColor}}>
                                                 <Autocomplete disablePortal
                                                               options={templateFields}
                                                               defaultValue={defaultValue}

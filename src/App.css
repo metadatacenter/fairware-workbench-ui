@@ -193,7 +193,22 @@ pre {
 }
 
 .table {
-  margin: 3vh auto;
+  margin: 5vh auto;
+  border-top: 2px solid #aaaaaa;
+}
+
+.header {
+  font-size: 13pt;
+  padding: 20px 0 20px 0;
+  text-align: center;
+}
+
+.cell {
+  font-size: 12pt;
+}
+
+.center {
+  text-align: center;
 }
 
 .wrapIcon {

@@ -62,17 +62,12 @@ export default function SelectTemplate() {
                         <Table size="small">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell style={{fontSize: 18}} align="center" width="1%"></TableCell>
-                                    <TableCell style={{fontSize: 18}} align="center" width="30%">TEMPLATE
-                                        NAME</TableCell>
-                                    <TableCell style={{fontSize: 18}} align="center" width="30%">TEMPLATE
-                                        DESCRIPTION</TableCell>
-                                    <TableCell style={{fontSize: 18}} align="center" width="10%">TEMPLATE
-                                        VERSION</TableCell>
-                                    <TableCell style={{fontSize: 18}} align="center" width="10%">RECOMMENDATION
-                                        SCORE</TableCell>
-                                    <TableCell style={{fontSize: 18}} align="center" width="19%">MATCHED
-                                        FIELDS</TableCell>
+                                    <TableCell className={"header"} width="1%"></TableCell>
+                                    <TableCell className={"header"} width="30%">TEMPLATE NAME</TableCell>
+                                    <TableCell className={"header"} width="30%">TEMPLATE DESCRIPTION</TableCell>
+                                    <TableCell className={"header"} width="8%">TEMPLATE VERSION</TableCell>
+                                    <TableCell className={"header"} width="8%">RECOMMENDATION SCORE</TableCell>
+                                    <TableCell className={"header"} width="24%">MATCHED FIELDS</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -91,21 +86,21 @@ export default function SelectTemplate() {
                                         return (
                                             <TableRow key={`template-selection-${index}`}
                                                       sx={{'& > *': {borderBottom: 'unset'}}}>
-                                                <TableCell align="center">
+                                                <TableCell className={"cell center"}>
                                                     <Radio checked={selectedTemplate === templateId}
                                                            value={templateId}
                                                            onChange={handleSelectionChanged}
                                                            name="template-selection-radio"/>
                                                 </TableCell>
-                                                <TableCell style={{fontSize: 16}}>{templateName}</TableCell>
-                                                <TableCell style={{fontSize: 16}}>{templateDescription}</TableCell>
-                                                <TableCell style={{fontSize: 16}}
-                                                           align="center">{templateVersion}</TableCell>
-                                                <TableCell style={{fontSize: 16}}
-                                                           align="center">{(recommendationScore).toFixed(2)}</TableCell>
+                                                <TableCell className={"cell"}>{templateName}</TableCell>
+                                                <TableCell className={"cell"}>{templateDescription}</TableCell>
+                                                <TableCell className={"cell center"}>{templateVersion}</TableCell>
+                                                <TableCell className={"cell center"}>
+                                                    {(recommendationScore).toFixed(2)}
+                                                </TableCell>
                                                 <TableCell>
                                                     <ProgressBar completed={matchingRate.toFixed(0)}/>
-                                                    <span>{matchingFields} / {metadataFieldsCount} fields are matched</span>
+                                                    <span style={{fontSize: 14}}>{matchingFields} / {metadataFieldsCount} fields are matched</span>
                                                 </TableCell>
                                             </TableRow>
                                         )

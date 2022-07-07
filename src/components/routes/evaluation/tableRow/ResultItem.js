@@ -101,12 +101,12 @@ export default function ResultItem({metadataIndex, metadataEvaluationResult}) {
     return (
         <>
             <TableRow key={`metadata-${metadataIndex}`} sx={{'& > *': {borderBottom: 'unset'}}}>
-                <TableCell style={{fontSize: 16}} align="center">{metadataArtifact.metadataId}</TableCell>
-                <TableCell style={{fontSize: 16}} align="center">{templateNameComponent}</TableCell>
-                <TableCell style={{fontSize: 16}} align="center">{numberOfIssuesComponent}</TableCell>
-                <TableCell align="center"><SvgIcon component={VisibilityIcon} inheritViewBox/></TableCell>
-                <TableCell align="center"><SvgIcon component={DownloadIcon} inheritViewBox/></TableCell>
-                <TableCell align="center">{actionButtonComponent}</TableCell>
+                <TableCell className={"cell center"}>{metadataArtifact.metadataId}</TableCell>
+                <TableCell className={"cell center"}>{templateNameComponent}</TableCell>
+                <TableCell className={"cell center"}>{numberOfIssuesComponent}</TableCell>
+                <TableCell className={"cell center"}><SvgIcon component={VisibilityIcon} inheritViewBox/></TableCell>
+                <TableCell className={"cell center"}><SvgIcon component={DownloadIcon} inheritViewBox/></TableCell>
+                <TableCell className={"cell center"}>{actionButtonComponent}</TableCell>
             </TableRow>
         </>
     )

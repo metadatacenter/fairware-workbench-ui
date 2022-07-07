@@ -29,12 +29,12 @@ export default function EvaluationResultTable() {
                         <Table size="small">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell style={{fontSize: 18}} align="center" width="20%">METADATA REFERENCE</TableCell>
-                                    <TableCell style={{fontSize: 18}} align="center" width="20%">TEMPLATE NAME</TableCell>
-                                    <TableCell style={{fontSize: 18}} align="center" width="15%"># OF ISSUES</TableCell>
-                                    <TableCell style={{fontSize: 18}} align="center" width="15%">PREVIEW</TableCell>
-                                    <TableCell style={{fontSize: 18}} align="center" width="15%">DOWNLOAD</TableCell>
-                                    <TableCell style={{fontSize: 18}} align="center" width="15%"></TableCell>
+                                    <TableCell className={"header"} width="20%">METADATA REFERENCE</TableCell>
+                                    <TableCell className={"header"} width="20%">TEMPLATE NAME</TableCell>
+                                    <TableCell className={"header"} width="15%"># OF ISSUES</TableCell>
+                                    <TableCell className={"header"} width="15%">PREVIEW</TableCell>
+                                    <TableCell className={"header"} width="15%">DOWNLOAD</TableCell>
+                                    <TableCell className={"header"} width="15%"></TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
