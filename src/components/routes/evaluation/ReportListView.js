@@ -22,7 +22,6 @@ export default function ReportListView({metadataIndex, metadataRecord, evaluatio
                 </TableHead>
                 <TableBody>
                     {evaluationReport.evaluationReportItems
-                        .filter((reportItem) => reportItem.metadataIssue.issueLevel === 'ERROR')
                         .map((reportItem, index) => {
                             return <IssueItem issueIndex={index}
                                               metadataIndex={metadataIndex}

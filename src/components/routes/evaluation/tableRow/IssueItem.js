@@ -33,7 +33,7 @@ export default function IssueItem({issueIndex, metadataRecord, metadataIndex, ev
     if (issueCategory === "VALUE_ERROR") {
         suggestedValue = patches[0].value;
     } else if (issueCategory === "FIELD_ERROR") {
-        suggestedValue = patches[0].path;
+        suggestedValue = patches[0].path.slice(1);
     }
 
     // function handleValueChange(event) {
