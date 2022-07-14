@@ -74,7 +74,7 @@ export default function SelectTemplate() {
                                         const template = recommendation.resourceExtract;
                                         const templateId = template['@id'];
                                         const templateName = template['schema:name'];
-                                        const templateDescription = template['schema:description'] ? template['schema:description'] : "-";
+                                        const templateDescription = template['schema:description'] ? template['schema:description'] : "(no description)";
                                         const templateVersion = template['pav:version'];
                                         const recommendationScore = recommendation['recommendationScore'];
                                         const matchingFields = recommendation['sourceFieldsMatched'];
@@ -87,14 +87,12 @@ export default function SelectTemplate() {
                                                       sx={{'& > *': {borderBottom: 'unset'}}}>
                                                 <TableCell className={"cell"}>
                                                     <span>{templateName}</span><br/>
-                                                    <span style={{
-                                                        fontSize: "11pt",
-                                                        color: "#666666"
-                                                    }}><i>Version</i>: {templateVersion}</span><br/>
-                                                    <span style={{
-                                                        fontSize: "11pt",
-                                                        color: "#666666"
-                                                    }}><i>{templateDescription}</i></span>
+                                                    <span style={{fontSize: "11pt", color: "#666666"}}>
+                                                        <i>Version</i>: {templateVersion}
+                                                    </span><br/>
+                                                    <span style={{fontSize: "11pt", color: "#666666"}}>
+                                                        <i>{templateDescription}</i>
+                                                    </span>
                                                 </TableCell>
                                                 <TableCell className={"cell center"}>
                                                     {(recommendationScore).toFixed(2)}
