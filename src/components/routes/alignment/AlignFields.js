@@ -60,7 +60,7 @@ export default function AlignFields() {
         })
     }
 
-    async function handleViewEvaluationReportButton() {
+    async function handleContinueButtonClick() {
         setEvaluationInProgress(true);
         const metadataId = metadataArtifact.metadataId;
         const templateId = metadataSpecification.templateId;
@@ -136,11 +136,11 @@ export default function AlignFields() {
             </div>
             <div style={{width: "100%", textAlign: "center", margin: "3vh auto"}}>
                 <div hidden={evaluating}>
-                    <Button onClick={handleViewEvaluationReportButton}
+                    <Button onClick={handleContinueButtonClick}
                             className={"generalButton"}
                             variant={"contained"}
                             size={"large"}>
-                        View Evaluation Report
+                        Continue
                     </Button>
                 </div>
                 <div className={"evaluateMetadata"}>
