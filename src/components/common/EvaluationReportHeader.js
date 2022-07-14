@@ -75,7 +75,7 @@ export default function EvaluationReportHeader(props) {
                                 className={"generalButton"}
                                 size={"large"}
                                 startIcon={<ArrowBackIcon/>}>
-                            Back to Template Selection
+                            Back to Field Alignment
                         </Button>
                     </div>
                     <div style={{
