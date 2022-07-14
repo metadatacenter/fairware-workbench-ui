@@ -9,6 +9,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import DownloadIcon from '@mui/icons-material/Download';
 import FileDownloadOffIcon from '@mui/icons-material/FileDownloadOff';
+import WarningIcon from "@mui/icons-material/Warning";
 import {recommendMetadataTemplate} from "../../../../services/fairwareServices";
 
 export default function ResultItem(props) {
@@ -105,7 +106,9 @@ export default function ResultItem(props) {
                     onClick={handleSelectTemplateButtonClick}
                     className={"generalButton"}
                     variant={"contained"}
-                    size={"large"}>
+                    size={"large"}
+                    color={"warning"}
+                    startIcon={<WarningIcon/>}>
                     Select Template</Button>
             );
         }
