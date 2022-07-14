@@ -6,18 +6,11 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell/TableCell";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
-import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
-import PublicIcon from '@mui/icons-material/Public';
-import LooksOneIcon from '@mui/icons-material/LooksOne';
-import LooksTwoIcon from '@mui/icons-material/LooksTwo';
-import Looks3Icon from '@mui/icons-material/Looks3';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import SvgIcon from "@mui/material/SvgIcon";
-import SimpleHeader from "../../common/SimpleHeader";
-import AppFooter from "../../common/AppFooter";
 import ProgressBar from "./ProgressBar";
+import SelectTemplateHeader from "../../common/SelectTemplateHeader";
+import AppFooter from "../../common/AppFooter";
 import {alignMetadataFields} from "../../../services/fairwareServices";
 import {handleEvaluationResults} from "../../../util/evaluationUtil";
 
@@ -35,15 +28,6 @@ export default function SelectTemplate() {
     const metadataId = metadataArtifact.metadataId;
 
     const recommendationReport = evaluationResult.recommendationReport;
-
-    function handleBackButton() {
-        navigate("/EvaluationResult", {
-            state: {
-                metadataIndex: metadataIndex,
-                evaluationResults: evaluationResults
-            }
-        });
-    }
 
     async function handleContinueButton(event, selectedTemplate) {
         const response = await alignMetadataFields(metadataId, selectedTemplate);
@@ -67,43 +51,7 @@ export default function SelectTemplate() {
 
     return (
         <>
-            <SimpleHeader/>
-            <div id="appSubHeader">
-                <div style={{
-                    width: "25%",
-                    float: "left",
-                    paddingLeft: "100px",
-                    display: "flex",
-                    alignItems: "center",
-                    flexWrap: "wrap"
-                }}>
-                    <SvgIcon component={PublicIcon} inheritViewBox/>&nbsp;&nbsp;
-                    <span>{metadataArtifact.metadataId}</span>
-                </div>
-                <div style={{
-                    width: "70%",
-                    float: "left",
-                    paddingLeft: "200px",
-                    display: "flex",
-                    alignItems: "center",
-                    flexWrap: "wrap"
-                }}>
-                    <SvgIcon style={{color: "#1e5aab"}} component={LooksOneIcon} inheritViewBox/>&nbsp;&nbsp;
-                    <span style={{color: "#1e5aab", fontWeight: "bold"}}>Select Template</span>&nbsp;&nbsp;━&nbsp;&nbsp;
-                    <SvgIcon style={{color: "#aaaaaa"}} component={LooksTwoIcon} inheritViewBox/>&nbsp;&nbsp;
-                    <span style={{color: "#aaaaaa", fontWeight: ""}}>Align Fields</span>&nbsp;&nbsp;━&nbsp;&nbsp;
-                    <SvgIcon style={{color: "#aaaaaa"}} component={Looks3Icon} inheritViewBox/>&nbsp;&nbsp;
-                    <span style={{color: "#aaaaaa", fontWeight: ""}}>Repair Metadata</span>
-                </div>
-            </div>
-            <div style={{width: "100%", paddingTop: "0.5vh", paddingLeft: "40px", marginBottom: "-3vh"}}>
-                <Button onClick={handleBackButton}
-                        className={"generalButton"}
-                        size={"large"}
-                        startIcon={<ArrowBackIcon/>}>
-                    Back to Evaluation Result
-                </Button>
-            </div>
+            <SelectTemplateHeader metadataIndex={metadataIndex} evaluationResults={evaluationResults}/>
             <div id="appContent">
                 <h1 className="pageTitle">Select a Metadata Template</h1>
                 <h2 className="subTitle">Use the arrow icon to select the CEDAR template for evaluating the

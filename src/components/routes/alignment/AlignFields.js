@@ -17,10 +17,10 @@ import TableHead from "@mui/material/TableHead";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import CircularProgress from "@mui/material/CircularProgress";
-import SimpleHeader from "../../common/SimpleHeader";
 import AppFooter from "../../common/AppFooter";
 import {evaluateMetadata} from "../../../services/fairwareServices";
 import {getEvaluationReportWithPatches, handleEvaluationResults} from "../../../util/evaluationUtil";
+import AlignFieldsHeader from "../../common/AlignFieldsHeader";
 
 export default function AlignFields() {
 
@@ -60,15 +60,6 @@ export default function AlignFields() {
         })
     }
 
-    function handleBackButton() {
-        navigate("/SelectTemplate", {
-            state: {
-                metadataIndex: metadataIndex,
-                evaluationResults: evaluationResults
-            }
-        });
-    }
-
     async function handleViewEvaluationReportButton() {
         setEvaluationInProgress(true);
         const metadataId = metadataArtifact.metadataId;
@@ -92,43 +83,7 @@ export default function AlignFields() {
 
     return (
         <>
-            <SimpleHeader/>
-            <div id="appSubHeader">
-                <div style={{
-                    width: "25%",
-                    float: "left",
-                    paddingLeft: "100px",
-                    display: "flex",
-                    alignItems: "center",
-                    flexWrap: "wrap"
-                }}>
-                    <SvgIcon component={PublicIcon} inheritViewBox/>&nbsp;&nbsp;
-                    <span>{metadataArtifact.metadataId}</span>
-                </div>
-                <div style={{
-                    width: "70%",
-                    float: "left",
-                    paddingLeft: "200px",
-                    display: "flex",
-                    alignItems: "center",
-                    flexWrap: "wrap"
-                }}>
-                    <SvgIcon style={{color: "#1e5aab"}} component={LooksOneIcon} inheritViewBox/>&nbsp;&nbsp;
-                    <span style={{color: "#1e5aab", fontWeight: "bold"}}>Select Template</span>&nbsp;&nbsp;━&nbsp;&nbsp;
-                    <SvgIcon style={{color: "#1e5aab"}} component={LooksTwoIcon} inheritViewBox/>&nbsp;&nbsp;
-                    <span style={{color: "#1e5aab", fontWeight: "bold"}}>Align Fields</span>&nbsp;&nbsp;━&nbsp;&nbsp;
-                    <SvgIcon style={{color: "#aaaaaa"}} component={Looks3Icon} inheritViewBox/>&nbsp;&nbsp;
-                    <span style={{color: "#aaaaaa", fontWeight: ""}}>Repair Metadata</span>
-                </div>
-            </div>
-            <div style={{width: "100%", paddingTop: "0.5vh", paddingLeft: "40px", marginBottom: "-3vh"}}>
-                <Button onClick={handleBackButton}
-                        className={"generalButton"}
-                        size={"large"}
-                        startIcon={<ArrowBackIcon/>}>
-                    Back to Template Selection
-                </Button>
-            </div>
+            <AlignFieldsHeader metadataIndex={metadataIndex} evaluationResults={evaluationResults}/>
             <div id="appContent">
                 <h1 className="pageTitle">Align Fields</h1>
                 <h2 className={"subTitle"}>

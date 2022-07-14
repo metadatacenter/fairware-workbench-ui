@@ -3,17 +3,16 @@ import {Link, useNavigate} from 'react-router-dom';
 import AppBar from "@mui/material/AppBar/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Button from "@mui/material/Button";
-import ListIcon from '@mui/icons-material/List';
 import Stack from "@mui/material/Stack";
 import logo from '../../../src/FAIRwareLogo.svg';
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SvgIcon from "@mui/material/SvgIcon";
 import LooksOneIcon from "@mui/icons-material/LooksOne";
 import LooksTwoIcon from "@mui/icons-material/LooksTwo";
 import Looks3Icon from "@mui/icons-material/Looks3";
 import PublicIcon from "@mui/icons-material/Public";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
-export default function EvaluationReportHeader(props) {
+export default function SelectTemplateHeader(props) {
 
     const navigate = useNavigate();
 
@@ -22,17 +21,9 @@ export default function EvaluationReportHeader(props) {
     const evaluationResult = evaluationResults[metadataIndex];
 
     function handleBackButton() {
-        navigate("/AlignFields", {
-            state: {
-                metadataIndex: metadataIndex,
-                evaluationResults: evaluationResults
-            }
-        });
-    }
-
-    function handleEvaluationResultsListClick(event) {
         navigate("/EvaluationResult", {
             state: {
+                metadataIndex: metadataIndex,
                 evaluationResults: evaluationResults
             }
         });
@@ -53,13 +44,6 @@ export default function EvaluationReportHeader(props) {
                 </Toolbar>
                 <Toolbar id={"secondaryToolBar"} variant={"dense"}>
                     <Stack id={"headerButtonsContainer"} direction="row" spacing={4}>
-                        {evaluationResults.length > 0 &&
-                            <Button onClick={handleEvaluationResultsListClick}
-                                    to="/EvaluationResult"
-                                    startIcon={<ListIcon/>}
-                                    variant={"contained"}
-                                    size={"medium"}
-                                    disableElevation>Evaluation Results List</Button>}
                     </Stack>
                 </Toolbar>
                 <div id="appSubHeader">
@@ -75,7 +59,7 @@ export default function EvaluationReportHeader(props) {
                                 className={"generalButton"}
                                 size={"large"}
                                 startIcon={<ArrowBackIcon/>}>
-                            Back to Template Selection
+                            Back to Evaluation Result
                         </Button>
                     </div>
                     <div style={{
@@ -91,11 +75,10 @@ export default function EvaluationReportHeader(props) {
                             color: "#1e5aab",
                             fontWeight: "bold"
                         }}>Select Template</span>&nbsp;&nbsp;━&nbsp;&nbsp;
-                        <SvgIcon style={{color: "#1e5aab"}} component={LooksTwoIcon} inheritViewBox/>&nbsp;&nbsp;
-                        <span
-                            style={{color: "#1e5aab", fontWeight: "bold"}}>Align Fields</span>&nbsp;&nbsp;━&nbsp;&nbsp;
-                        <SvgIcon style={{color: "#1e5aab"}} component={Looks3Icon} inheritViewBox/>&nbsp;&nbsp;
-                        <span style={{color: "#1e5aab", fontWeight: "bold"}}>Repair Metadata</span>
+                        <SvgIcon style={{color: "#aaaaaa"}} component={LooksTwoIcon} inheritViewBox/>&nbsp;&nbsp;
+                        <span style={{color: "#aaaaaa", fontWeight: ""}}>Align Fields</span>&nbsp;&nbsp;━&nbsp;&nbsp;
+                        <SvgIcon style={{color: "#aaaaaa"}} component={Looks3Icon} inheritViewBox/>&nbsp;&nbsp;
+                        <span style={{color: "#aaaaaa", fontWeight: ""}}>Repair Metadata</span>
                     </div>
                     <div style={{
                         width: "20%",

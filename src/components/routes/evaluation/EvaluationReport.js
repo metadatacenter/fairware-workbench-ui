@@ -38,58 +38,13 @@ export default function EvaluationReport() {
 
     const [tabValue, setTabValue] = useState(0);
 
-    function handleBackButton() {
-        navigate("/AlignFields", {
-            state: {
-                metadataIndex: metadataIndex,
-                evaluationResults: evaluationResults
-            }
-        });
-    }
-
     function handleTabChange(event, value) {
         setTabValue(value);
     }
 
     return (
         <>
-            <EvaluationReportHeader/>
-            <div id="appSubHeader">
-                <div style={{
-                    width: "25%",
-                    float: "left",
-                    paddingLeft: "100px",
-                    display: "flex",
-                    alignItems: "center",
-                    flexWrap: "wrap"
-                }}>
-                    <SvgIcon component={PublicIcon} inheritViewBox/>&nbsp;&nbsp;
-                    <span>{metadataArtifact.metadataId}</span>
-                </div>
-                <div style={{
-                    width: "70%",
-                    float: "left",
-                    paddingLeft: "200px",
-                    display: "flex",
-                    alignItems: "center",
-                    flexWrap: "wrap"
-                }}>
-                    <SvgIcon style={{color: "#1e5aab"}} component={LooksOneIcon} inheritViewBox/>&nbsp;&nbsp;
-                    <span style={{color: "#1e5aab", fontWeight: "bold"}}>Select Template</span>&nbsp;&nbsp;━&nbsp;&nbsp;
-                    <SvgIcon style={{color: "#1e5aab"}} component={LooksTwoIcon} inheritViewBox/>&nbsp;&nbsp;
-                    <span style={{color: "#1e5aab", fontWeight: "bold"}}>Align Fields</span>&nbsp;&nbsp;━&nbsp;&nbsp;
-                    <SvgIcon style={{color: "#1e5aab"}} component={Looks3Icon} inheritViewBox/>&nbsp;&nbsp;
-                    <span style={{color: "#1e5aab", fontWeight: "bold"}}>Repair Metadata</span>
-                </div>
-            </div>
-            <div style={{width: "100%", paddingTop: "0.5vh", paddingLeft: "40px", marginBottom: "-3vh"}}>
-                <Button onClick={handleBackButton}
-                        className={"generalButton"}
-                        size={"large"}
-                        startIcon={<ArrowBackIcon/>}>
-                    Back to Field Alignment
-                </Button>
-            </div>
+            <EvaluationReportHeader metadataIndex={metadataIndex} evaluationResults={evaluationResults}/>
             <div id="appContent">
                 <h1 className="pageTitle">Metadata Evaluation Report</h1>
                 <h2 className={"subTitle"}>Found <b>{issueCount}</b> issues</h2>
