@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useReducer, useState} from "react";
 import {useLocation, useNavigate} from 'react-router-dom';
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -12,6 +12,7 @@ import LooksOneIcon from "@mui/icons-material/LooksOne";
 import LooksTwoIcon from "@mui/icons-material/LooksTwo";
 import Looks3Icon from "@mui/icons-material/Looks3";
 import SvgIcon from "@mui/material/SvgIcon";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import TableHead from "@mui/material/TableHead";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
@@ -19,73 +20,74 @@ import CircularProgress from "@mui/material/CircularProgress";
 import SimpleHeader from "../../common/SimpleHeader";
 import AppFooter from "../../common/AppFooter";
 import {evaluateMetadata} from "../../../services/fairwareServices";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import {getEvaluationReportWithPatches, handleEvaluationResults} from "../../../util/evaluationUtil";
 
 export default function AlignFields() {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const state = location.state;
 
-    const metadataIndex = state.metadataIndex;
-    const metadataArtifact = state.metadataArtifact;
-    const metadataSpecification = state.metadataSpecification;
+    const metadataIndex = location.state.metadataIndex;
+    const [evaluationResults, dispatch] = useReducer(handleEvaluationResults, location.state.evaluationResults);
+
+    const evaluationResult = evaluationResults[metadataIndex];
+
+    const metadataArtifact = evaluationResult.metadataArtifact;
+    const metadataSpecification = evaluationResult.metadataSpecification;
     const templateFields = Object.keys(metadataSpecification.templateFields);
-    const alignmentReport = state.alignmentReport;
+    const alignmentReport = evaluationResult.alignmentReport;
 
     const [evaluating, setEvaluationInProgress] = useState(false);
 
-    function handleBackButton() {
-        navigate(-1);
+    function handleInputAutocompleteChange(metadataField, event, value) {
+        const fieldAlignments = alignmentReport.fieldAlignments;
+        let alignmentIndex = 0;
+        for (; alignmentIndex < fieldAlignments.length; alignmentIndex++) {
+            const alignmentItem = fieldAlignments[alignmentIndex];
+            if (alignmentItem.metadataFieldPath === metadataField) {
+                break;
+            }
+        }
+        dispatch({
+            type: 'UPDATE_FIELD_ALIGNMENT',
+            metadataIndex: metadataIndex,
+            alignmentIndex: alignmentIndex,
+            data: {
+                similarityScore: 1.0,
+                metadataFieldPath: metadataField,
+                templateFieldPath: value
+            }
+        })
     }
 
-    async function handleViewReportButton() {
+    function handleBackButton() {
+        navigate("/SelectTemplate", {
+            state: {
+                metadataIndex: metadataIndex,
+                evaluationResults: evaluationResults
+            }
+        });
+    }
+
+    async function handleViewEvaluationReportButton() {
         setEvaluationInProgress(true);
         const metadataId = metadataArtifact.metadataId;
         const templateId = metadataSpecification.templateId;
         const fieldAlignments = alignmentReport.fieldAlignments;
         const response = await evaluateMetadata(metadataId, templateId, fieldAlignments);
         const evaluationReport = response.evaluationReport;
-        evaluationReport.evaluationReportItems
-            .forEach((reportItem) => {
-                Object.assign(reportItem, {patches: []});
-                const metadataIssue = reportItem.metadataIssue;
-                const issueCategory = metadataIssue.issueCategory;
-                const issueLocation = metadataIssue.issueLocation;
-                const valueSuggestions = reportItem.repairAction.valueSuggestions;
-                let valueSuggestion = ""
-                if (valueSuggestions.length !== 0) {
-                    valueSuggestion = valueSuggestions[0]
-                }
-                if (issueCategory === "VALUE_ERROR") {
-                    reportItem.patches.push({
-                        op: "replace",
-                        path: "/" + issueLocation,
-                        value: valueSuggestion
-                    })
-                } else if (issueCategory === "FIELD_ERROR") {
-                    reportItem.patches.push({
-                        op: "move",
-                        from: "/" + issueLocation,
-                        path: "/" + valueSuggestion
-                    })
-                    reportItem.patches.push({
-                        op: "remove",
-                        path: "/" + issueLocation
-                    })
-                }
-            });
+        dispatch({
+            type: 'UPDATE_EVALUATION_REPORT',
+            metadataIndex: metadataIndex,
+            data: getEvaluationReportWithPatches(evaluationReport)
+        })
         setEvaluationInProgress(false);
-        navigate("/EvaluationReport",
-            {
-                state: {
-                    metadataIndex: metadataIndex,
-                    metadataArtifact: metadataArtifact,
-                    metadataSpecification: metadataSpecification,
-                    alignmentReport: alignmentReport,
-                    evaluationReport: evaluationReport
-                }
-            });
+        navigate("/EvaluationReport", {
+            state: {
+                metadataIndex: metadataIndex,
+                evaluationResults: evaluationResults
+            }
+        });
     }
 
     return (
@@ -162,6 +164,7 @@ export default function AlignFields() {
                                                               options={templateFields}
                                                               defaultValue={defaultValue}
                                                               size="small"
+                                                              onChange={(event, value) => handleInputAutocompleteChange(metadataField, event, value)}
                                                               renderInput={(params) =>
                                                                   <TextField
                                                                       style={{fontSize: 16, backgroundColor: "#ffffff"}}
@@ -178,7 +181,7 @@ export default function AlignFields() {
             </div>
             <div style={{width: "100%", textAlign: "center", margin: "3vh auto"}}>
                 <div hidden={evaluating}>
-                    <Button onClick={handleViewReportButton}
+                    <Button onClick={handleViewEvaluationReportButton}
                             className={"generalButton"}
                             variant={"contained"}
                             size={"large"}>

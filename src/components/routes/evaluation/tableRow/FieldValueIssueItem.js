@@ -8,14 +8,41 @@ import Autocomplete from "@mui/material/Autocomplete";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell/TableCell";
 
-export default function FieldValueIssueItem({fieldValue, evaluationReportItem}) {
+export default function FieldValueIssueItem(props) {
+
+    const fieldName = props.fieldName
+    const fieldValue = props.fieldValue;
+    const metadataIndex = props.metadataIndex;
+    const issueIndex = props.issueIndex;
+    const evaluationReportItem = props.evaluationReportItem;
+    const dispatch = props.dispatch;
+
+    function handleInputTextChange(event) {
+        handleValueChange(event.target.value);
+    }
+
+    function handleInputAutocompleteChange(event, value) {
+        handleValueChange(value);
+    }
+
+    function handleValueChange(value) {
+        dispatch({
+            type: 'UPDATE_METADATA_PATCH',
+            metadataIndex: metadataIndex,
+            issueIndex: issueIndex,
+            data: [{
+                op: "replace",
+                path: "/" + fieldName,
+                value: value
+            }]
+        })
+    }
 
     let chipColor = "primary";
     let issueTypeChipComponent;
     let suggestedRepairFieldComponent;
     if (!_.isEmpty(evaluationReportItem)) {
         chipColor = "error";
-
         const issueType = evaluationReportItem.metadataIssue.issueType;
         const issueLevel = evaluationReportItem.metadataIssue.issueLevel;
         if (issueLevel === "ERROR") {
@@ -34,7 +61,8 @@ export default function FieldValueIssueItem({fieldValue, evaluationReportItem}) 
                 <TextField style={{backgroundColor: "#ffffff"}}
                            fullWidth
                            size="small"
-                           defaultValue={suggestedValue}/>
+                           defaultValue={suggestedValue}
+                           onChange={handleInputTextChange}/>
             )
         } else {
             suggestedRepairFieldComponent = (
@@ -42,6 +70,7 @@ export default function FieldValueIssueItem({fieldValue, evaluationReportItem}) 
                               options={valueSuggestions}
                               defaultValue={suggestedValue}
                               size="small"
+                              onChange={handleInputAutocompleteChange}
                               renderInput={(params) =>
                                   <TextField style={{backgroundColor: "#ffffff"}}
                                              fullWidth {...params} />

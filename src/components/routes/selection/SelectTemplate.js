@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useReducer} from "react";
 import {useLocation, useNavigate} from 'react-router-dom';
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
@@ -18,42 +18,57 @@ import SimpleHeader from "../../common/SimpleHeader";
 import AppFooter from "../../common/AppFooter";
 import ProgressBar from "./ProgressBar";
 import {alignMetadataFields} from "../../../services/fairwareServices";
+import {handleEvaluationResults} from "../../../util/evaluationUtil";
 
 export default function SelectTemplate() {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const state = location.state;
 
-    const metadataIndex = state.metadataIndex;
+    const metadataIndex = location.state.metadataIndex;
+    const [evaluationResults, dispatch] = useReducer(handleEvaluationResults, location.state.evaluationResults);
 
-    const metadataArtifact = state.metadataArtifact;
+    const evaluationResult = evaluationResults[metadataIndex];
+
+    const metadataArtifact = evaluationResult.metadataArtifact;
     const metadataId = metadataArtifact.metadataId;
 
-    const recommendationReport = state.recommendationReport;
+    const recommendationReport = evaluationResult.recommendationReport;
     const topTemplate = recommendationReport.recommendations[0].resourceExtract['@id'];
 
     const [selectedTemplate, setSelectedTemplate] = useState(topTemplate);
 
     function handleSelectionChanged(event) {
         setSelectedTemplate(event.target.value);
-    };
+    }
 
     function handleBackButton() {
-        navigate(-1);
+        navigate("/EvaluationResult", {
+            state: {
+                metadataIndex: metadataIndex,
+                evaluationResults: evaluationResults
+            }
+        });
     }
 
     async function handleContinueButton() {
         const response = await alignMetadataFields(metadataId, selectedTemplate);
-        navigate("/AlignFields",
-            {
-                state: {
-                    metadataIndex: metadataIndex,
-                    metadataArtifact: response.metadataArtifact,
-                    metadataSpecification: response.metadataSpecification,
-                    alignmentReport: response.alignmentReport
-                }
-            })
+        dispatch({
+            type: 'UPDATE_METADATA_SPECIFICATION',
+            metadataIndex: metadataIndex,
+            data: response.metadataSpecification
+        });
+        dispatch({
+            type: 'UPDATE_ALIGNMENT_REPORT',
+            metadataIndex: metadataIndex,
+            data: response.alignmentReport
+        });
+        navigate("/AlignFields", {
+            state: {
+                metadataIndex: metadataIndex,
+                evaluationResults: evaluationResults,
+            }
+        });
     }
 
     return (

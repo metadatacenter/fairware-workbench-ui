@@ -1,6 +1,5 @@
-import React, {useState} from "react";
+import React, {useReducer} from "react";
 import {useLocation} from "react-router-dom";
-import _ from "lodash";
 import TableContainer from "@mui/material/TableContainer";
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
@@ -10,11 +9,13 @@ import TableBody from "@mui/material/TableBody";
 import ResultItem from "./tableRow/ResultItem";
 import SimpleHeader from "../../common/SimpleHeader";
 import AppFooter from "../../common/AppFooter";
+import {handleEvaluationResults} from "../../../util/evaluationUtil";
 
 export default function EvaluationResultTable() {
 
-    const state = useLocation().state;
-    const evaluationResults = state && state.evaluationResults ? state.evaluationResults : {};
+    const location = useLocation();
+
+    const [evaluationResults, dispatch] = useReducer(handleEvaluationResults, location.state.evaluationResults)
 
     return (
         <>
@@ -37,8 +38,10 @@ export default function EvaluationResultTable() {
                             </TableHead>
                             <TableBody>
                                 {evaluationResults.map((evaluationResult, index) => {
-                                    return <ResultItem metadataIndex={index}
-                                                       metadataEvaluationResult={evaluationResult}/>
+                                    return <ResultItem key={`evaluation-result-${index}`}
+                                                       metadataIndex={index}
+                                                       evaluationResults={evaluationResults}
+                                                       dispatch={dispatch}/>
                                 })}
                             </TableBody>
                         </Table>

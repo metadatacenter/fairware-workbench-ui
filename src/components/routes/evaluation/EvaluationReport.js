@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useReducer, useState} from "react";
 import {useLocation, useNavigate} from 'react-router-dom';
 import Paper from "@mui/material/Paper";
 import Tabs from "@mui/material/Tabs";
@@ -14,32 +14,37 @@ import ReportMetadataView from "./ReportMetadataView";
 import SimpleHeader from "../../common/SimpleHeader";
 import AppFooter from "../../common/AppFooter";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import {handleEvaluationResults} from "../../../util/evaluationUtil";
 
 export default function EvaluationReport() {
 
     const navigate = useNavigate();
     const location = useLocation();
-    const state = location.state;
 
-    const metadataIndex = state.metadataIndex;
+    const metadataIndex = location.state.metadataIndex;
+    const [evaluationResults, dispatch] = useReducer(handleEvaluationResults, location.state.evaluationResults);
 
-    const metadataArtifact = state.metadataArtifact;
-    const metadataId = metadataArtifact.metadataId;
+    const evaluationResult = evaluationResults[metadataIndex];
+
+    const metadataArtifact = evaluationResult.metadataArtifact;
     const metadataRecord = metadataArtifact.metadataRecord;
 
-    const metadataSpecification = state.metadataSpecification;
+    const metadataSpecification = evaluationResult.metadataSpecification;
     const templateName = metadataSpecification.templateName;
     const templateUrl = metadataSpecification.templateUrl;
-
-    const alignmentReport = state.alignmentReport;
-    const evaluationReport = state.evaluationReport;
+    const evaluationReport = evaluationResult.evaluationReport;
 
     const issueCount = evaluationReport.evaluationReportItems.length;
 
     const [tabValue, setTabValue] = useState(0);
 
     function handleBackButton() {
-        navigate(-1);
+        navigate("/AlignFields", {
+            state: {
+                metadataIndex: metadataIndex,
+                evaluationResults: evaluationResults
+            }
+        });
     }
 
     function handleTabChange(event, value) {
@@ -115,12 +120,14 @@ export default function EvaluationReport() {
                         <Tab label="Metadata View"/>
                     </Tabs>
                 </Paper>
-                {tabValue === 0 && <ReportListView metadataIndex={metadataIndex}
+                {tabValue === 0 && <ReportListView index={metadataIndex}
                                                    metadataRecord={metadataRecord}
-                                                   evaluationReport={evaluationReport}/>}
-                {tabValue === 1 && <ReportMetadataView metadataIndex={metadataIndex}
+                                                   evaluationReport={evaluationReport}
+                                                   dispatch={dispatch}/>}
+                {tabValue === 1 && <ReportMetadataView index={metadataIndex}
                                                        metadataRecord={metadataRecord}
-                                                       evaluationReport={evaluationReport}/>}
+                                                       evaluationReport={evaluationReport}
+                                                       dispatch={dispatch}/>}
             </div>
             <AppFooter/>
         </>

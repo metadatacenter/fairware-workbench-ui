@@ -1,27 +1,27 @@
-import React, {useState} from "react";
-import {useLocation, useNavigate} from 'react-router-dom';
+import React, {useReducer, useState} from "react";
+import {useNavigate} from 'react-router-dom';
 import _ from "lodash";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Link from '@mui/material/Link';
 import CircularProgress from "@mui/material/CircularProgress";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 import SimpleHeader from "../common/SimpleHeader";
 import AppFooter from "../common/AppFooter";
 import {evaluateMetadataInBatch, searchMetadataInBatch} from "../../services/fairwareServices";
 import {removeDuplicates} from "../../util/commonUtil";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
+import {getEvaluationReportWithPatches, handleEvaluationResults} from "../../util/evaluationUtil";
 
 export default function EvaluateMetadata() {
 
     const navigate = useNavigate();
-    const location = useLocation();
-    const it = location && location.state
-    && location.state.metadataUris ? location.state.metadataUris : ""
-    && location.state.templateId ? location.state.templateId : "";
 
-    const [metadataUris, setMetadataUris] = useState(it);
-    const [templateId, setTemplateId] = useState(it);
+    const initialState = [];
+    const [evaluationResults, dispatch] = useReducer(handleEvaluationResults, initialState);
+
+    const [metadataUris, setMetadataUris] = useState("");
+    const [templateId, setTemplateId] = useState("");
     const [evaluating, setEvaluationInProgress] = useState(false);
     const [hide, setHideField] = useState(false)
 
@@ -60,77 +60,59 @@ export default function EvaluateMetadata() {
     }
 
     async function searchMetadata(metadataRecordIds) {
-        const evaluationResults = [];
         const searchResults = await searchMetadataInBatch(metadataRecordIds);
-        searchResults.forEach((searchResult) => {
-            if (!_.isEmpty(searchResult)) {
-                const metadataArtifact = searchResult.metadataArtifact;
-                const evaluationResult = {
-                    metadataArtifact: metadataArtifact,
-                    metadataSpecification: {},
-                    alignmentReport: {},
-                    evaluationReport: {}
-                };
-                evaluationResults.push(evaluationResult);
-            }
+        searchResults.forEach((searchResult, index) => {
+            dispatch({
+                type: 'UPDATE_METADATA_ARTIFACT',
+                metadataIndex: index,
+                data: searchResult.metadataArtifact
+            });
         });
         setEvaluationInProgress(false);
-        navigate("/EvaluationResult",
-            {
-                state: {
-                    evaluationResults: evaluationResults
-                }
-            });
+        navigate("/EvaluationResult", {
+            state: {
+                evaluationResults: evaluationResults
+            }
+        });
     }
 
     async function evaluateMetadata(metadataRecordIds, templateId) {
         const evaluationResults = await evaluateMetadataInBatch(metadataRecordIds, templateId);
-        evaluationResults.forEach((evaluationResult) => {
+        evaluationResults.forEach((evaluationResult, index) => {
             if (!_.isEmpty(evaluationResult)) {
-                evaluationResult.evaluationReport.evaluationReportItems
-                    .forEach((reportItem) => {
-                        Object.assign(reportItem, {patches: []});
-                        const metadataIssue = reportItem.metadataIssue;
-                        const issueCategory = metadataIssue.issueCategory;
-                        const issueLocation = metadataIssue.issueLocation;
-                        const valueSuggestions = reportItem.repairAction.valueSuggestions;
-                        let valueSuggestion = ""
-                        if (valueSuggestions.length !== 0) {
-                            valueSuggestion = valueSuggestions[0]
-                        }
-                        if (issueCategory === "VALUE_ERROR") {
-                            reportItem.patches.push({
-                                op: "replace",
-                                path: "/" + issueLocation,
-                                value: valueSuggestion
-                            })
-                        } else if (issueCategory === "FIELD_ERROR") {
-                            reportItem.patches.push({
-                                op: "move",
-                                from: "/" + issueLocation,
-                                path: "/" + valueSuggestion
-                            })
-                            reportItem.patches.push({
-                                op: "remove",
-                                path: "/" + issueLocation
-                            })
-                        }
-                    })
+                dispatch({
+                    type: 'UPDATE_METADATA_ARTIFACT',
+                    metadataIndex: index,
+                    data: evaluationResult.metadataArtifact
+                });
+                dispatch({
+                    type: 'UPDATE_METADATA_SPECIFICATION',
+                    metadataIndex: index,
+                    data: evaluationResult.metadataSpecification
+                });
+                dispatch({
+                    type: 'UPDATE_ALIGNMENT_REPORT',
+                    metadataIndex: index,
+                    data: evaluationResult.alignmentReport
+                });
+                dispatch({
+                    type: 'UPDATE_EVALUATION_REPORT',
+                    metadataIndex: index,
+                    data: getEvaluationReportWithPatches(evaluationResult.evaluationReport)
+                })
             }
         });
-        const successEvaluationResults = evaluationResults.filter(evaluationResult => !_.isEmpty(evaluationResult))
         setEvaluationInProgress(false);
-        navigate("/EvaluationResult",
-            {
-                state: {
-                    evaluationResults: successEvaluationResults
-                }
-            });
+        navigate("/EvaluationResult", {
+            state: {
+                evaluationResults: evaluationResults
+            }
+        });
     }
 
     function toggleHide() {
         setHideField((hide) => !hide);
-    };
+    }
 
     return (
         <>

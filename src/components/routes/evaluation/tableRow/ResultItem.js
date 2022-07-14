@@ -11,13 +11,18 @@ import DownloadIcon from '@mui/icons-material/Download';
 import FileDownloadOffIcon from '@mui/icons-material/FileDownloadOff';
 import {recommendMetadataTemplate} from "../../../../services/fairwareServices";
 
-export default function ResultItem({metadataIndex, metadataEvaluationResult}) {
+export default function ResultItem(props) {
 
     const navigate = useNavigate();
 
-    const metadataArtifact = metadataEvaluationResult.metadataArtifact;
-    const metadataSpecification = metadataEvaluationResult.metadataSpecification;
-    const evaluationReport = metadataEvaluationResult.evaluationReport;
+    const metadataIndex = props.metadataIndex;
+    const evaluationResults = props.evaluationResults;
+    const dispatch = props.dispatch;
+
+    const evaluationResult = evaluationResults[metadataIndex];
+    const metadataArtifact = evaluationResult.metadataArtifact;
+    const metadataSpecification = evaluationResult.metadataSpecification;
+    const evaluationReport = evaluationResult.evaluationReport;
 
     const templateNameComponent = getTemplateNameComponent(metadataSpecification);
     const numberOfIssuesComponent = getNumberOfIssuesComponent(evaluationReport);
@@ -92,7 +97,7 @@ export default function ResultItem({metadataIndex, metadataEvaluationResult}) {
                     className={"generalButton"}
                     variant={"contained"}
                     size={"large"}>
-                    View Evalution Report</Button>
+                    View Evaluation Report</Button>
             );
         } else {
             actionButtonComponent = (
@@ -108,44 +113,38 @@ export default function ResultItem({metadataIndex, metadataEvaluationResult}) {
     }
 
     function handleViewReportButtonClick() {
-        navigate("/EvaluationReport",
-            {
-                state: {
-                    metadataIndex: metadataIndex,
-                    metadataArtifact: metadataEvaluationResult.metadataArtifact,
-                    metadataSpecification: metadataEvaluationResult.metadataSpecification,
-                    alignmentReport: metadataEvaluationResult.alignmentReport,
-                    evaluationReport: metadataEvaluationResult.evaluationReport
-                }
-            });
+        navigate("/EvaluationReport", {
+            state: {
+                metadataIndex: metadataIndex,
+                evaluationResults: evaluationResults
+            }
+        });
     }
 
     async function handleSelectTemplateButtonClick() {
         const metadataId = metadataArtifact.metadataId;
         const response = await recommendMetadataTemplate(metadataId);
-        navigate("/SelectTemplate",
-            {
-                state: {
-                    metadataIndex: metadataIndex,
-                    metadataArtifact: metadataEvaluationResult.metadataArtifact,
-                    metadataSpecification: metadataEvaluationResult.metadataSpecification,
-                    alignmentReport: metadataEvaluationResult.alignmentReport,
-                    evaluationReport: metadataEvaluationResult.evaluationReport,
-                    recommendationReport: response
-                }
-            })
+        dispatch({
+            type: 'UPDATE_RECOMMENDATION_REPORT',
+            metadataIndex: metadataIndex,
+            data: response
+        });
+        navigate("/SelectTemplate", {
+            state: {
+                metadataIndex: metadataIndex,
+                evaluationResults: evaluationResults
+            }
+        });
     }
 
     return (
-        <>
-            <TableRow key={`metadata-${metadataIndex}`} sx={{'& > *': {borderBottom: 'unset'}}}>
-                <TableCell className={"cell center"}>{metadataArtifact.metadataId}</TableCell>
-                <TableCell className={"cell center"}>{templateNameComponent}</TableCell>
-                <TableCell className={"cell center"}>{numberOfIssuesComponent}</TableCell>
-                <TableCell className={"cell center"}>{visibilityIconComponent}</TableCell>
-                <TableCell className={"cell center"}>{downloadIconComponent}</TableCell>
-                <TableCell className={"cell center"}>{actionButtonComponent}</TableCell>
-            </TableRow>
-        </>
+        <TableRow sx={{'& > *': {borderBottom: 'unset'}}}>
+            <TableCell className={"cell center"}>{metadataArtifact.metadataId}</TableCell>
+            <TableCell className={"cell center"}>{templateNameComponent}</TableCell>
+            <TableCell className={"cell center"}>{numberOfIssuesComponent}</TableCell>
+            <TableCell className={"cell center"}>{visibilityIconComponent}</TableCell>
+            <TableCell className={"cell center"}>{downloadIconComponent}</TableCell>
+            <TableCell className={"cell center"}>{actionButtonComponent}</TableCell>
+        </TableRow>
     )
 }

@@ -5,12 +5,18 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import IssueItem from "./tableRow/IssueItem";
+import FieldErrorListItem from "./tableRow/FieldErrorListItem";
+import ValueErrorListItem from "./tableRow/ValueErrorListItem";
 
-export default function ReportListView({metadataIndex, metadataRecord, evaluationReport}) {
+export default function ReportListView(props) {
+
+    const metadataIndex = props.index;
+    const metadataRecord = props.metadataRecord;
+    const evaluationReport = props.evaluationReport;
+    const dispatch = props.dispatch;
 
     return (
-        <TableContainer className="table" style={{marginBottom: "2vh"}}>
+        <TableContainer className="table" style={{marginBottom: "5vh"}}>
             <Table size="small">
                 <TableHead>
                     <TableRow>
@@ -23,10 +29,26 @@ export default function ReportListView({metadataIndex, metadataRecord, evaluatio
                 <TableBody>
                     {evaluationReport.evaluationReportItems
                         .map((reportItem, index) => {
-                            return <IssueItem issueIndex={index}
-                                              metadataIndex={metadataIndex}
-                                              metadataRecord={metadataRecord}
-                                              evaluationReport={reportItem}/>
+                            const issueCategory = reportItem.metadataIssue.issueCategory;
+                            const fieldName = reportItem.metadataIssue.issueLocation;
+                            const fieldValue = metadataRecord[fieldName];
+                            if (issueCategory === 'FIELD_ERROR') {
+                                return <FieldErrorListItem key={`field-error-list-item-${index}`}
+                                                           metadataIndex={metadataIndex}
+                                                           issueIndex={index}
+                                                           fieldName={fieldName}
+                                                           fieldValue={fieldValue}
+                                                           evaluationReport={reportItem}
+                                                           dispatch={dispatch}/>
+                            } else if (issueCategory === 'VALUE_ERROR') {
+                                return <ValueErrorListItem key={`value-error-list-item-${index}`}
+                                                           metadataIndex={metadataIndex}
+                                                           issueIndex={index}
+                                                           fieldName={fieldName}
+                                                           fieldValue={fieldValue}
+                                                           evaluationReport={reportItem}
+                                                           dispatch={dispatch}/>
+                            }
                         })
                     }
                 </TableBody>

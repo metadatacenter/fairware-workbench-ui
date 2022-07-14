@@ -8,7 +8,37 @@ import WarningIcon from "@mui/icons-material/Warning";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 
-export default function FieldNameIssueItem({fieldName, evaluationReportItem}) {
+export default function FieldNameIssueItem(props) {
+
+    const fieldName = props.fieldName;
+    const metadataIndex = props.metadataIndex;
+    const issueIndex = props.issueIndex;
+    const evaluationReportItem = props.evaluationReportItem;
+    const dispatch = props.dispatch;
+
+    function handleInputTextChange(event) {
+        handleValueChange(event.target.value);
+    }
+
+    function handleInputAutocompleteChange(event, value) {
+        handleValueChange(value);
+    }
+
+    function handleValueChange(value) {
+        dispatch({
+            type: 'UPDATE_METADATA_PATCH',
+            metadataIndex: metadataIndex,
+            issueIndex: issueIndex,
+            data: [{
+                op: "move",
+                from: "/" + fieldName,
+                path: "/" + value
+            }, {
+                op: "remove",
+                path: "/" + fieldName
+            }]
+        })
+    }
 
     let issueTypeChipComponent;
     let suggestedRepairFieldComponent;
@@ -31,7 +61,8 @@ export default function FieldNameIssueItem({fieldName, evaluationReportItem}) {
                 <TextField style={{backgroundColor: "#ffffff"}}
                            fullWidth
                            size="small"
-                           defaultValue={suggestedValue}/>
+                           defaultValue={suggestedValue}
+                           onChange={handleInputTextChange}/>
             )
         } else {
             suggestedRepairFieldComponent = (
@@ -39,6 +70,7 @@ export default function FieldNameIssueItem({fieldName, evaluationReportItem}) {
                               options={valueSuggestions}
                               defaultValue={suggestedValue}
                               size="small"
+                              onChange={handleInputAutocompleteChange}
                               renderInput={(params) =>
                                   <TextField style={{backgroundColor: "#ffffff"}}
                                              fullWidth {...params} />
@@ -52,7 +84,7 @@ export default function FieldNameIssueItem({fieldName, evaluationReportItem}) {
     } else {
         return (
             <TableRow>
-                <TableCell style={{fontSize: 16}}>{fieldName}</TableCell>
+                <TableCell style={{fontSize: 16}}><span>{fieldName}</span></TableCell>
                 <TableCell style={{fontSize: 16}} align="center">{issueTypeChipComponent}</TableCell>
                 <TableCell style={{fontSize: 16}}>{suggestedRepairFieldComponent}</TableCell>
             </TableRow>
