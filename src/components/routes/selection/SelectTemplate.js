@@ -1,4 +1,4 @@
-import React, {useState, useReducer} from "react";
+import React, {useReducer} from "react";
 import {useLocation, useNavigate} from 'react-router-dom';
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
@@ -6,13 +6,14 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell/TableCell";
 import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
-import Radio from "@mui/material/Radio";
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
 import PublicIcon from '@mui/icons-material/Public';
 import LooksOneIcon from '@mui/icons-material/LooksOne';
 import LooksTwoIcon from '@mui/icons-material/LooksTwo';
 import Looks3Icon from '@mui/icons-material/Looks3';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import SvgIcon from "@mui/material/SvgIcon";
 import SimpleHeader from "../../common/SimpleHeader";
 import AppFooter from "../../common/AppFooter";
@@ -34,13 +35,6 @@ export default function SelectTemplate() {
     const metadataId = metadataArtifact.metadataId;
 
     const recommendationReport = evaluationResult.recommendationReport;
-    const topTemplate = recommendationReport.recommendations[0].resourceExtract['@id'];
-
-    const [selectedTemplate, setSelectedTemplate] = useState(topTemplate);
-
-    function handleSelectionChanged(event) {
-        setSelectedTemplate(event.target.value);
-    }
 
     function handleBackButton() {
         navigate("/EvaluationResult", {
@@ -51,7 +45,7 @@ export default function SelectTemplate() {
         });
     }
 
-    async function handleContinueButton() {
+    async function handleContinueButton(event, selectedTemplate) {
         const response = await alignMetadataFields(metadataId, selectedTemplate);
         dispatch({
             type: 'UPDATE_METADATA_SPECIFICATION',
@@ -112,18 +106,19 @@ export default function SelectTemplate() {
             </div>
             <div id="appContent">
                 <h1 className="pageTitle">Select a Metadata Template</h1>
-                <h2 className="subTitle">We will use the selected CEDAR template to evaluate the metadata.</h2>
+                <h2 className="subTitle">Use the arrow icon to select the CEDAR template for evaluating the
+                    metadata.</h2>
                 <div className={"recommendationResults"}>
-                    <TableContainer className={"table"}>
+                    <TableContainer className={"table"} style={{marginBottom: "8vh"}}>
                         <Table size="small">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell className={"header"} width="1%"></TableCell>
                                     <TableCell className={"header"} width="30%">TEMPLATE NAME</TableCell>
                                     <TableCell className={"header"} width="30%">TEMPLATE DESCRIPTION</TableCell>
                                     <TableCell className={"header"} width="8%">TEMPLATE VERSION</TableCell>
                                     <TableCell className={"header"} width="8%">RECOMMENDATION SCORE</TableCell>
                                     <TableCell className={"header"} width="24%">MATCHED FIELDS</TableCell>
+                                    <TableCell className={"header"} width="1%"></TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -142,12 +137,6 @@ export default function SelectTemplate() {
                                         return (
                                             <TableRow key={`template-selection-${index}`}
                                                       sx={{'& > *': {borderBottom: 'unset'}}}>
-                                                <TableCell className={"cell center"}>
-                                                    <Radio checked={selectedTemplate === templateId}
-                                                           value={templateId}
-                                                           onChange={handleSelectionChanged}
-                                                           name="template-selection-radio"/>
-                                                </TableCell>
                                                 <TableCell className={"cell"}>{templateName}</TableCell>
                                                 <TableCell className={"cell"}>{templateDescription}</TableCell>
                                                 <TableCell className={"cell center"}>{templateVersion}</TableCell>
@@ -159,6 +148,14 @@ export default function SelectTemplate() {
                                                     <span
                                                         style={{fontSize: 14}}>{matchingFields} / {metadataFieldsCount} fields are matched</span>
                                                 </TableCell>
+                                                <TableCell className={"cell center"}>
+                                                    <IconButton onClick={(e) => handleContinueButton(e, templateId)}
+                                                                className={"generalButton"}
+                                                                variant={"contained"}
+                                                                size={"small"}>
+                                                        <ArrowForwardIosIcon/>
+                                                    </IconButton>
+                                                </TableCell>
                                             </TableRow>
                                         )
                                     })}
@@ -166,14 +163,6 @@ export default function SelectTemplate() {
                         </Table>
                     </TableContainer>
                 </div>
-            </div>
-            <div style={{width: "100%", textAlign: "center", margin: "3vh auto"}}>
-                <Button onClick={handleContinueButton}
-                        className={"generalButton"}
-                        variant={"contained"}
-                        size={"large"}>
-                    Continue
-                </Button>
             </div>
             <AppFooter/>
         </>
