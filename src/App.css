@@ -101,6 +101,7 @@ pre {
   flex: 1;
   width: 92%;
   margin: 0vh auto;
+  margin-bottom: 8vh;
 }
 
 #appFooter {
@@ -150,6 +151,17 @@ pre {
   text-transform: none;
 }
 
+.floatindContinueButton {
+  width: 20%;
+  background-color: #eeeeee;
+  float: left;
+  text-align: center;
+  margin-top: 8vh;
+  margin-left: -100px;
+  padding: 10px;
+  border: 1px solid #dddddd;
+}
+
 /* BUTTONS (END) */
 
 .inputTextFieldContainer {
@@ -193,7 +205,7 @@ pre {
 .recommendationResults,
 .alignmentResults,
 .evaluationResults {
-  margin-top: 2vh;
+  margin-top: 3vh;
 }
 
 .table {

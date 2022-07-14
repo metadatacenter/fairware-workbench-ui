@@ -57,7 +57,7 @@ export default function SelectTemplate() {
                 <h2 className="subTitle">Use the arrow icon to select the CEDAR template for evaluating the
                     metadata.</h2>
                 <div className={"recommendationResults"}>
-                    <TableContainer className={"table"} style={{marginBottom: "8vh"}}>
+                    <TableContainer className={"table"}>
                         <Table size="small">
                             <TableHead>
                                 <TableRow>
@@ -101,20 +101,18 @@ export default function SelectTemplate() {
                                                     <ProgressBar bgcolor={"#8a5aab"}
                                                                  completed={coverageRate.toFixed(0)}/>
                                                     <span style={{fontSize: 14, color: "#666666"}}>
-                                                        {matchingFields} / {metadataFieldsCount} metadata fields are matched.
+                                                        Matching {matchingFields} out of {metadataFieldsCount} metadata fields.
                                                     </span>
                                                 </TableCell>
                                                 <TableCell>
                                                     <ProgressBar bgcolor={"#1e500b"}
                                                                  completed={compatibilityRate.toFixed(0)}/>
                                                     <span style={{fontSize: 14, color: "#666666"}}>
-                                                        {matchingFields} / {templateFieldsCount} template fields are matched.
+                                                        Matching {matchingFields} out of {templateFieldsCount} template fields.
                                                     </span>
                                                 </TableCell>
                                                 <TableCell className={"cell center"}>
                                                     <IconButton onClick={(e) => handleContinueButton(e, templateId)}
-                                                                className={"generalButton"}
-                                                                variant={"contained"}
                                                                 size={"small"}>
                                                         <ArrowForwardIosIcon/>
                                                     </IconButton>

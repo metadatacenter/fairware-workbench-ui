@@ -16,7 +16,7 @@ export default function ReportMetadataView(props) {
     const dispatch = props.dispatch;
 
     return (
-        <TableContainer className={"table"} style={{marginBottom: "5vh"}}>
+        <TableContainer className={"table"}>
             <Table size="small">
                 <TableHead>
                     <TableRow>
