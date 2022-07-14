@@ -20,8 +20,8 @@ export default function ReportMetadataView(props) {
             <Table size="small">
                 <TableHead>
                     <TableRow>
-                        <TableCell className="header" width="25%">METADATA</TableCell>
-                        <TableCell className="header" width="25%">ISSUE</TableCell>
+                        <TableCell className="header" width="40%">METADATA</TableCell>
+                        <TableCell className="header">ISSUE</TableCell>
                         <TableCell className="header" width="30%">SUGGESTED REPAIR</TableCell>
                     </TableRow>
                 </TableHead>

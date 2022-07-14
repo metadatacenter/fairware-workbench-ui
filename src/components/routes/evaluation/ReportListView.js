@@ -23,7 +23,7 @@ export default function ReportListView(props) {
                         <TableCell className="header">FIELD NAME</TableCell>
                         <TableCell className="header">FIELD VALUE</TableCell>
                         <TableCell className="header">ISSUE</TableCell>
-                        <TableCell className="header">SUGGESTED REPAIR</TableCell>
+                        <TableCell className="header" width="30%">SUGGESTED REPAIR</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
