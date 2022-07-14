@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import Button from "@mui/material/Button";
-import AppHeader from "../common/AppHeader";
+import EvaluationReportHeader from "../common/EvaluationReportHeader";
 import AppFooter from "../common/AppFooter";
 import TextField from "@mui/material/TextField";
 import Link from '@mui/material/Link';
@@ -119,7 +119,7 @@ export default function FindMetadata() {
 
   return (
     <>
-      <AppHeader/>
+      <EvaluationReportHeader/>
       <div id="appContent">
         <div className="mainTitle">Find your Metadata</div>
         <div className="mainSubtitle">Enter one or more URIs. We'll look for the associated metadata</div>

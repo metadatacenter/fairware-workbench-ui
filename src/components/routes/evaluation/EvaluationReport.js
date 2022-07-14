@@ -11,7 +11,7 @@ import LooksTwoIcon from "@mui/icons-material/LooksTwo";
 import Looks3Icon from "@mui/icons-material/Looks3";
 import ReportListView from "./ReportListView";
 import ReportMetadataView from "./ReportMetadataView";
-import SimpleHeader from "../../common/SimpleHeader";
+import EvaluationReportHeader from "../../common/EvaluationReportHeader";
 import AppFooter from "../../common/AppFooter";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {handleEvaluationResults} from "../../../util/evaluationUtil";
@@ -53,7 +53,7 @@ export default function EvaluationReport() {
 
     return (
         <>
-            <SimpleHeader/>
+            <EvaluationReportHeader/>
             <div id="appSubHeader">
                 <div style={{
                     width: "25%",
@@ -87,7 +87,7 @@ export default function EvaluationReport() {
                         className={"generalButton"}
                         size={"large"}
                         startIcon={<ArrowBackIcon/>}>
-                    Go Back
+                    Back to Field Alignment
                 </Button>
             </div>
             <div id="appContent">

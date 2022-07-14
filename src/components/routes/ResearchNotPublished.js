@@ -1,13 +1,13 @@
 import React from "react";
 import Button from "@mui/material/Button";
 import AppFooter from "../common/AppFooter";
-import AppHeader from "../common/AppHeader";
+import EvaluationReportHeader from "../common/EvaluationReportHeader";
 
 export default function ResearchNotPublished() {
 
   return (
     <>
-      <AppHeader/>
+      <EvaluationReportHeader/>
       <div id="appContent">
         <div className="mainTitle">Research not published</div>
         {/*<div className="mainSubtitle">Get suggestions for improving your metadata. Make your research data more*/}

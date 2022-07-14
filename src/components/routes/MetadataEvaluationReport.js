@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import Button from "@mui/material/Button";
-import AppHeader from "../common/AppHeader";
+import EvaluationReportHeader from "../common/EvaluationReportHeader";
 import AppFooter from "../common/AppFooter";
 import TableContainer from "@mui/material/TableContainer";
 import Table from "@mui/material/Table";
@@ -34,7 +34,7 @@ export default function MetadataEvaluationReport() {
 
   return (
     <>
-      <AppHeader/>
+      <EvaluationReportHeader/>
       <div id="appContent">
         <h1>Metadata Evaluation Report</h1>
         <div

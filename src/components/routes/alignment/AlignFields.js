@@ -126,7 +126,7 @@ export default function AlignFields() {
                         className={"generalButton"}
                         size={"large"}
                         startIcon={<ArrowBackIcon/>}>
-                    Go Back
+                    Back to Template Selection
                 </Button>
             </div>
             <div id="appContent">

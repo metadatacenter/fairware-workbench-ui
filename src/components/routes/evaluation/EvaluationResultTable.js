@@ -7,7 +7,7 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell/TableCell";
 import TableBody from "@mui/material/TableBody";
 import ResultItem from "./tableRow/ResultItem";
-import SimpleHeader from "../../common/SimpleHeader";
+import EvaluationResultHeader from "../../common/EvaluationResultHeader";
 import AppFooter from "../../common/AppFooter";
 import {handleEvaluationResults} from "../../../util/evaluationUtil";
 
@@ -19,7 +19,7 @@ export default function EvaluationResultTable() {
 
     return (
         <>
-            <SimpleHeader/>
+            <EvaluationResultHeader/>
             <div id="appContent">
                 <h1 className="pageTitle">Metadata Evaluation Result</h1>
                 <h2 className="subTitle">Evaluating <b>{evaluationResults.length}</b> metadata records</h2>

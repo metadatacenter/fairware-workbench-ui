@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import AppHeader from "../../common/AppHeader";
+import EvaluationReportHeader from "../../common/EvaluationReportHeader";
 import AppFooter from "../../common/AppFooter";
 import {ArcElement, Chart as ChartJS, Tooltip} from 'chart.js';
 import Paper from "@mui/material/Paper";
@@ -72,7 +72,7 @@ export default function SummaryReport() {
 
   return (
     <>
-      <AppHeader/>
+      <EvaluationReportHeader/>
       <div id="appContent">
         <h1>Summary Report</h1>
         <Paper elevation={1} className={'summaryReportPanel'}>

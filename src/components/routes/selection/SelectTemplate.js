@@ -107,7 +107,7 @@ export default function SelectTemplate() {
                         className={"generalButton"}
                         size={"large"}
                         startIcon={<ArrowBackIcon/>}>
-                    Go Back
+                    Back to Evaluation Result
                 </Button>
             </div>
             <div id="appContent">
