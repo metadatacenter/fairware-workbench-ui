@@ -61,12 +61,11 @@ export default function SelectTemplate() {
                         <Table size="small">
                             <TableHead>
                                 <TableRow>
-                                    <TableCell className={"header"} width="30%">TEMPLATE NAME</TableCell>
-                                    <TableCell className={"header"} width="30%">TEMPLATE DESCRIPTION</TableCell>
-                                    <TableCell className={"header"} width="8%">TEMPLATE VERSION</TableCell>
-                                    <TableCell className={"header"} width="8%">RECOMMENDATION SCORE</TableCell>
-                                    <TableCell className={"header"} width="24%">MATCHED FIELDS</TableCell>
-                                    <TableCell className={"header"} width="1%"></TableCell>
+                                    <TableCell className={"header"} width="45%">TEMPLATE</TableCell>
+                                    <TableCell className={"header"}>RECOMMENDATION SCORE</TableCell>
+                                    <TableCell className={"header"} width="18%">COVERAGE</TableCell>
+                                    <TableCell className={"header"} width="18%">COMPATIBILITY</TableCell>
+                                    <TableCell className={"header"}></TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
@@ -81,20 +80,38 @@ export default function SelectTemplate() {
                                         const matchingFields = recommendation['sourceFieldsMatched'];
                                         const metadataFieldsCount = recommendationReport.requestSummary.sourceFieldsCount;
                                         const templateFieldsCount = recommendation['targetFieldsCount'];
-                                        const matchingRate = matchingFields * 100 / metadataFieldsCount;
+                                        const coverageRate = matchingFields * 100 / metadataFieldsCount;
+                                        const compatibilityRate = matchingFields * 100 / templateFieldsCount;
                                         return (
                                             <TableRow key={`template-selection-${index}`}
                                                       sx={{'& > *': {borderBottom: 'unset'}}}>
-                                                <TableCell className={"cell"}>{templateName}</TableCell>
-                                                <TableCell className={"cell"}>{templateDescription}</TableCell>
-                                                <TableCell className={"cell center"}>{templateVersion}</TableCell>
+                                                <TableCell className={"cell"}>
+                                                    <span>{templateName}</span><br/>
+                                                    <span style={{
+                                                        fontSize: "11pt",
+                                                        color: "#666666"
+                                                    }}><i>Version</i>: {templateVersion}</span><br/>
+                                                    <span style={{
+                                                        fontSize: "11pt",
+                                                        color: "#666666"
+                                                    }}><i>{templateDescription}</i></span>
+                                                </TableCell>
                                                 <TableCell className={"cell center"}>
                                                     {(recommendationScore).toFixed(2)}
                                                 </TableCell>
                                                 <TableCell>
-                                                    <ProgressBar completed={matchingRate.toFixed(0)}/>
-                                                    <span
-                                                        style={{fontSize: 14}}>{matchingFields} / {metadataFieldsCount} fields are matched</span>
+                                                    <ProgressBar bgcolor={"#8a5aab"}
+                                                                 completed={coverageRate.toFixed(0)}/>
+                                                    <span style={{fontSize: 14, color: "#666666"}}>
+                                                        {matchingFields} / {metadataFieldsCount} metadata fields are matched.
+                                                    </span>
+                                                </TableCell>
+                                                <TableCell>
+                                                    <ProgressBar bgcolor={"#1e500b"}
+                                                                 completed={compatibilityRate.toFixed(0)}/>
+                                                    <span style={{fontSize: 14, color: "#666666"}}>
+                                                        {matchingFields} / {templateFieldsCount} template fields are matched.
+                                                    </span>
                                                 </TableCell>
                                                 <TableCell className={"cell center"}>
                                                     <IconButton onClick={(e) => handleContinueButton(e, templateId)}
