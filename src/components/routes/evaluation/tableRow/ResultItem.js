@@ -97,7 +97,7 @@ export default function ResultItem(props) {
                     className={"generalButton"}
                     variant={"contained"}
                     size={"large"}>
-                    View Evaluation Report</Button>
+                    See Evaluation Report</Button>
             );
         } else {
             actionButtonComponent = (
