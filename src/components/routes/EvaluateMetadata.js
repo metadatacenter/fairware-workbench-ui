@@ -1,12 +1,11 @@
 import React, {useReducer, useState} from "react";
 import {useNavigate} from 'react-router-dom';
 import _ from "lodash";
-import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Link from '@mui/material/Link';
-import CircularProgress from "@mui/material/CircularProgress";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
+import LoadingButton from '@mui/lab/LoadingButton';
 import SimpleHeader from "../common/SimpleHeader";
 import AppFooter from "../common/AppFooter";
 import {evaluateMetadataInBatch, searchMetadataInBatch} from "../../services/fairwareServices";
@@ -155,19 +154,16 @@ export default function EvaluateMetadata() {
                     </div>
                 </div>
                 <div style={{width: "100%", textAlign: "center", margin: "3vh auto"}}>
-                    <div id={"evaluateButton"} hidden={evaluating}>
-                        <Button disabled={metadataUris.trim().length === 0}
-                                onClick={handleStartEvaluateButtonClick}
-                                className={"generalButton"}
-                                variant={"contained"}
-                                size={"large"}>
+                    <div id={"evaluateButton"}>
+                        <LoadingButton disabled={metadataUris.trim().length === 0}
+                                       onClick={handleStartEvaluateButtonClick}
+                                       loading={evaluating}
+                                       loadingIndicator="Processing..."
+                                       className={"generalButton"}
+                                       variant={"contained"}
+                                       size={"large"}>
                             Start Evaluating
-                        </Button>
-                    </div>
-                    <div className={"evaluateMetadata"}>
-                        <div className={"progressIndicator"}>
-                            {evaluating && <CircularProgress/>}
-                        </div>
+                        </LoadingButton>
                     </div>
                 </div>
             </div>

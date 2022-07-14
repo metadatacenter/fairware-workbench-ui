@@ -5,22 +5,16 @@ import TableBody from "@mui/material/TableBody";
 import TableContainer from "@mui/material/TableContainer";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell/TableCell";
-import Button from "@mui/material/Button";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import PublicIcon from "@mui/icons-material/Public";
-import LooksOneIcon from "@mui/icons-material/LooksOne";
-import LooksTwoIcon from "@mui/icons-material/LooksTwo";
-import Looks3Icon from "@mui/icons-material/Looks3";
 import SvgIcon from "@mui/material/SvgIcon";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import TableHead from "@mui/material/TableHead";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import CircularProgress from "@mui/material/CircularProgress";
 import AppFooter from "../../common/AppFooter";
 import {evaluateMetadata} from "../../../services/fairwareServices";
 import {getEvaluationReportWithPatches, handleEvaluationResults} from "../../../util/evaluationUtil";
 import AlignFieldsHeader from "../../common/AlignFieldsHeader";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 export default function AlignFields() {
 
@@ -85,67 +79,70 @@ export default function AlignFields() {
         <>
             <AlignFieldsHeader metadataIndex={metadataIndex} evaluationResults={evaluationResults}/>
             <div id="appContent">
-                <h1 className="pageTitle">Align Fields</h1>
-                <h2 className={"subTitle"}>
-                    Template: <a href={metadataSpecification.templateUrl}
-                                 target="_blank">{metadataSpecification.templateName}</a>
-                </h2>
-                <div className={"alignmentResults"}>
-                    <TableContainer className={"table"} style={{width: "50%"}}>
-                        <Table size="small">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell className={"header"} width="46%">METADATA FIELD</TableCell>
-                                    <TableCell className={"header"} width="8%"></TableCell>
-                                    <TableCell className={"header"} width="46%">TEMPLATE FIELD</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {metadataArtifact.metadataFields.map((metadataField, index) => {
-                                    const rowColor = (index % 2 === 1) ? "#ffffff" : "#f4f4f4";
-                                    const foundValue = alignmentReport.fieldAlignments
-                                        .filter((alignment) => alignment.metadataFieldPath === metadataField)
-                                    const defaultValue = foundValue.length != 0 ? foundValue[0].templateFieldPath : "";
-                                    return (<TableRow key={`field-alignment-${index}`}>
-                                            <TableCell className={"cell"} style={{backgroundColor: rowColor}}>
-                                                {metadataField}
-                                            </TableCell>
-                                            <TableCell className={"cell"} style={{backgroundColor: rowColor}}>
-                                                <SvgIcon component={ArrowForwardIcon}
-                                                         inheritViewBox/>
-                                            </TableCell>
-                                            <TableCell className={"cell"} style={{backgroundColor: rowColor}}>
-                                                <Autocomplete disablePortal
-                                                              options={templateFields}
-                                                              defaultValue={defaultValue}
-                                                              size="small"
-                                                              onChange={(event, value) => handleInputAutocompleteChange(metadataField, event, value)}
-                                                              renderInput={(params) =>
-                                                                  <TextField
-                                                                      style={{fontSize: 16, backgroundColor: "#ffffff"}}
-                                                                      fullWidth {...params} />
-                                                              }/>
-                                            </TableCell>
+                <div>
+                    <h1 className="pageTitle">Align Fields</h1>
+                    <h2 className={"subTitle"}>
+                        Template: <a href={metadataSpecification.templateUrl}
+                                     target="_blank">{metadataSpecification.templateName}</a>
+                    </h2>
+                    <div>
+                        <div className={"alignmentResults"} style={{width: "80%", float: "left"}}>
+                            <TableContainer className={"table"} style={{width: "70%"}}>
+                                <Table size="small">
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell className={"header"} width="46%">METADATA FIELD</TableCell>
+                                            <TableCell className={"header"} width="8%"></TableCell>
+                                            <TableCell className={"header"} width="46%">TEMPLATE FIELD</TableCell>
                                         </TableRow>
-                                    )
-                                })}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </div>
-            </div>
-            <div style={{width: "100%", textAlign: "center", margin: "3vh auto"}}>
-                <div hidden={evaluating}>
-                    <Button onClick={handleContinueButtonClick}
-                            className={"generalButton"}
-                            variant={"contained"}
-                            size={"large"}>
-                        Continue
-                    </Button>
-                </div>
-                <div className={"evaluateMetadata"}>
-                    <div className={"progressIndicator"}>
-                        {evaluating && <CircularProgress/>}
+                                    </TableHead>
+                                    <TableBody>
+                                        {metadataArtifact.metadataFields.map((metadataField, index) => {
+                                            const rowColor = (index % 2 === 1) ? "#ffffff" : "#f4f4f4";
+                                            const foundValue = alignmentReport.fieldAlignments
+                                                .filter((alignment) => alignment.metadataFieldPath === metadataField)
+                                            const defaultValue = foundValue.length != 0 ? foundValue[0].templateFieldPath : "";
+                                            return (<TableRow key={`field-alignment-${index}`}>
+                                                    <TableCell className={"cell"} style={{backgroundColor: rowColor}}>
+                                                        {metadataField}
+                                                    </TableCell>
+                                                    <TableCell className={"cell"} style={{backgroundColor: rowColor}}>
+                                                        <SvgIcon component={ArrowForwardIcon}
+                                                                 inheritViewBox/>
+                                                    </TableCell>
+                                                    <TableCell className={"cell"} style={{backgroundColor: rowColor}}>
+                                                        <Autocomplete disablePortal
+                                                                      options={templateFields}
+                                                                      defaultValue={defaultValue}
+                                                                      size="small"
+                                                                      onChange={(event, value) => handleInputAutocompleteChange(metadataField, event, value)}
+                                                                      renderInput={(params) =>
+                                                                          <TextField
+                                                                              style={{
+                                                                                  fontSize: 16,
+                                                                                  backgroundColor: "#ffffff"
+                                                                              }}
+                                                                              fullWidth {...params} />
+                                                                      }/>
+                                                    </TableCell>
+                                                </TableRow>
+                                            )
+                                        })}
+                                    </TableBody>
+                                </Table>
+                            </TableContainer>
+                        </div>
+                        <div className={"floatindContinueButton"}>
+                            <LoadingButton onClick={handleContinueButtonClick}
+                                           className={"generalButton"}
+                                           loading={evaluating}
+                                           loadingIndicator={"Processing..."}
+                                           endIcon={<ArrowForwardIcon/>}
+                                           variant={"contained"}
+                                           size={"large"}>
+                                Continue
+                            </LoadingButton>
+                        </div>
                     </div>
                 </div>
             </div>
