@@ -6,6 +6,7 @@ import Chip from "@mui/material/Chip";
 import Autocomplete from "@mui/material/Autocomplete";
 import ErrorIcon from '@mui/icons-material/Error';
 import WarningIcon from '@mui/icons-material/Warning';
+import EllipsisText from "../../../common/EllipsisText";
 
 export default function ValueErrorListItem(props) {
 
@@ -57,7 +58,9 @@ export default function ValueErrorListItem(props) {
 
     function getFieldValueComponent(fieldValue) {
         return (
-            <span style={{color: "#ff0000"}}>{fieldValue}</span>
+            <div style={{color: "#ff0000"}}>
+                <EllipsisText maxWidth={"20rem"}>{fieldValue}</EllipsisText>
+            </div>
         )
     }
 

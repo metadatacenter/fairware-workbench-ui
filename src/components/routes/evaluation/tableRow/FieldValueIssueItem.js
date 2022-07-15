@@ -7,6 +7,7 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell/TableCell";
+import EllipsisText from "../../../common/EllipsisText";
 
 export default function FieldValueIssueItem(props) {
 
@@ -92,7 +93,7 @@ export default function FieldValueIssueItem(props) {
                         InputProps={{
                             startAdornment: <Chip style={{fontSize: 16, maxWidth: 600}}
                                                   color={chipColor}
-                                                  label={JSON.stringify(fieldValue)}
+                                                  label={<EllipsisText maxWidth={"40rem"}>{JSON.stringify(fieldValue)}</EllipsisText>}
                                                   title={JSON.stringify(fieldValue)}/>,
                         }}
                     />
