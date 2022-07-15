@@ -1,24 +1,17 @@
 import React, {useReducer, useState} from "react";
-import {useLocation, useNavigate} from 'react-router-dom';
+import {useLocation} from 'react-router-dom';
 import Paper from "@mui/material/Paper";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Button from "@mui/material/Button";
-import SvgIcon from "@mui/material/SvgIcon";
-import PublicIcon from "@mui/icons-material/Public";
-import LooksOneIcon from "@mui/icons-material/LooksOne";
-import LooksTwoIcon from "@mui/icons-material/LooksTwo";
-import Looks3Icon from "@mui/icons-material/Looks3";
 import ReportListView from "./ReportListView";
 import ReportMetadataView from "./ReportMetadataView";
 import EvaluationReportHeader from "../../common/EvaluationReportHeader";
 import AppFooter from "../../common/AppFooter";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {handleEvaluationResults} from "../../../util/evaluationUtil";
 
 export default function EvaluationReport() {
 
-    const navigate = useNavigate();
     const location = useLocation();
 
     const metadataIndex = location.state.metadataIndex;
@@ -34,7 +27,9 @@ export default function EvaluationReport() {
     const templateUrl = metadataSpecification.templateUrl;
     const evaluationReport = evaluationResult.evaluationReport;
 
-    const issueCount = evaluationReport.evaluationReportItems.length;
+    const issueCount = evaluationReport.evaluationReportItems
+        .filter(reportItem => reportItem.metadataIssue.issueCategory !== "FIELD_ERROR")
+        .length;
 
     const [tabValue, setTabValue] = useState(0);
 

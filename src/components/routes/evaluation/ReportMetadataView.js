@@ -37,10 +37,7 @@ export default function ReportMetadataView(props) {
                             const reportItem = evaluationReportItems[issueIndex];
                             const issueLocation = reportItem.metadataIssue.issueLocation;
                             const issueCategory = reportItem.metadataIssue.issueCategory;
-                            if (issueLocation === fieldName && issueCategory === "FIELD_ERROR") {
-                                fieldNameEvaluationReport = reportItem;
-                                break;
-                            } else if (issueLocation === fieldName && issueCategory === "VALUE_ERROR") {
+                            if (issueLocation === fieldName && issueCategory === "VALUE_ERROR") {
                                 fieldValueEvaluationReport = reportItem;
                                 break;
                             }

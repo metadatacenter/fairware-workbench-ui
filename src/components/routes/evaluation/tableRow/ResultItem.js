@@ -51,7 +51,10 @@ export default function ResultItem(props) {
         let numberOfIssuesComponent;
         if (!_.isEmpty(evaluationReport)) {
             numberOfIssuesComponent = (
-                <span>{evaluationReport.evaluationReportItems.length}</span>
+                <span>{evaluationReport.evaluationReportItems
+                    .filter(reportItem => reportItem.metadataIssue.issueCategory !== 'FIELD_ERROR')
+                    .length}
+                </span>
             );
         } else {
             numberOfIssuesComponent = (

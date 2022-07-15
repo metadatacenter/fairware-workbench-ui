@@ -32,15 +32,7 @@ export default function ReportListView(props) {
                             const issueCategory = reportItem.metadataIssue.issueCategory;
                             const fieldName = reportItem.metadataIssue.issueLocation;
                             const fieldValue = metadataRecord[fieldName];
-                            if (issueCategory === 'FIELD_ERROR') {
-                                return <FieldErrorListItem key={`field-error-list-item-${index}`}
-                                                           metadataIndex={metadataIndex}
-                                                           issueIndex={index}
-                                                           fieldName={fieldName}
-                                                           fieldValue={fieldValue}
-                                                           evaluationReport={reportItem}
-                                                           dispatch={dispatch}/>
-                            } else if (issueCategory === 'VALUE_ERROR') {
+                            if (issueCategory === 'VALUE_ERROR') {
                                 return <ValueErrorListItem key={`value-error-list-item-${index}`}
                                                            metadataIndex={metadataIndex}
                                                            issueIndex={index}
