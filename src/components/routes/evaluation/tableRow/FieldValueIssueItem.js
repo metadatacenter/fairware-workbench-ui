@@ -81,7 +81,22 @@ export default function FieldValueIssueItem(props) {
     }
 
     if (typeof (fieldValue) === 'object') {
-        return (<></>);
+        if (fieldValue === null) {
+            return (
+                <TableRow style={{backgroundColor: "#f4f4f4"}}>
+                    <TableCell>
+                        <TextField
+                            fullWidth
+                            style={{backgroundColor: "#ffffff"}}
+                            size="small"/>
+                    </TableCell>
+                    <TableCell style={{fontSize: 16}} align="center">{issueTypeChipComponent}</TableCell>
+                    <TableCell style={{fontSize: 16}}>{suggestedRepairFieldComponent}</TableCell>
+                </TableRow>
+            )
+        } else {
+            return (<></>);
+        }
     } else {
         return (
             <TableRow style={{backgroundColor: "#f4f4f4"}}>
@@ -101,7 +116,6 @@ export default function FieldValueIssueItem(props) {
                 <TableCell style={{fontSize: 16}} align="center">{issueTypeChipComponent}</TableCell>
                 <TableCell style={{fontSize: 16}}>{suggestedRepairFieldComponent}</TableCell>
             </TableRow>
-
         );
     }
 }
