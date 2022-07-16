@@ -20,8 +20,19 @@ export default function AlignFieldsHeader(props) {
     const evaluationResults = props.evaluationResults;
     const evaluationResult = evaluationResults[metadataIndex];
 
-    function handleBackButton() {
+    const hasRecommendations = 'recommendationReport' in evaluationResult;
+
+    function handleSelectTemplateButton() {
         navigate("/SelectTemplate", {
+            state: {
+                metadataIndex: metadataIndex,
+                evaluationResults: evaluationResults
+            }
+        });
+    }
+
+    function handleEvaluationResultButton() {
+        navigate("/EvaluationResult", {
             state: {
                 metadataIndex: metadataIndex,
                 evaluationResults: evaluationResults
@@ -54,13 +65,21 @@ export default function AlignFieldsHeader(props) {
                         display: "flex",
                         flexWrap: "wrap"
                     }}>
-                        <Button style={{margin: "0", padding: "0"}}
-                                onClick={handleBackButton}
+                        {hasRecommendations && <Button style={{margin: "0", padding: "0"}}
+                                onClick={handleSelectTemplateButton}
                                 className={"generalButton"}
                                 size={"large"}
                                 startIcon={<ArrowBackIcon/>}>
                             Back to Template Selection
-                        </Button>
+                        </Button>}
+                        {!hasRecommendations && <Button hidden={hasRecommendations}
+                                style={{margin: "0", padding: "0"}}
+                                onClick={handleEvaluationResultButton}
+                                className={"generalButton"}
+                                size={"large"}
+                                startIcon={<ArrowBackIcon/>}>
+                            Back to Evaluation Result
+                        </Button>}
                     </div>
                     <div style={{
                         width: "50%",
