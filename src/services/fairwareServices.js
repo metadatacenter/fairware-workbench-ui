@@ -2,7 +2,6 @@ import {
     FAIRWARE_METADATA_ALIGN_URL,
     FAIRWARE_METADATA_EVALUATE_URL,
     FAIRWARE_METADATA_SEARCH_URL,
-    FAIRWARE_METADATA_SUMMARY_REPORT_URL,
     FAIRWARE_TEMPLATE_RECOMMEND_URL
 } from "../constants";
 
@@ -146,37 +145,95 @@ export async function evaluateMetadataInBatch(metadataRecordIds, cedarTemplateId
     return results;
 }
 
-export function generateSummaryReport(searchResults) {
-    console.log('sr', searchResults.items);
-    let projectionResults = projectMetadataAndTemplateId(searchResults);
-    console.log('projectionResults', projectionResults);
-    let url = FAIRWARE_METADATA_SUMMARY_REPORT_URL;
-    const requestOptions = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({'evaluateMetadataRequests': projectionResults})
-    };
-    return fetch(url, requestOptions).then(response => {
-        // Check if the request is 200
-        if (response.ok) {
-            let data = response.json();
-            return data;
-        }
-        return Promise.reject(response);
-    });
-};
+export function generateSummaryReport(evaluationResults) {
+    let recordsReportDetails = [];
+    const nonEmptyEvaluationResults = evaluationResults.filter((result) => "evaluationReport" in result);
+    for (let i = 0; i < nonEmptyEvaluationResults.length; i++) {
+        const evaluationResult = nonEmptyEvaluationResults[i];
+        const evaluationReport = evaluationResult.evaluationReport;
+        const metadataArtifact = evaluationResult.metadataArtifact;
+        const metadataSpecification = evaluationResult.metadataSpecification;
+        const evaluationReportItems = evaluationReport.evaluationReportItems;
+        const valueErrorReportItemsOnly = evaluationReportItems
+            .filter((item) => item.metadataIssue.issueCategory === "VALUE_ERROR"
+                && item.metadataIssue.issueLevel === "ERROR");
+        const fieldsWithMissingRequiredValue = valueErrorReportItemsOnly
+            .filter((item) => item.metadataIssue.issueType === "MISSING_REQUIRED_VALUE");
+        const issueTypes = [
+            "EXPECTING_INPUT_STRING",
+            "EXPECTING_INPUT_NUMBER",
+            "INVALID_DATE_TIME_FORMAT",
+            "INVALID_DATE_FORMAT",
+            "INVALID_TIME_FORMAT",
+            "INVALID_NUMBER_FORMAT",
+            "VALUE_NOT_ONTOLOGY_TERM"
+        ]
+        const fieldsWithInvalidValue = valueErrorReportItemsOnly
+            .filter((item) => issueTypes.indexOf(item.metadataIssue.issueType) !== -1)
+        const metadataRecord = metadataArtifact.metadataRecord;
+        const fieldsWithNonEmptyValue = Object.keys(metadataRecord)
+            .filter((key) => metadataRecord[key] != null || metadataRecord[key] !== "");
 
-/*** Helper functions ***/
-
-function projectMetadataAndTemplateId(searchResults) {
-    let projectionResults = [];
-    for (let i = 0; i < searchResults.items.length; i++) {
-        projectionResults.push({
-            'metadataRecordId': searchResults.items[i]['uri'],
-            'templateId': searchResults.items[i]['schemaId']
+        recordsReportDetails.push({
+            metadataId: metadataArtifact.metadataId,
+            metadataName: metadataArtifact.metadataName,
+            totalFieldsCount: metadataArtifact.metadataFields.length,
+            requiredFieldsCount: metadataSpecification.requiredFields.length,
+            fieldsWithMissingRequiredValueCount: fieldsWithMissingRequiredValue.length,
+            fieldsWithNonEmptyValueCount: fieldsWithNonEmptyValue.length,
+            fieldsWithInvalidValueCount: fieldsWithInvalidValue.length
         });
     }
-    return projectionResults;
-};
+
+    const metadataSpecification = nonEmptyEvaluationResults[0].metadataSpecification;
+    const templateFields = Object.keys(metadataSpecification.templateFields);
+    const allMetadataRecords = nonEmptyEvaluationResults.map((result) => result.metadataArtifact.metadataRecord)
+    const valueErrorReportItemsOnly = nonEmptyEvaluationResults
+        .map((result) => result.evaluationReport.evaluationReportItems).flat()
+        .filter((item) => item.metadataIssue.issueCategory === "VALUE_ERROR" && item.metadataIssue.issueLevel === "ERROR");
+
+    const fieldReportDetails = {}
+    templateFields.forEach((fieldName) => {
+        const inputOccurences = allMetadataRecords
+            .filter((metadataRecord) => fieldName in metadataRecord
+                && (metadataRecord[fieldName] != null || metadataRecord[fieldName] !== ""));
+        const errorOccurrences = valueErrorReportItemsOnly
+            .filter((item) => item.metadataIssue.issueLocation === fieldName);
+        fieldReportDetails[fieldName] = {
+            inputCount: inputOccurences.length,
+            errorCount: errorOccurrences.length
+        };
+    });
+    const sortedFieldReportDetails = Object.entries(fieldReportDetails)
+        .sort(([,a],[,b]) => (b.errorCount - a.errorCount) * 10 + b.inputCount - a.inputCount)
+        .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+
+    return {
+        templateName: metadataSpecification.templateName,
+        templateUrl: metadataSpecification.templateUrl,
+        totalMetadata: nonEmptyEvaluationResults.length,
+        completenessAndCorrectnessReport: {
+            byRecords: {
+                completeness: {
+                    totalRecords: recordsReportDetails.length,
+                    recordsWithMissingRequiredValuesCount: recordsReportDetails
+                        .filter((details) => details.fieldsWithMissingRequiredValueCount > 0)
+                        .length
+                },
+                correctness: {
+                    totalRecords: recordsReportDetails
+                        .filter((details) => details.fieldsWithMissingRequiredValueCount === 0)
+                        .length,
+                    recordsWithInvalidValuesCount: recordsReportDetails
+                        .filter((details) => details.fieldsWithMissingRequiredValueCount === 0)
+                        .filter((details) => details.fieldsWithInvalidValueCount > 0)
+                        .length,
+                },
+                recordsReportDetails: recordsReportDetails
+            },
+            byFields: {
+                fieldReportDetails: sortedFieldReportDetails
+            }
+        }
+    }
+}

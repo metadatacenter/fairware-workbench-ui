@@ -16,10 +16,11 @@ export default function EvaluationResultTable() {
     const location = useLocation();
 
     const [evaluationResults, dispatch] = useReducer(handleEvaluationResults, location.state.evaluationResults)
+    const enableSummaryReport = location.state.enableSummaryReport;
 
     return (
         <>
-            <EvaluationResultHeader/>
+            <EvaluationResultHeader evaluationResults={evaluationResults} enableSummaryReport={enableSummaryReport}/>
             <div id="appContent">
                 <h1 className="pageTitle">Metadata Evaluation Result</h1>
                 <h2 className="subTitle">Evaluating <b>{evaluationResults.length}</b> metadata records</h2>

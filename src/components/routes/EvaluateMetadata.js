@@ -70,7 +70,8 @@ export default function EvaluateMetadata() {
         setEvaluationInProgress(false);
         navigate("/EvaluationResult", {
             state: {
-                evaluationResults: evaluationResults
+                evaluationResults: evaluationResults,
+                enableSummaryReport: false
             }
         });
     }
@@ -104,7 +105,8 @@ export default function EvaluateMetadata() {
         setEvaluationInProgress(false);
         navigate("/EvaluationResult", {
             state: {
-                evaluationResults: evaluationResults
+                evaluationResults: evaluationResults,
+                enableSummaryReport: true
             }
         });
     }
