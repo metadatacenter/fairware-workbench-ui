@@ -1,22 +1,27 @@
 import React from "react";
-import {useLocation} from "react-router";
+import {useLocation, useNavigate} from "react-router";
 import {ArcElement, Chart as ChartJS, Tooltip} from 'chart.js';
 import Box from "@mui/material/Box";
 import * as PropTypes from "prop-types";
 import CompletenessReport from "./CompletenessReport";
-import SimpleHeader from "../../common/SimpleHeader";
+import SummaryReportHeader from "../../common/SummaryReportHeader";
 import AppFooter from "../../common/AppFooter";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import Button from "@mui/material/Button";
 
 ChartJS.register(ArcElement, Tooltip);
 
 export default function SummaryReport() {
 
     const location = useLocation();
+
+    const evaluationResults = location.state.evaluationResults;
+    const enableSummaryReport = location.state.enableSummaryReport;
     const summaryReport = location.state.summaryReport;
 
     return (
         <>
-            <SimpleHeader/>
+            <SummaryReportHeader evaluationResults={evaluationResults} enableSummaryReport={enableSummaryReport}/>
             <div id="appContent">
                 <h1 className="pageTitle">Metadata Evaluation Summary</h1>
                 <h2 className={"subTitle"}>Evaluating <b>{summaryReport.totalMetadata}</b> metadata records</h2>
