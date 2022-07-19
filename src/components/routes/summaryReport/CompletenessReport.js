@@ -10,8 +10,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell/TableCell";
 import TableBody from "@mui/material/TableBody";
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import CancelIcon from '@mui/icons-material/Cancel';
+import CheckIcon from '@mui/icons-material/Check';
+import CloseIcon from '@mui/icons-material/Close';
 import SvgIcon from "@mui/material/SvgIcon";
 
 ChartJS.register(ArcElement, TooltipJS, Legend);
@@ -185,9 +185,9 @@ export default function CompletenessReport(props) {
 
     function getStatusIconComponent(missingRequiredValuesCount, invalidFieldsCount) {
         if (missingRequiredValuesCount === 0 && invalidFieldsCount === 0) {
-            return <SvgIcon component={CheckCircleIcon} style={{color: "#90d914"}} inheritViewBox/>
+            return <SvgIcon component={CheckIcon} style={{color: "#90d914"}} inheritViewBox/>
         } else {
-            return <SvgIcon component={CancelIcon} style={{color: "#d50753"}} inheritViewBox/>
+            return <SvgIcon component={CloseIcon} style={{color: "#d50753"}} inheritViewBox/>
         }
     }
 
