@@ -41,10 +41,10 @@ export default function CompletenessReport(props) {
 
     const recordsWithInvalidValuesCount = data.byRecords.correctness.recordsWithInvalidValuesCount;
     const recordsWithAllValidValuesCount = data.byRecords.correctness.totalRecords - recordsWithInvalidValuesCount;
-    const correctnessReportData = {
+    const conformanceReportData = {
         labels: ['Some values are of incorrect data types', 'All values are of correct data types'],
         innerTextTitle: recordsWithAllValidValuesCount + ' / ' + data.byRecords.correctness.totalRecords,
-        innerTextSubtitle: 'Correctness',
+        innerTextSubtitle: 'Conformance',
         datasets: [{
             data: [
                 recordsWithInvalidValuesCount,
@@ -197,18 +197,24 @@ export default function CompletenessReport(props) {
                 <Grid container columnSpacing={2}>
                     <Grid item xs={1}/>
                     <Grid item xs={5}>
-                        <Doughnut data={completenessReportData}
-                                  height="300px"
-                                  width="300px"
-                                  options={options}
-                                  plugins={generatePlugins(completenessReportData)}/>
+                        <div>
+                            <Doughnut data={completenessReportData}
+                                      height="300px"
+                                      width="300px"
+                                      options={options}
+                                      plugins={generatePlugins(completenessReportData)}/>
+                        </div>
+                        <div style={{color: "#888888", textAlign: "center"}}>Completeness is measured based on the presence or absence of <i>required</i> values in the metadata fields defined in the metadata schema.</div>
                     </Grid>
                     <Grid item xs={5}>
-                        <Doughnut data={correctnessReportData}
-                                  height="300px"
-                                  width="300px"
-                                  options={options}
-                                  plugins={generatePlugins(correctnessReportData)}/>
+                        <div>
+                            <Doughnut data={conformanceReportData}
+                                      height="300px"
+                                      width="300px"
+                                      options={options}
+                                      plugins={generatePlugins(conformanceReportData)}/>
+                        </div>
+                        <div style={{color: "#888888", textAlign: "center"}}>Conformance is measured based on the compliance of the value in the metadata field with its data type defined in the metadata schema.</div>
                     </Grid>
                     <Grid item xs={1}/>
                 </Grid>
@@ -220,7 +226,7 @@ export default function CompletenessReport(props) {
                             <TableCell className={"header"} width={"25%"}>METADATA REFERENCE</TableCell>
                             <TableCell className={"header"} width={"10%"}>STATUS</TableCell>
                             <TableCell className={"header"}>COMPLETENESS</TableCell>
-                            <TableCell className={"header"}>CORRECTNESS</TableCell>
+                            <TableCell className={"header"}>CONFORMANCE</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
