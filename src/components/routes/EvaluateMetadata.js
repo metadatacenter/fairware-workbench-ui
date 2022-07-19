@@ -24,12 +24,24 @@ export default function EvaluateMetadata() {
     const [evaluating, setEvaluationInProgress] = useState(false);
     const [hide, setHideField] = useState(false)
 
-    const sampleMetadataUris = "SAMN01821557" + "\n" +
+    const metadataExample1 = "10.5281/zenodo.3678320" + "\n" +
+        "10.5281/zenodo.3832925" + "\n" +
+        "10.3205/000293" + "\n" +
+        "10.5281/zenodo.5513879" + "\n" +
+        "10.48558/6ddc-1114" + "\n" +
+        "10.5281/zenodo.5594842" + "\n" +
+        "10.5281/zenodo.5618466" + "\n" +
+        "10.34813/32coll2021" + "\n" +
+        "10.48558/vm34-2b62" + "\n" +
+        "10.48558/2z8n-h673";
+    const templateExample1 = "https://repo.metadatacenter.org/templates/0172b2ca-1f8d-4488-9f8b-46bc1dfb8b79";
+
+    const metadataExample2 = "SAMN01821557" + "\n" +
         "SAMN09836229" + "\n" +
         "SAMN06459514" + "\n" +
         "SAMN03070109" + "\n" +
         "SAMN04420088";
-    const sampleTemplateId = "https://repo.metadatacenter.org/templates/db57119c-7860-4569-a3c0-2ced0e0364d1";
+    const templateExample2 = "https://repo.metadatacenter.org/templates/db57119c-7860-4569-a3c0-2ced0e0364d1";
 
     function handleInputMetadataUriChange(event) {
         setMetadataUris(event.target.value);
@@ -39,12 +51,20 @@ export default function EvaluateMetadata() {
         setTemplateId(event.target.value);
     }
 
-    function handleSampleInputMetadataClick() {
-        setMetadataUris(sampleMetadataUris);
+    function handleMetadataExample1Click() {
+        setMetadataUris(metadataExample1);
     }
 
-    function handleSampleInputTemplateClick() {
-        setTemplateId(sampleTemplateId);
+    function handleTemplateExample1Click() {
+        setTemplateId(templateExample1);
+    }
+
+    function handleMetadataExample2Click() {
+        setMetadataUris(metadataExample2);
+    }
+
+    function handleTemplateExample2Click() {
+        setTemplateId(templateExample2);
     }
 
     function handleStartEvaluateButtonClick() {
@@ -134,7 +154,8 @@ export default function EvaluateMetadata() {
                         label="Enter metadata references (one per line)"
                     />
                     <div className="sampleInputButton">
-                        <Link component="button" onClick={handleSampleInputMetadataClick}>sample input</Link>
+                        <Link component="button" onClick={handleMetadataExample1Click}>example 1</Link>&nbsp;
+                        <Link component="button" onClick={handleMetadataExample2Click}>example 2</Link>
                     </div>
                     {hide && (
                         <>
@@ -147,7 +168,8 @@ export default function EvaluateMetadata() {
                                 label="CEDAR template IRI"
                             />
                             <div className="sampleInputButton">
-                                <Link component="button" onClick={handleSampleInputTemplateClick}>sample input</Link>
+                                <Link component="button" onClick={handleTemplateExample1Click}>example 1</Link>&nbsp;
+                                <Link component="button" onClick={handleTemplateExample2Click}>example 2</Link>
                             </div>
                         </>)}
                     <div style={{marginTop: "5px", textAlign: "left"}}>
