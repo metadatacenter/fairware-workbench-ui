@@ -87,7 +87,7 @@ export default function CompletenessReport(props) {
     }
 
     function generatePlugins(data) {
-        let plugins = [{
+        return [{
             beforeDraw: function (chart) {
                 let width = chart.width,
                     height = chart.height,
@@ -108,7 +108,6 @@ export default function CompletenessReport(props) {
                 ctx.save();
             }
         }];
-        return plugins;
     }
 
     function generatePercentageStr(num, total) {
