@@ -42,7 +42,8 @@ export default function EvaluationResultTable() {
                                     return <ResultItem key={`evaluation-result-${index}`}
                                                        metadataIndex={index}
                                                        evaluationResults={evaluationResults}
-                                                       dispatch={dispatch}/>
+                                                       dispatch={dispatch}
+                                                       enableSummaryReport={enableSummaryReport}/>
                                 })}
                             </TableBody>
                         </Table>

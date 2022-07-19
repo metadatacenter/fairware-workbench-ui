@@ -18,6 +18,7 @@ export default function EvaluationReport() {
 
     const metadataIndex = location.state.metadataIndex;
     const [evaluationResults, dispatch] = useReducer(handleEvaluationResults, location.state.evaluationResults);
+    const enableSummaryReport = location.state.enableSummaryReport;
 
     const evaluationResult = evaluationResults[metadataIndex];
 
@@ -58,7 +59,9 @@ export default function EvaluationReport() {
 
     return (
         <>
-            <EvaluationReportHeader metadataIndex={metadataIndex} evaluationResults={evaluationResults}/>
+            <EvaluationReportHeader metadataIndex={metadataIndex}
+                                    evaluationResults={evaluationResults}
+                                    enableSummaryReport={enableSummaryReport}/>
             <div id="appContent">
                 <h1 className="pageTitle">Metadata Evaluation Report</h1>
                 <h2 className={"subTitle"}>Found <b>{issueCount}</b> issues</h2>

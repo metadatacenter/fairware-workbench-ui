@@ -21,6 +21,7 @@ export default function SelectTemplate() {
 
     const metadataIndex = location.state.metadataIndex;
     const [evaluationResults, dispatch] = useReducer(handleEvaluationResults, location.state.evaluationResults);
+    const enableSummaryReport = location.state.enableSummaryReport;
 
     const evaluationResult = evaluationResults[metadataIndex];
 
@@ -45,13 +46,16 @@ export default function SelectTemplate() {
             state: {
                 metadataIndex: metadataIndex,
                 evaluationResults: evaluationResults,
+                enableSummaryReport: enableSummaryReport
             }
         });
     }
 
     return (
         <>
-            <SelectTemplateHeader metadataIndex={metadataIndex} evaluationResults={evaluationResults}/>
+            <SelectTemplateHeader metadataIndex={metadataIndex}
+                                  evaluationResults={evaluationResults}
+                                  enableSummaryReport={enableSummaryReport}/>
             <div id="appContent">
                 <h1 className="pageTitle">Select a Metadata Template</h1>
                 <h2 className="subTitle">Use the arrow icon to select the CEDAR template for evaluating the

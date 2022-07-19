@@ -18,6 +18,8 @@ export default function AlignFieldsHeader(props) {
 
     const metadataIndex = props.metadataIndex;
     const evaluationResults = props.evaluationResults;
+    const enableSummaryReport = props.enableSummaryReport;
+    
     const evaluationResult = evaluationResults[metadataIndex];
 
     const hasRecommendations = 'recommendationReport' in evaluationResult;
@@ -26,7 +28,8 @@ export default function AlignFieldsHeader(props) {
         navigate("/SelectTemplate", {
             state: {
                 metadataIndex: metadataIndex,
-                evaluationResults: evaluationResults
+                evaluationResults: evaluationResults,
+                enableSummaryReport: enableSummaryReport
             }
         });
     }
@@ -35,7 +38,8 @@ export default function AlignFieldsHeader(props) {
         navigate("/EvaluationResult", {
             state: {
                 metadataIndex: metadataIndex,
-                evaluationResults: evaluationResults
+                evaluationResults: evaluationResults,
+                enableSummaryReport: enableSummaryReport
             }
         });
     }

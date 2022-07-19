@@ -19,13 +19,16 @@ export default function EvaluationReportHeader(props) {
 
     const metadataIndex = props.metadataIndex;
     const evaluationResults = props.evaluationResults;
+    const enableSummaryReport = props.enableSummaryReport;
+
     const evaluationResult = evaluationResults[metadataIndex];
 
     function handleBackButton() {
         navigate("/AlignFields", {
             state: {
                 metadataIndex: metadataIndex,
-                evaluationResults: evaluationResults
+                evaluationResults: evaluationResults,
+                enableSummaryReport: enableSummaryReport
             }
         });
     }
@@ -33,7 +36,8 @@ export default function EvaluationReportHeader(props) {
     function handleEvaluationResultsListClick(event) {
         navigate("/EvaluationResult", {
             state: {
-                evaluationResults: evaluationResults
+                evaluationResults: evaluationResults,
+                enableSummaryReport: enableSummaryReport
             }
         });
     }

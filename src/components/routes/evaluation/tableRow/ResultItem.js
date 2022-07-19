@@ -19,6 +19,7 @@ export default function ResultItem(props) {
     const metadataIndex = props.metadataIndex;
     const evaluationResults = props.evaluationResults;
     const dispatch = props.dispatch;
+    const enableSummaryReport = props.enableSummaryReport;
 
     const evaluationResult = evaluationResults[metadataIndex];
     const metadataArtifact = evaluationResult.metadataArtifact;
@@ -122,7 +123,8 @@ export default function ResultItem(props) {
         navigate("/EvaluationReport", {
             state: {
                 metadataIndex: metadataIndex,
-                evaluationResults: evaluationResults
+                evaluationResults: evaluationResults,
+                enableSummaryReport: enableSummaryReport
             }
         });
     }
@@ -138,7 +140,8 @@ export default function ResultItem(props) {
         navigate("/SelectTemplate", {
             state: {
                 metadataIndex: metadataIndex,
-                evaluationResults: evaluationResults
+                evaluationResults: evaluationResults,
+                enableSummaryReport: enableSummaryReport
             }
         });
     }

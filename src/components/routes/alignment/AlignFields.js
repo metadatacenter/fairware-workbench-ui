@@ -23,6 +23,7 @@ export default function AlignFields() {
 
     const metadataIndex = location.state.metadataIndex;
     const [evaluationResults, dispatch] = useReducer(handleEvaluationResults, location.state.evaluationResults);
+    const enableSummaryReport = location.state.enableSummaryReport;
 
     const evaluationResult = evaluationResults[metadataIndex];
 
@@ -70,14 +71,17 @@ export default function AlignFields() {
         navigate("/EvaluationReport", {
             state: {
                 metadataIndex: metadataIndex,
-                evaluationResults: evaluationResults
+                evaluationResults: evaluationResults,
+                enableSummaryReport: enableSummaryReport
             }
         });
     }
 
     return (
         <>
-            <AlignFieldsHeader metadataIndex={metadataIndex} evaluationResults={evaluationResults}/>
+            <AlignFieldsHeader metadataIndex={metadataIndex}
+                               evaluationResults={evaluationResults}
+                               enableSummaryReport={enableSummaryReport}/>
             <div id="appContent">
                 <div>
                     <h1 className="pageTitle">Align Fields</h1>

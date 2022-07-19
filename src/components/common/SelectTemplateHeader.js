@@ -18,13 +18,16 @@ export default function SelectTemplateHeader(props) {
 
     const metadataIndex = props.metadataIndex;
     const evaluationResults = props.evaluationResults;
+    const enableSummaryReport = props.enableSummaryReport;
+
     const evaluationResult = evaluationResults[metadataIndex];
 
     function handleBackButton() {
         navigate("/EvaluationResult", {
             state: {
                 metadataIndex: metadataIndex,
-                evaluationResults: evaluationResults
+                evaluationResults: evaluationResults,
+                enableSummaryReport: enableSummaryReport
             }
         });
     }
