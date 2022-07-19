@@ -19,12 +19,12 @@ export default function AlignFieldsHeader(props) {
     const metadataIndex = props.metadataIndex;
     const evaluationResults = props.evaluationResults;
     const enableSummaryReport = props.enableSummaryReport;
-    
+
     const evaluationResult = evaluationResults[metadataIndex];
 
     const hasRecommendations = 'recommendationReport' in evaluationResult;
 
-    function handleSelectTemplateButton() {
+    function handleSelectTemplateButtonClick() {
         navigate("/SelectTemplate", {
             state: {
                 metadataIndex: metadataIndex,
@@ -34,7 +34,7 @@ export default function AlignFieldsHeader(props) {
         });
     }
 
-    function handleEvaluationResultButton() {
+    function handleEvaluationResultButtonClick() {
         navigate("/EvaluationResult", {
             state: {
                 metadataIndex: metadataIndex,
@@ -70,7 +70,7 @@ export default function AlignFieldsHeader(props) {
                         flexWrap: "wrap"
                     }}>
                         {hasRecommendations && <Button style={{margin: "0", padding: "0"}}
-                                onClick={handleSelectTemplateButton}
+                                onClick={handleSelectTemplateButtonClick}
                                 className={"generalButton"}
                                 size={"large"}
                                 startIcon={<ArrowBackIcon/>}>
@@ -78,7 +78,7 @@ export default function AlignFieldsHeader(props) {
                         </Button>}
                         {!hasRecommendations && <Button hidden={hasRecommendations}
                                 style={{margin: "0", padding: "0"}}
-                                onClick={handleEvaluationResultButton}
+                                onClick={handleEvaluationResultButtonClick}
                                 className={"generalButton"}
                                 size={"large"}
                                 startIcon={<ArrowBackIcon/>}>

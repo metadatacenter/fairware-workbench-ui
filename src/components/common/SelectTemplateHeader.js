@@ -22,7 +22,7 @@ export default function SelectTemplateHeader(props) {
 
     const evaluationResult = evaluationResults[metadataIndex];
 
-    function handleBackButton() {
+    function handleBackToEvaluationResultButtonClick() {
         navigate("/EvaluationResult", {
             state: {
                 metadataIndex: metadataIndex,
@@ -58,7 +58,7 @@ export default function SelectTemplateHeader(props) {
                         flexWrap: "wrap"
                     }}>
                         <Button style={{margin: "0", padding: "0"}}
-                                onClick={handleBackButton}
+                                onClick={handleBackToEvaluationResultButtonClick}
                                 className={"generalButton"}
                                 size={"large"}
                                 startIcon={<ArrowBackIcon/>}>

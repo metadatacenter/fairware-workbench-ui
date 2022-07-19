@@ -23,7 +23,7 @@ export default function EvaluationReportHeader(props) {
 
     const evaluationResult = evaluationResults[metadataIndex];
 
-    function handleBackButton() {
+    function handleBackToAlignFieldsButtonClick() {
         navigate("/AlignFields", {
             state: {
                 metadataIndex: metadataIndex,
@@ -33,7 +33,7 @@ export default function EvaluationReportHeader(props) {
         });
     }
 
-    function handleEvaluationResultsListClick(event) {
+    function handleEvaluationResultsListButtonClick() {
         navigate("/EvaluationResult", {
             state: {
                 evaluationResults: evaluationResults,
@@ -58,7 +58,7 @@ export default function EvaluationReportHeader(props) {
                 <Toolbar id={"secondaryToolBar"} variant={"dense"}>
                     <Stack id={"headerButtonsContainer"} direction="row" spacing={4}>
                         {evaluationResults.length > 0 &&
-                            <Button onClick={handleEvaluationResultsListClick}
+                            <Button onClick={handleEvaluationResultsListButtonClick}
                                     to="/EvaluationResult"
                                     startIcon={<ListIcon/>}
                                     variant={"contained"}
@@ -75,7 +75,7 @@ export default function EvaluationReportHeader(props) {
                         flexWrap: "wrap"
                     }}>
                         <Button style={{margin: "0", padding: "0"}}
-                                onClick={handleBackButton}
+                                onClick={handleBackToAlignFieldsButtonClick}
                                 className={"generalButton"}
                                 size={"large"}
                                 startIcon={<ArrowBackIcon/>}>

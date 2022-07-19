@@ -30,7 +30,7 @@ export default function SelectTemplate() {
 
     const recommendationReport = evaluationResult.recommendationReport;
 
-    async function handleContinueButton(event, selectedTemplate) {
+    async function handleContinueButtonClick(event, selectedTemplate) {
         const response = await alignMetadataFields(metadataId, selectedTemplate);
         dispatch({
             type: 'UPDATE_METADATA_SPECIFICATION',
@@ -116,7 +116,7 @@ export default function SelectTemplate() {
                                                     </span>
                                                 </TableCell>
                                                 <TableCell className={"cell center"}>
-                                                    <IconButton onClick={(e) => handleContinueButton(e, templateId)}
+                                                    <IconButton onClick={(e) => handleContinueButtonClick(e, templateId)}
                                                                 size={"small"}>
                                                         <ArrowForwardIosIcon/>
                                                     </IconButton>

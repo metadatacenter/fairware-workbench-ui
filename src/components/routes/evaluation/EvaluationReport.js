@@ -40,7 +40,7 @@ export default function EvaluationReport() {
         setTabValue(value);
     }
 
-    function handleDownloadJsonButton() {
+    function handleDownloadResultButtonClick() {
         const metadataName = metadataArtifact.metadataId;
         const metadataRecord = metadataArtifact.metadataRecord;
         const patches = evaluationReport.evaluationReportItems
@@ -71,7 +71,7 @@ export default function EvaluationReport() {
 
                 <div style={{textAlign: "right"}}>
                     <Button
-                        onClick={handleDownloadJsonButton}
+                        onClick={handleDownloadResultButtonClick}
                         className={"generalButton"}
                         variant={"contained"}
                         size={"large"}
