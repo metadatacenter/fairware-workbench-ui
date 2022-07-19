@@ -186,23 +186,32 @@ export function generateSummaryReport(evaluationResults) {
     }
 
     const metadataSpecification = nonEmptyEvaluationResults[0].metadataSpecification;
+    const fieldAlignments = nonEmptyEvaluationResults[0].alignmentReport.fieldAlignments;
     const templateFields = Object.keys(metadataSpecification.templateFields);
     const allMetadataRecords = nonEmptyEvaluationResults.map((result) => result.metadataArtifact.metadataRecord)
     const valueErrorReportItemsOnly = nonEmptyEvaluationResults
         .map((result) => result.evaluationReport.evaluationReportItems).flat()
         .filter((item) => item.metadataIssue.issueCategory === "VALUE_ERROR" && item.metadataIssue.issueLevel === "ERROR");
-
     const fieldReportDetails = {}
-    templateFields.forEach((fieldName) => {
-        const inputOccurences = allMetadataRecords
-            .filter((metadataRecord) => fieldName in metadataRecord
-                && (metadataRecord[fieldName] != null || metadataRecord[fieldName] !== ""));
-        const errorOccurrences = valueErrorReportItemsOnly
-            .filter((item) => item.metadataIssue.issueLocation === fieldName);
-        fieldReportDetails[fieldName] = {
-            inputCount: inputOccurences.length,
-            errorCount: errorOccurrences.length
-        };
+    templateFields.forEach((templateField) => {
+        const foundAlignment = fieldAlignments.filter((alignment) => alignment.templateFieldPath === templateField);
+        if (foundAlignment.length === 1) {
+            const metadataField = foundAlignment[0].metadataFieldPath;
+            const inputOccurences = allMetadataRecords
+                .filter((metadataRecord) => metadataField in metadataRecord
+                    && (metadataRecord[metadataField] != null || metadataRecord[metadataField] !== ""));
+            const errorOccurrences = valueErrorReportItemsOnly
+                .filter((item) => item.metadataIssue.issueLocation === metadataField);
+            fieldReportDetails[templateField] = {
+                inputCount: inputOccurences.length,
+                errorCount: errorOccurrences.length
+            };
+        } else {
+            fieldReportDetails[templateField] = {
+                inputCount: 0,
+                errorCount: 0
+            };
+        }
     });
     const sortedFieldReportDetails = Object.entries(fieldReportDetails)
         .sort(([,a],[,b]) => (b.errorCount - a.errorCount) * 10 + b.inputCount - a.inputCount)
