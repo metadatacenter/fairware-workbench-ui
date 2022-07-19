@@ -1,9 +1,11 @@
 import React, {useReducer, useState} from "react";
 import {useLocation} from 'react-router-dom';
+import * as jsonpatch from 'fast-json-patch';
 import Paper from "@mui/material/Paper";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Button from "@mui/material/Button";
+import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import ReportListView from "./ReportListView";
 import ReportMetadataView from "./ReportMetadataView";
 import EvaluationReportHeader from "../../common/EvaluationReportHeader";
@@ -37,6 +39,23 @@ export default function EvaluationReport() {
         setTabValue(value);
     }
 
+    function handleDownloadJsonButton() {
+        const metadataName = metadataArtifact.metadataId;
+        const metadataRecord = metadataArtifact.metadataRecord;
+        const patches = evaluationReport.evaluationReportItems
+            .filter((item) => item.metadataIssue.issueCategory === "VALUE_ERROR")
+            .map((item) => item.patches)
+            .flat()
+        const patchedMetadata = jsonpatch.applyPatch(metadataRecord, patches).newDocument;
+        const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
+            JSON.stringify(patchedMetadata, null, 2)
+        )}`;
+        const link = document.createElement("a");
+        link.href = jsonString;
+        link.download = metadataName + "-patched.json";
+        link.click();
+    }
+
     return (
         <>
             <EvaluationReportHeader metadataIndex={metadataIndex} evaluationResults={evaluationResults}/>
@@ -49,15 +68,12 @@ export default function EvaluationReport() {
 
                 <div style={{textAlign: "right"}}>
                     <Button
+                        onClick={handleDownloadJsonButton}
                         className={"generalButton"}
                         variant={"contained"}
-                        size={"large"}>
-                        Download (PDF)</Button>
-                    <Button
-                        className={"generalButton"}
-                        variant={"contained"}
-                        size={"large"}>
-                        Download (JSON)</Button>
+                        size={"large"}
+                        startIcon={<FileDownloadIcon/>}>
+                        Download Result</Button>
                 </div>
 
                 <Paper style={{marginTop: "-2em", boxShadow: "none", borderBottom: "3px solid #e4e4e4"}}>
