@@ -4,8 +4,6 @@ import './App.css';
 import CssBaseline from '@mui/material/CssBaseline';
 import StyledEngineProvider from "@mui/material/StyledEngineProvider";
 import Home from "./components/routes/Home";
-import ResearchNotPublished from "./components/routes/ResearchNotPublished";
-import FindMetadata from "./components/routes/FindMetadata";
 import EvaluateMetadata from "./components/routes/EvaluateMetadata";
 import EvaluationReport from "./components/routes/evaluation/EvaluationReport";
 import EvaluationResultTable from "./components/routes/evaluation/EvaluationResultTable";
@@ -14,8 +12,6 @@ import PrivacyPolicy from "./components/routes/PrivacyPolicy";
 import About from "./components/routes/About";
 import Support from "./components/routes/Support";
 import Resources from "./components/routes/Resources";
-import MetadataRecords from "./components/routes/MetadataRecords";
-import MetadataEvaluationReport from "./components/routes/MetadataEvaluationReport";
 import SummaryReport from "./components/routes/summaryReport/SummaryReport";
 import AlignFields from "./components/routes/alignment/AlignFields";
 
@@ -31,15 +27,11 @@ export default function App() {
             <BrowserRouter>
               <Routes>
                 <Route path="/" element={<Home/>}/>
-                <Route path="/ResearchNotPublished" element={<ResearchNotPublished/>}/>
-                <Route path="/FindMetadata" element={<FindMetadata/>}/>
                 <Route path="/EvaluateMetadata" element={<EvaluateMetadata/>}/>
                 <Route path="/EvaluationReport" element={<EvaluationReport/>}/>
                 <Route path="/EvaluationResult" element={<EvaluationResultTable/>}/>
-                <Route path="/MetadataRecords" element={<MetadataRecords/>}/>
                 <Route path="/SelectTemplate" element={<SelectTemplate/>}/>
                 <Route path="/AlignFields" element={<AlignFields/>}/>
-                <Route path="/MetadataEvaluationReport" element={<MetadataEvaluationReport/>}/>
                 <Route path="/SummaryReport" element={<SummaryReport/>}/>
                 <Route path="/PrivacyPolicy" element={<PrivacyPolicy/>}/>
                 <Route path="/About" element={<About/>}/>
