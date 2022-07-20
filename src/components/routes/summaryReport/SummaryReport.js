@@ -29,7 +29,7 @@ export default function SummaryReport() {
                     Template: <a href={summaryReport.templateUrl} target="_blank">{summaryReport.templateName}</a>
                 </h2>
                 <Box sx={{paddingTop: "2rem"}}>
-                    <CompletenessReport data={summaryReport.completenessAndCorrectnessReport}/>
+                    <CompletenessReport data={summaryReport.completenessAndConformanceReport}/>
                 </Box>
             </div>
             <AppFooter/>

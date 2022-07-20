@@ -39,11 +39,11 @@ export default function CompletenessReport(props) {
         }],
     };
 
-    const recordsWithInvalidValuesCount = data.byRecords.correctness.recordsWithInvalidValuesCount;
-    const recordsWithAllValidValuesCount = data.byRecords.correctness.totalRecords - recordsWithInvalidValuesCount;
+    const recordsWithInvalidValuesCount = data.byRecords.conformance.recordsWithInvalidValuesCount;
+    const recordsWithAllValidValuesCount = data.byRecords.conformance.totalRecords - recordsWithInvalidValuesCount;
     const conformanceReportData = {
         labels: ['Some values are of incorrect data types', 'All values are of correct data types'],
-        innerTextTitle: recordsWithAllValidValuesCount + ' / ' + data.byRecords.correctness.totalRecords,
+        innerTextTitle: recordsWithAllValidValuesCount + ' / ' + data.byRecords.conformance.totalRecords,
         innerTextSubtitle: 'Conformance',
         datasets: [{
             data: [
@@ -142,7 +142,7 @@ export default function CompletenessReport(props) {
         return data;
     }
 
-    function createCorrectnessBar(nonEmptyFieldsCount, invalidFieldsCount) {
+    function createConformanceBar(nonEmptyFieldsCount, invalidFieldsCount) {
         let data = [];
         if (invalidFieldsCount > 0 && nonEmptyFieldsCount > 0) {
             data.push({
@@ -162,7 +162,7 @@ export default function CompletenessReport(props) {
         return data;
     }
 
-    function createCorrectnessBarByField(errorCount, inputCount) {
+    function createFieldAnalysisBar(errorCount, inputCount) {
         let data = [];
         if (errorCount > 0 && inputCount > 0) {
             data.push({
@@ -252,7 +252,7 @@ export default function CompletenessReport(props) {
                                                    outlineColor="#ffffff"
                                                    id="chart"
                                                    fontColor="#ffffff"
-                                                   data={createCorrectnessBar(item.fieldsWithNonEmptyValueCount, item.fieldsWithInvalidValueCount)}/>
+                                                   data={createConformanceBar(item.fieldsWithNonEmptyValueCount, item.fieldsWithInvalidValueCount)}/>
                                             <span style={{fontSize: 14, fontWeight: "normal", color: "#666666"}}>
                                                 {item.fieldsWithInvalidValueCount} out of {item.fieldsWithNonEmptyValueCount} filled metadata fields are invalid.
                                             </span>
@@ -286,7 +286,7 @@ export default function CompletenessReport(props) {
                                                    outlineColor="#ffffff"
                                                    id="chart"
                                                    fontColor="#ffffff"
-                                                   data={createCorrectnessBarByField(reportItem.errorCount, reportItem.inputCount)}/>
+                                                   data={createFieldAnalysisBar(reportItem.errorCount, reportItem.inputCount)}/>
                                         </TableCell>
                                     </TableRow>
                                 )
