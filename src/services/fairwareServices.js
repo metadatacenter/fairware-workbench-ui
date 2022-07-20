@@ -199,9 +199,12 @@ export function generateSummaryReport(evaluationResults) {
             const metadataField = foundAlignment[0].metadataFieldPath;
             const inputOccurences = allMetadataRecords
                 .filter((metadataRecord) => metadataField in metadataRecord
-                    && (metadataRecord[metadataField] != null || metadataRecord[metadataField] !== ""));
+                    && !!metadataRecord[metadataField]);
             const errorOccurrences = valueErrorReportItemsOnly
-                .filter((item) => item.metadataIssue.issueLocation === metadataField);
+                .filter((item) => item.metadataIssue.issueLocation === metadataField)
+                .filter((item) => item.metadataIssue.issueType !== "MISSING_REQUIRED_VALUE")
+                .filter((item) => item.metadataIssue.issueType !== "MISSING_OPTIONAL_VALUE");
+            debugger
             fieldReportDetails[templateField] = {
                 inputCount: inputOccurences.length,
                 errorCount: errorOccurrences.length
@@ -214,8 +217,8 @@ export function generateSummaryReport(evaluationResults) {
         }
     });
     const sortedFieldReportDetails = Object.entries(fieldReportDetails)
-        .sort(([,a],[,b]) => (b.errorCount - a.errorCount) * 10 + b.inputCount - a.inputCount)
-        .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
+        .sort(([, a], [, b]) => (b.errorCount - a.errorCount) * 10 + b.inputCount - a.inputCount)
+        .reduce((r, [k, v]) => ({...r, [k]: v}), {});
 
     return {
         templateName: metadataSpecification.templateName,
@@ -230,11 +233,8 @@ export function generateSummaryReport(evaluationResults) {
                         .length
                 },
                 correctness: {
-                    totalRecords: recordsReportDetails
-                        .filter((details) => details.fieldsWithMissingRequiredValueCount === 0)
-                        .length,
+                    totalRecords: recordsReportDetails.length,
                     recordsWithInvalidValuesCount: recordsReportDetails
-                        .filter((details) => details.fieldsWithMissingRequiredValueCount === 0)
                         .filter((details) => details.fieldsWithInvalidValueCount > 0)
                         .length,
                 },

@@ -115,7 +115,7 @@ export default function CompletenessReport(props) {
     }
 
     function generateDescription(count, total) {
-        if (count > 0) {
+        if (count > 0 && total > 0) {
             return count + ' (' + generatePercentageStr(count, total) + ')';
         } else {
             return '';
@@ -124,7 +124,7 @@ export default function CompletenessReport(props) {
 
     function createCompletenessBar(requiredFieldsCount, missingRequiredValuesCount) {
         let data = [];
-        if (missingRequiredValuesCount > 0) {
+        if (missingRequiredValuesCount > 0 && requiredFieldsCount > 0) {
             data.push({
                 value: missingRequiredValuesCount,
                 description: generateDescription(missingRequiredValuesCount, requiredFieldsCount),
@@ -132,7 +132,7 @@ export default function CompletenessReport(props) {
             })
         }
         const noMissingRequiredValuesCount = requiredFieldsCount - missingRequiredValuesCount;
-        if (noMissingRequiredValuesCount > 0) {
+        if (noMissingRequiredValuesCount > 0 && requiredFieldsCount > 0) {
             data.push({
                 value: noMissingRequiredValuesCount,
                 description: generateDescription(noMissingRequiredValuesCount, requiredFieldsCount),
@@ -144,7 +144,7 @@ export default function CompletenessReport(props) {
 
     function createCorrectnessBar(nonEmptyFieldsCount, invalidFieldsCount) {
         let data = [];
-        if (invalidFieldsCount > 0) {
+        if (invalidFieldsCount > 0 && nonEmptyFieldsCount > 0) {
             data.push({
                 value: invalidFieldsCount,
                 description: generateDescription(invalidFieldsCount, nonEmptyFieldsCount),
@@ -152,7 +152,7 @@ export default function CompletenessReport(props) {
             })
         }
         const validFieldCount = nonEmptyFieldsCount - invalidFieldsCount;
-        if (validFieldCount > 0) {
+        if (validFieldCount > 0 && nonEmptyFieldsCount > 0) {
             data.push({
                 value: validFieldCount,
                 description: generateDescription(validFieldCount, nonEmptyFieldsCount),
@@ -164,7 +164,7 @@ export default function CompletenessReport(props) {
 
     function createCorrectnessBarByField(errorCount, inputCount) {
         let data = [];
-        if (errorCount > 0) {
+        if (errorCount > 0 && inputCount > 0) {
             data.push({
                 value: errorCount,
                 description: generateDescription(errorCount, inputCount),
@@ -172,7 +172,7 @@ export default function CompletenessReport(props) {
             })
         }
         const validInputCount = inputCount - errorCount;
-        if (validInputCount > 0) {
+        if (validInputCount > 0 && inputCount > 0) {
             data.push({
                 value: validInputCount,
                 description: generateDescription(validInputCount, inputCount),
