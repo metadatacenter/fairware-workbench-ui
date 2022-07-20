@@ -186,35 +186,36 @@ export function generateSummaryReport(evaluationResults) {
     }
 
     const metadataSpecification = nonEmptyEvaluationResults[0].metadataSpecification;
-    const fieldAlignments = nonEmptyEvaluationResults[0].alignmentReport.fieldAlignments;
     const templateFields = Object.keys(metadataSpecification.templateFields);
-    const allMetadataRecords = nonEmptyEvaluationResults.map((result) => result.metadataArtifact.metadataRecord)
     const valueErrorReportItemsOnly = nonEmptyEvaluationResults
         .map((result) => result.evaluationReport.evaluationReportItems).flat()
         .filter((item) => item.metadataIssue.issueCategory === "VALUE_ERROR" && item.metadataIssue.issueLevel === "ERROR");
     const fieldReportDetails = {}
     templateFields.forEach((templateField) => {
-        const foundAlignment = fieldAlignments.filter((alignment) => alignment.templateFieldPath === templateField);
-        if (foundAlignment.length === 1) {
-            const metadataField = foundAlignment[0].metadataFieldPath;
-            const inputOccurences = allMetadataRecords
-                .filter((metadataRecord) => metadataField in metadataRecord
-                    && !!metadataRecord[metadataField]);
-            const errorOccurrences = valueErrorReportItemsOnly
-                .filter((item) => item.metadataIssue.issueLocation === metadataField)
-                .filter((item) => item.metadataIssue.issueType !== "MISSING_REQUIRED_VALUE")
-                .filter((item) => item.metadataIssue.issueType !== "MISSING_OPTIONAL_VALUE");
-            debugger
+        let inputCount = 0;
+        let errorCount = 0;
+        nonEmptyEvaluationResults.forEach((result) => {
+            const foundAlignment = result.alignmentReport.fieldAlignments
+                .filter((alignment) => alignment.templateFieldPath === templateField);
+            if (foundAlignment.length === 1) {
+                const metadataField = foundAlignment[0].metadataFieldPath;
+                const metadataRecord = result.metadataArtifact.metadataRecord
+                if (metadataField in metadataRecord && !!metadataRecord[metadataField]) {
+                    inputCount = inputCount + 1;
+                }
+                const errorOccurrences = result.evaluationReport.evaluationReportItems
+                    .filter((item) => item.metadataIssue.issueLocation === metadataField)
+                    .filter((item) => item.metadataIssue.issueType !== "MISSING_REQUIRED_VALUE")
+                    .filter((item) => item.metadataIssue.issueType !== "MISSING_OPTIONAL_VALUE");
+                if (errorOccurrences.length === 1) {
+                    errorCount = errorCount + 1;
+                }
+            }
             fieldReportDetails[templateField] = {
-                inputCount: inputOccurences.length,
-                errorCount: errorOccurrences.length
+                inputCount: inputCount,
+                errorCount: errorCount
             };
-        } else {
-            fieldReportDetails[templateField] = {
-                inputCount: 0,
-                errorCount: 0
-            };
-        }
+        });
     });
     const sortedFieldReportDetails = Object.entries(fieldReportDetails)
         .sort(([, a], [, b]) => (b.errorCount - a.errorCount) * 10 + b.inputCount - a.inputCount)
