@@ -209,7 +209,7 @@ export function generateSummaryReport(evaluationResults) {
                     .filter((item) => item.metadataIssue.issueLocation === metadataField)
                     .filter((item) => item.metadataIssue.issueType !== "MISSING_REQUIRED_VALUE")
                     .filter((item) => item.metadataIssue.issueType !== "MISSING_OPTIONAL_VALUE");
-                if (errorOccurrences.length === 1) {
+                if (errorOccurrences.length > 0) {
                     errorCount = errorCount + 1;
                 }
             }
