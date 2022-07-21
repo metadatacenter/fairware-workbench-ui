@@ -158,7 +158,8 @@ export function generateSummaryReport(evaluationResults) {
             .filter((item) => item.metadataIssue.issueCategory === "VALUE_ERROR"
                 && item.metadataIssue.issueLevel === "ERROR");
         const fieldsWithMissingRequiredValue = valueErrorReportItemsOnly
-            .filter((item) => item.metadataIssue.issueType === "MISSING_REQUIRED_VALUE");
+            .filter((item) => item.metadataIssue.issueType === "MISSING_REQUIRED_VALUE")
+            .map((item) => item.metadataIssue.issueLocation);
         const issueTypes = [
             "EXPECTING_INPUT_STRING",
             "EXPECTING_INPUT_NUMBER",
@@ -170,6 +171,7 @@ export function generateSummaryReport(evaluationResults) {
         ]
         const fieldsWithInvalidValue = valueErrorReportItemsOnly
             .filter((item) => issueTypes.indexOf(item.metadataIssue.issueType) !== -1)
+            .map((item) => item.metadataIssue.issueLocation);
         const metadataRecord = metadataArtifact.metadataRecord;
         const fieldsWithNonEmptyValue = Object.keys(metadataRecord)
             .filter((key) => metadataRecord[key] != null || metadataRecord[key] !== "");
@@ -179,9 +181,9 @@ export function generateSummaryReport(evaluationResults) {
             metadataName: metadataArtifact.metadataName,
             totalFieldsCount: metadataArtifact.metadataFields.length,
             requiredFieldsCount: metadataSpecification.requiredFields.length,
-            fieldsWithMissingRequiredValueCount: fieldsWithMissingRequiredValue.length,
-            fieldsWithNonEmptyValueCount: fieldsWithNonEmptyValue.length,
-            fieldsWithInvalidValueCount: fieldsWithInvalidValue.length
+            fieldsWithMissingRequiredValueCount: new Set(fieldsWithMissingRequiredValue).size,
+            fieldsWithNonEmptyValueCount: new Set(fieldsWithNonEmptyValue).size,
+            fieldsWithInvalidValueCount: new Set(fieldsWithInvalidValue).size
         });
     }
 
