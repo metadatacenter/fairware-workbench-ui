@@ -4,6 +4,7 @@ import {
     FAIRWARE_METADATA_SEARCH_URL,
     FAIRWARE_TEMPLATE_RECOMMEND_URL
 } from "../constants";
+import {countUniqueArrayMember} from "../util/commonUtil";
 
 const delay = (ms = 200) => new Promise(r => setTimeout(r, ms));
 
@@ -181,9 +182,9 @@ export function generateSummaryReport(evaluationResults) {
             metadataName: metadataArtifact.metadataName,
             totalFieldsCount: metadataArtifact.metadataFields.length,
             requiredFieldsCount: metadataSpecification.requiredFields.length,
-            fieldsWithMissingRequiredValueCount: new Set(fieldsWithMissingRequiredValue).size,
-            fieldsWithNonEmptyValueCount: new Set(fieldsWithNonEmptyValue).size,
-            fieldsWithInvalidValueCount: new Set(fieldsWithInvalidValue).size
+            fieldsWithMissingRequiredValueCount: countUniqueArrayMember(fieldsWithMissingRequiredValue),
+            fieldsWithNonEmptyValueCount: countUniqueArrayMember(fieldsWithNonEmptyValue),
+            fieldsWithInvalidValueCount: countUniqueArrayMember(fieldsWithInvalidValue)
         });
     }
 
