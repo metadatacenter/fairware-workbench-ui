@@ -154,6 +154,7 @@ export function generateSummaryReport(evaluationResults) {
         const evaluationReport = evaluationResult.evaluationReport;
         const metadataArtifact = evaluationResult.metadataArtifact;
         const metadataSpecification = evaluationResult.metadataSpecification;
+        const requiredFields = metadataSpecification.templateFields.filter((field => field.isRequired));
         const evaluationReportItems = evaluationReport.evaluationReportItems;
         const valueErrorReportItemsOnly = evaluationReportItems
             .filter((item) => item.metadataIssue.issueCategory === "VALUE_ERROR"
@@ -181,7 +182,7 @@ export function generateSummaryReport(evaluationResults) {
             metadataId: metadataArtifact.metadataId,
             metadataName: metadataArtifact.metadataName,
             totalFieldsCount: metadataArtifact.metadataFields.length,
-            requiredFieldsCount: metadataSpecification.requiredFields.length,
+            requiredFieldsCount: requiredFields.length,
             fieldsWithMissingRequiredValueCount: countUniqueArrayMember(fieldsWithMissingRequiredValue),
             fieldsWithNonEmptyValueCount: countUniqueArrayMember(fieldsWithNonEmptyValue),
             fieldsWithInvalidValueCount: countUniqueArrayMember(fieldsWithInvalidValue)
@@ -189,8 +190,10 @@ export function generateSummaryReport(evaluationResults) {
     }
 
     const metadataSpecification = nonEmptyEvaluationResults[0].metadataSpecification;
-    const templateFields = Object.keys(metadataSpecification.templateFields);
-    const requiredFields = metadataSpecification.requiredFields;
+    const templateFields = metadataSpecification.templateFields.map((field) => field.name);
+    const requiredFields = metadataSpecification.templateFields
+        .filter((field) => field.isRequired)
+        .map((field) => field.name);
     nonEmptyEvaluationResults
         .map((result) => result.evaluationReport.evaluationReportItems).flat()
         .filter((item) => item.metadataIssue.issueCategory === "VALUE_ERROR"

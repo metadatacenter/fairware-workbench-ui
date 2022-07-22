@@ -29,7 +29,7 @@ export default function AlignFields() {
 
     const metadataArtifact = evaluationResult.metadataArtifact;
     const metadataSpecification = evaluationResult.metadataSpecification;
-    const templateFields = Object.keys(metadataSpecification.templateFields);
+    const templateFields = metadataSpecification.templateFields.map((field) => field.name);
     const alignmentReport = evaluationResult.alignmentReport;
 
     const [evaluating, setEvaluationInProgress] = useState(false);
