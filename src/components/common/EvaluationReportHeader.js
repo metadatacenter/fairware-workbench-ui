@@ -12,6 +12,7 @@ import LooksOneIcon from "@mui/icons-material/LooksOne";
 import LooksTwoIcon from "@mui/icons-material/LooksTwo";
 import Looks3Icon from "@mui/icons-material/Looks3";
 import PublicIcon from "@mui/icons-material/Public";
+import {shortenMetadataId} from "../../util/commonUtil";
 
 export default function EvaluationReportHeader(props) {
 
@@ -109,7 +110,9 @@ export default function EvaluationReportHeader(props) {
                         color: "#444444"
                     }}>
                         <SvgIcon component={PublicIcon}/>&nbsp;&nbsp;
-                        <span>{evaluationResult.metadataArtifact.metadataId}</span>
+                        <span>
+                            {shortenMetadataId(evaluationResult.metadataArtifact.metadataId)}
+                        </span>
                     </div>
                 </div>
             </AppBar>

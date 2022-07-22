@@ -13,6 +13,7 @@ import TableBody from "@mui/material/TableBody";
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import SvgIcon from "@mui/material/SvgIcon";
+import {shortenMetadataId} from "../../../util/commonUtil";
 
 ChartJS.register(ArcElement, TooltipJS, Legend);
 
@@ -239,7 +240,7 @@ export default function CompletenessReport(props) {
                             .map((item) => {
                                 const statusIcon = getStatusIconComponent(item.fieldsWithMissingRequiredValueCount, item.fieldsWithInvalidValueCount);
                                 return (<TableRow key={item.metadataId}>
-                                        <TableCell className={"cell center"}>{item.metadataId}</TableCell>
+                                        <TableCell className={"cell center"}>{shortenMetadataId(item.metadataId)}</TableCell>
                                         <TableCell className={"cell center"}>{statusIcon}</TableCell>
                                         <TableCell className={"horizontalBarCell"}>
                                             <HSBar height={20}

@@ -11,6 +11,7 @@ import LooksTwoIcon from "@mui/icons-material/LooksTwo";
 import Looks3Icon from "@mui/icons-material/Looks3";
 import PublicIcon from "@mui/icons-material/Public";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import {shortenMetadataId} from "../../util/commonUtil";
 
 export default function SelectTemplateHeader(props) {
 
@@ -91,7 +92,9 @@ export default function SelectTemplateHeader(props) {
                         color: "#444444"
                     }}>
                         <SvgIcon component={PublicIcon}/>&nbsp;&nbsp;
-                        <span>{evaluationResult.metadataArtifact.metadataId}</span>
+                        <span>
+                            {shortenMetadataId(evaluationResult.metadataArtifact.metadataId)}
+                        </span>
                     </div>
                 </div>
             </AppBar>

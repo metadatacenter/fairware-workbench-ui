@@ -11,6 +11,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import FileDownloadOffIcon from '@mui/icons-material/FileDownloadOff';
 import WarningIcon from "@mui/icons-material/Warning";
 import {recommendMetadataTemplate} from "../../../../services/fairwareServices";
+import {shortenMetadataId} from "../../../../util/commonUtil";
 
 export default function ResultItem(props) {
 
@@ -148,7 +149,9 @@ export default function ResultItem(props) {
 
     return (
         <TableRow sx={{'& > *': {borderBottom: 'unset'}}}>
-            <TableCell className={"cell center"}>{metadataArtifact.metadataId}</TableCell>
+            <TableCell className={"cell center"}>
+                {shortenMetadataId(metadataArtifact.metadataId)}
+            </TableCell>
             <TableCell className={"cell center"}>{templateNameComponent}</TableCell>
             <TableCell className={"cell center"}>{numberOfIssuesComponent}</TableCell>
             <TableCell className={"cell center"}>{visibilityIconComponent}</TableCell>
