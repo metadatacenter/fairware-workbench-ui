@@ -189,9 +189,11 @@ export function generateSummaryReport(evaluationResults) {
 
     const metadataSpecification = nonEmptyEvaluationResults[0].metadataSpecification;
     const templateFields = Object.keys(metadataSpecification.templateFields);
-    const valueErrorReportItemsOnly = nonEmptyEvaluationResults
+    const requiredFields = metadataSpecification.requiredFields;
+    nonEmptyEvaluationResults
         .map((result) => result.evaluationReport.evaluationReportItems).flat()
-        .filter((item) => item.metadataIssue.issueCategory === "VALUE_ERROR" && item.metadataIssue.issueLevel === "ERROR");
+        .filter((item) => item.metadataIssue.issueCategory === "VALUE_ERROR"
+            && item.metadataIssue.issueLevel === "ERROR");
     const fieldReportDetails = {}
     templateFields.forEach((templateField) => {
         let inputCount = 0;
@@ -215,7 +217,8 @@ export function generateSummaryReport(evaluationResults) {
             }
             fieldReportDetails[templateField] = {
                 inputCount: inputCount,
-                errorCount: errorCount
+                errorCount: errorCount,
+                isRequiredField: requiredFields.indexOf(templateField) !== -1
             };
         });
     });

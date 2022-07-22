@@ -203,7 +203,10 @@ export default function CompletenessReport(props) {
                                       options={options}
                                       plugins={generatePlugins(completenessReportData)}/>
                         </div>
-                        <div style={{color: "#888888", textAlign: "center"}}>Completeness is measured based on the presence or absence of <i>required</i> values in the metadata fields defined in the metadata schema.</div>
+                        <div style={{color: "#888888", textAlign: "center"}}>Completeness is measured based on the
+                            presence or absence of <i>required</i> values in the metadata fields defined in the metadata
+                            schema.
+                        </div>
                     </Grid>
                     <Grid item xs={5}>
                         <div>
@@ -213,7 +216,10 @@ export default function CompletenessReport(props) {
                                       options={options}
                                       plugins={generatePlugins(conformanceReportData)}/>
                         </div>
-                        <div style={{color: "#888888", textAlign: "center"}}>Conformance is measured based on the compliance of the value in the metadata field with its data type defined in the metadata schema.</div>
+                        <div style={{color: "#888888", textAlign: "center"}}>Conformance is measured based on the
+                            compliance of the value in the metadata field with its data type defined in the metadata
+                            schema.
+                        </div>
                     </Grid>
                     <Grid item xs={1}/>
                 </Grid>
@@ -278,7 +284,13 @@ export default function CompletenessReport(props) {
                             .map((fieldName) => {
                                 const reportItem = data.byFields.fieldReportDetails[fieldName];
                                 return (<TableRow key={fieldName}>
-                                        <TableCell className={"cell center"}>{fieldName}</TableCell>
+                                        <TableCell className={"cell center"}>
+                                            {fieldName}&nbsp;
+                                            {reportItem.isRequiredField &&
+                                                <span style={{fontStyle: "italic", color: "#ff0000"}}>
+                                                    (required)
+                                                </span>}
+                                        </TableCell>
                                         <TableCell className={"cell center"}>{reportItem.inputCount}</TableCell>
                                         <TableCell className={"horizontalBarCell"}>
                                             <HSBar height={20}
