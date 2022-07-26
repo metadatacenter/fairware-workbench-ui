@@ -12,7 +12,7 @@ import EllipsisText from "../../../common/EllipsisText";
 export default function FieldValueIssueItem(props) {
 
     const fieldName = props.fieldName
-    const fieldValue = props.fieldValue;
+    let fieldValue = props.fieldValue;
     const metadataIndex = props.metadataIndex;
     const issueIndex = props.issueIndex;
     const evaluationReportItem = props.evaluationReportItem;
@@ -57,7 +57,7 @@ export default function FieldValueIssueItem(props) {
         const patches = evaluationReportItem.patches;
         const suggestedValue = patches[0].value;
         const valueSuggestions = evaluationReportItem.repairAction.valueSuggestions;
-        if (valueSuggestions.length === 1) {
+        if (valueSuggestions.length <= 1) {
             suggestedRepairFieldComponent = (
                 <TextField style={{backgroundColor: "#ffffff"}}
                            fullWidth
@@ -70,6 +70,7 @@ export default function FieldValueIssueItem(props) {
                 <Autocomplete disablePortal
                               options={valueSuggestions}
                               defaultValue={suggestedValue}
+                              getOptionLabel={(value) => value.split("|")[1]}
                               size="small"
                               onChange={handleInputAutocompleteChange}
                               renderInput={(params) =>
@@ -98,6 +99,9 @@ export default function FieldValueIssueItem(props) {
             return (<></>);
         }
     } else {
+        if (typeof (fieldValue) === "string" && fieldValue.includes("|")) {
+            fieldValue = fieldValue.split("|")[1];
+        }
         return (
             <TableRow style={{backgroundColor: "#f4f4f4"}}>
                 <TableCell>
@@ -108,7 +112,8 @@ export default function FieldValueIssueItem(props) {
                         InputProps={{
                             startAdornment: <Chip style={{fontSize: 16, maxWidth: 600}}
                                                   color={chipColor}
-                                                  label={<EllipsisText maxWidth={"40rem"}>{JSON.stringify(fieldValue)}</EllipsisText>}
+                                                  label={<EllipsisText
+                                                      maxWidth={"40rem"}>{JSON.stringify(fieldValue)}</EllipsisText>}
                                                   title={JSON.stringify(fieldValue)}/>,
                         }}
                     />

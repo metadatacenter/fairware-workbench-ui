@@ -57,6 +57,9 @@ export default function ValueErrorListItem(props) {
     }
 
     function getFieldValueComponent(fieldValue) {
+        if (typeof (fieldValue) === "string" && fieldValue.includes("|")) {
+            fieldValue = fieldValue.split("|")[1];
+        }
         return (
             <div style={{color: "#ff0000"}}>
                 <EllipsisText maxWidth={"20rem"}>{fieldValue}</EllipsisText>
@@ -79,7 +82,7 @@ export default function ValueErrorListItem(props) {
     function getRepairFieldComponent(valueSuggestions, patches) {
         let repairField;
         const repairValue = getRepairValue(patches);
-        if (valueSuggestions.length === 1) {
+        if (valueSuggestions.length <= 1) {
             repairField = (
                 <TextField style={{backgroundColor: "#ffffff"}}
                            fullWidth
@@ -92,6 +95,7 @@ export default function ValueErrorListItem(props) {
                 <Autocomplete disablePortal
                               options={valueSuggestions}
                               defaultValue={repairValue}
+                              getOptionLabel={(value) => value.split("|")[1]}
                               size="small"
                               onChange={handleInputAutocompleteChange}
                               renderInput={(params) =>

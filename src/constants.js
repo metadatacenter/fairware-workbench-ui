@@ -22,5 +22,9 @@ export const ISSUE_LEVEL_WARNING = "WARNING";
 export const CEDAR_REPO_SERVER_BASE = "https://repo.metadatacenter.org/";
 export const CEDAR_EDIT_TEMPLATE_BASE_URI = "https://cedar.metadatacenter.org/templates/edit/";
 export const CEDAR_EDIT_TEMPLATE_INSTANCE_BASE_URI = "https://cedar.metadatacenter.org/instances/edit/";
+
 export const CEDAR_TEMPLATES_STR = "templates/";
 export const CEDAR_TEMPLATE_INSTANCES_STR = "template-instances/";
+
+export const CEDAR_API_BASE_URL = "https://resource.metadatacenter.org/";
+export const CEDAR_TEMPLATE_INSTANCE_URL = CEDAR_API_BASE_URL + "template-instances";

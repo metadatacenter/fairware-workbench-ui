@@ -60,6 +60,9 @@ export default function FieldErrorListItem(props) {
     }
 
     function getFieldValueComponent(fieldValue) {
+        if (typeof (fieldValue) === "string" && fieldValue.includes("|")) {
+            fieldValue = fieldValue.split("|")[1];
+        }
         return (
             <span><EllipsisText maxWidth={"20rem"}>{fieldValue}</EllipsisText></span>
         )
@@ -112,8 +115,10 @@ export default function FieldErrorListItem(props) {
     return (
         <TableRow>
             <TableCell style={{fontSize: 16, backgroundColor: rowColor}} align="center">{fieldNameComponent}</TableCell>
-            <TableCell style={{fontSize: 16, backgroundColor: rowColor}} align="center">{fieldValueComponent}</TableCell>
-            <TableCell style={{fontSize: 16, backgroundColor: rowColor}} align="center">{issueTypeChipComponent}</TableCell>
+            <TableCell style={{fontSize: 16, backgroundColor: rowColor}}
+                       align="center">{fieldValueComponent}</TableCell>
+            <TableCell style={{fontSize: 16, backgroundColor: rowColor}}
+                       align="center">{issueTypeChipComponent}</TableCell>
             <TableCell style={{fontSize: 16, backgroundColor: rowColor}}>{repairFieldComponent}</TableCell>
         </TableRow>
     )
