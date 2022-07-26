@@ -8,26 +8,6 @@ import {countUniqueArrayMember} from "../util/commonUtil";
 
 const delay = (ms = 200) => new Promise(r => setTimeout(r, ms));
 
-// TODO: Remove this
-export function searchMetadataByDois(uris) {
-    let url = FAIRWARE_METADATA_SEARCH_URL;
-    const requestOptions = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(uris)
-    };
-    return fetch(url, requestOptions).then(response => {
-        // Check if the request is 200
-        if (response.ok) {
-            let data = response.json();
-            return data;
-        }
-        return Promise.reject(response);
-    });
-};
-
 export async function recommendMetadataTemplate(metadataRecordId) {
     let url = FAIRWARE_TEMPLATE_RECOMMEND_URL;
     const requestOptions = {
