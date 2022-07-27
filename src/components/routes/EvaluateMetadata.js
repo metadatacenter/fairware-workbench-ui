@@ -43,6 +43,12 @@ export default function EvaluateMetadata() {
         "SAMN04420088";
     const templateExample2 = "https://repo.metadatacenter.org/templates/db57119c-7860-4569-a3c0-2ced0e0364d1";
 
+    const metadataExample3 = "https://github.com/metadatacenter/fairware-workbench-api/raw/develop/src/main/resources/demo-files/sample-section-01.json" + "\n" +
+        "https://github.com/metadatacenter/fairware-workbench-api/raw/develop/src/main/resources/demo-files/sample-section-02.json" + "\n" +
+        "https://github.com/metadatacenter/fairware-workbench-api/raw/develop/src/main/resources/demo-files/sample-section-03.json" + "\n" +
+        "https://github.com/metadatacenter/fairware-workbench-api/raw/develop/src/main/resources/demo-files/sample-section-04.json";
+    const templateExample3 = "https://repo.metadatacenter.org/templates/87046e67-c2da-40ac-be3c-f3e6c818ecc1";
+
     function handleInputMetadataUriChange(event) {
         setMetadataUris(event.target.value);
     }
@@ -65,6 +71,14 @@ export default function EvaluateMetadata() {
 
     function handleTemplateExample2Click() {
         setTemplateId(templateExample2);
+    }
+
+    function handleMetadataExample3Click() {
+        setMetadataUris(metadataExample3);
+    }
+
+    function handleTemplateExample3Click() {
+        setTemplateId(templateExample3);
     }
 
     function handleStartEvaluateButtonClick() {
@@ -154,8 +168,10 @@ export default function EvaluateMetadata() {
                         label="Enter metadata references (one per line)"
                     />
                     <div className="sampleInputButton">
-                        <Link component="button" onClick={handleMetadataExample1Click}>example 1</Link>&nbsp;
-                        <Link component="button" onClick={handleMetadataExample2Click}>example 2</Link>
+                        <span style={{fontSize: "10pt"}}>Example metadata:</span>&nbsp;&nbsp;
+                        <Link component="button" onClick={handleMetadataExample1Click}>DataCite</Link>&nbsp;
+                        <Link component="button" onClick={handleMetadataExample2Click}>BioSample</Link>&nbsp;
+                        <Link component="button" onClick={handleMetadataExample3Click}>HuBMAP</Link>
                     </div>
                     {hide && (
                         <>
@@ -168,8 +184,10 @@ export default function EvaluateMetadata() {
                                 label="CEDAR template IRI"
                             />
                             <div className="sampleInputButton">
-                                <Link component="button" onClick={handleTemplateExample1Click}>example 1</Link>&nbsp;
-                                <Link component="button" onClick={handleTemplateExample2Click}>example 2</Link>
+                                <span style={{fontSize: "10pt"}}>Example template:</span>&nbsp;&nbsp;
+                                <Link component="button" onClick={handleTemplateExample1Click}>DataCite</Link>&nbsp;
+                                <Link component="button" onClick={handleTemplateExample2Click}>BioSample</Link>&nbsp;
+                                <Link component="button" onClick={handleTemplateExample3Click}>HuBMAP</Link>
                             </div>
                         </>)}
                     <div style={{marginTop: "5px", textAlign: "left"}}>
