@@ -8,7 +8,7 @@ export default function Support() {
         <>
             <SimpleHeader/>
             <div id="appContent">
-                <h1>Support</h1>
+                <h1 className="pageTitle">Support</h1>
             </div>
             <AppFooter/>
         </>

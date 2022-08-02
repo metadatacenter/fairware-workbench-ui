@@ -8,7 +8,7 @@ export default function About() {
         <>
             <SimpleHeader/>
             <div id="appContent">
-                <h1>About</h1>
+                <h1 className="pageTitle">About</h1>
             </div>
             <AppFooter/>
         </>

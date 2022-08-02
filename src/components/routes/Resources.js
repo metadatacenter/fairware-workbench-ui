@@ -8,7 +8,7 @@ export default function Resources() {
         <>
             <SimpleHeader/>
             <div id="appContent">
-                <h1>Resources</h1>
+                <h1 className="pageTitle">Resources</h1>
             </div>
             <AppFooter/>
         </>
