@@ -214,7 +214,7 @@ export function generateSummaryReport(evaluationResults) {
         templateName: metadataSpecification.templateName,
         templateUrl: metadataSpecification.templateUrl,
         totalMetadata: nonEmptyEvaluationResults.length,
-        completenessAndConformanceReport: {
+        completenessAndAdherenceReport: {
             byRecords: {
                 completeness: {
                     totalRecords: recordsReportDetails.length,
@@ -222,7 +222,7 @@ export function generateSummaryReport(evaluationResults) {
                         .filter((details) => details.fieldsWithMissingRequiredValueCount > 0)
                         .length
                 },
-                conformance: {
+                adherence: {
                     totalRecords: recordsReportDetails.length,
                     recordsWithInvalidValuesCount: recordsReportDetails
                         .filter((details) => details.fieldsWithInvalidValueCount > 0)

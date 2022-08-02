@@ -40,12 +40,12 @@ export default function CompletenessReport(props) {
         }],
     };
 
-    const recordsWithInvalidValuesCount = data.byRecords.conformance.recordsWithInvalidValuesCount;
-    const recordsWithAllValidValuesCount = data.byRecords.conformance.totalRecords - recordsWithInvalidValuesCount;
-    const conformanceReportData = {
+    const recordsWithInvalidValuesCount = data.byRecords.adherence.recordsWithInvalidValuesCount;
+    const recordsWithAllValidValuesCount = data.byRecords.adherence.totalRecords - recordsWithInvalidValuesCount;
+    const adherenceReportData = {
         labels: ['Some values are of incorrect data types', 'All values are of correct data types'],
-        innerTextTitle: recordsWithAllValidValuesCount + ' / ' + data.byRecords.conformance.totalRecords,
-        innerTextSubtitle: 'Conformance',
+        innerTextTitle: recordsWithAllValidValuesCount + ' / ' + data.byRecords.adherence.totalRecords,
+        innerTextSubtitle: 'Adherence',
         datasets: [{
             data: [
                 recordsWithInvalidValuesCount,
@@ -143,7 +143,7 @@ export default function CompletenessReport(props) {
         return data;
     }
 
-    function createConformanceBar(nonEmptyFieldsCount, invalidFieldsCount) {
+    function createAdherenceBar(nonEmptyFieldsCount, invalidFieldsCount) {
         let data = [];
         if (invalidFieldsCount > 0 && nonEmptyFieldsCount > 0) {
             data.push({
@@ -211,13 +211,13 @@ export default function CompletenessReport(props) {
                     </Grid>
                     <Grid item xs={5}>
                         <div>
-                            <Doughnut data={conformanceReportData}
+                            <Doughnut data={adherenceReportData}
                                       height="300px"
                                       width="300px"
                                       options={options}
-                                      plugins={generatePlugins(conformanceReportData)}/>
+                                      plugins={generatePlugins(adherenceReportData)}/>
                         </div>
-                        <div style={{color: "#888888", textAlign: "center"}}>Conformance is measured based on the
+                        <div style={{color: "#888888", textAlign: "center"}}>Adherence is measured based on the
                             adherence to standard of the value in the metadata field with its data type defined in the
                             metadata schema.
                         </div>
@@ -232,7 +232,7 @@ export default function CompletenessReport(props) {
                             <TableCell className={"header"} width={"25%"}>METADATA REFERENCE</TableCell>
                             <TableCell className={"header"} width={"10%"}>STATUS</TableCell>
                             <TableCell className={"header"}>COMPLETENESS</TableCell>
-                            <TableCell className={"header"}>CONFORMANCE</TableCell>
+                            <TableCell className={"header"}>ADHERENCE</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -259,7 +259,7 @@ export default function CompletenessReport(props) {
                                                    outlineColor="#ffffff"
                                                    id="chart"
                                                    fontColor="#ffffff"
-                                                   data={createConformanceBar(item.fieldsWithNonEmptyValueCount, item.fieldsWithInvalidValueCount)}/>
+                                                   data={createAdherenceBar(item.fieldsWithNonEmptyValueCount, item.fieldsWithInvalidValueCount)}/>
                                             <span style={{fontSize: 14, fontWeight: "normal", color: "#666666"}}>
                                                 {item.fieldsWithInvalidValueCount} out of {item.fieldsWithNonEmptyValueCount} filled metadata fields are invalid.
                                             </span>
