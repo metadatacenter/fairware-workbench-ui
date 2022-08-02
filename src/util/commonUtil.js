@@ -12,7 +12,12 @@ export function countUniqueArrayMember(array) {
 
 export function shortenMetadataId(metadataId) {
   if (isValidHttpUrl(metadataId)) {
-    return metadataId.substring(metadataId.lastIndexOf('/') + 1);
+    let resourceName = metadataId.substring(metadataId.lastIndexOf('/') + 1);
+    if (resourceName.includes(".json")) {
+      return resourceName.replace(".json", "");
+    } else {
+      return resourceName;
+    }
   } else {
     return metadataId;
   }

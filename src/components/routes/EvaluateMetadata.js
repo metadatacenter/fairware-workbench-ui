@@ -43,11 +43,11 @@ export default function EvaluateMetadata() {
         "SAMN04420088";
     const templateExample2 = "https://repo.metadatacenter.org/templates/db57119c-7860-4569-a3c0-2ced0e0364d1";
 
-    const metadataExample3 = "https://github.com/metadatacenter/fairware-workbench-api/raw/develop/src/main/resources/demo-files/sample-section-01.json" + "\n" +
-        "https://github.com/metadatacenter/fairware-workbench-api/raw/develop/src/main/resources/demo-files/sample-section-02.json" + "\n" +
-        "https://github.com/metadatacenter/fairware-workbench-api/raw/develop/src/main/resources/demo-files/sample-section-03.json" + "\n" +
-        "https://github.com/metadatacenter/fairware-workbench-api/raw/develop/src/main/resources/demo-files/sample-section-04.json" + "\n" +
-        "https://github.com/metadatacenter/fairware-workbench-api/raw/develop/src/main/resources/demo-files/sample-section-05.json";
+    const metadataExample3 = "https://github.com/metadatacenter/fairware-workbench-api/raw/develop/src/main/resources/demo-files/Visium_9OLC_A4_S1.json" + "\n" +
+        "https://github.com/metadatacenter/fairware-workbench-api/raw/develop/src/main/resources/demo-files/Visium_9OLC_A4_S2.json" + "\n" +
+        "https://github.com/metadatacenter/fairware-workbench-api/raw/develop/src/main/resources/demo-files/Visium_9OLC_I4_S1.json" + "\n" +
+        "https://github.com/metadatacenter/fairware-workbench-api/raw/develop/src/main/resources/demo-files/Visium_9OLC_I4_S2.json" + "\n" +
+        "https://github.com/metadatacenter/fairware-workbench-api/raw/develop/src/main/resources/demo-files/Visium_9OLC_I4_S3.json";
     const templateExample3 = "https://repo.metadatacenter.org/templates/87046e67-c2da-40ac-be3c-f3e6c818ecc1";
 
     function handleInputMetadataUriChange(event) {
