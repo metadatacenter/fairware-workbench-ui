@@ -218,8 +218,8 @@ export default function CompletenessReport(props) {
                                       plugins={generatePlugins(conformanceReportData)}/>
                         </div>
                         <div style={{color: "#888888", textAlign: "center"}}>Conformance is measured based on the
-                            compliance of the value in the metadata field with its data type defined in the metadata
-                            schema.
+                            adherence to standard of the value in the metadata field with its data type defined in the
+                            metadata schema.
                         </div>
                     </Grid>
                     <Grid item xs={1}/>
