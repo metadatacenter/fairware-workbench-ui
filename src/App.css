@@ -201,6 +201,21 @@ pre {
   font-size: 1.5rem;
 }
 
+.aboutText {
+  width: 65%;
+  float: left;
+  margin-right: 8rem;
+}
+
+.aboutLogo {
+  width: 25%;
+  float: left;
+}
+
+.paragraph {
+  margin-top: 2vh;
+}
+
 .searchResults,
 .recommendationResults,
 .alignmentResults,
