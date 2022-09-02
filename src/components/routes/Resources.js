@@ -25,12 +25,12 @@ export default function Resources() {
                     The API documentation is available through Swagger page and it is accessible from <a
                     href="https://api.fairware.metadatacenter.org/swagger">https://api.fairware.metadatacenter.org/swagger</a>.&nbsp;
                 </div>
-                <h2>M2M Resources</h2>
+                <h2>M4M Resources</h2>
                 <div>
-                    The resources from the Machine to Machine (M2M) Workshop is available on <a
+                    The resources from the Metadata for Machines (M4M) Workshop is available on <a
                     href="https://osf.io/r2ae8/">the OSF website</a>.
                     <ul>
-                        <li>M2M Guidelines: <a href="https://osf.io/8gwa6/">https://osf.io/8gwa6/</a></li>
+                        <li>M4M Guidelines: <a href="https://osf.io/8gwa6/">https://osf.io/8gwa6/</a></li>
                         <li>Workshop resources for the FAIRware Neuroscience: <a
                             href="https://osf.io/verf4/">https://osf.io/verf4/</a></li>
                         <li>Workshop resources for the FAIRware Psychology: <a

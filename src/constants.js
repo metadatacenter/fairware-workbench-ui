@@ -2,7 +2,7 @@
 export const DOI_BASE_URI = "https://doi.org/";
 
 /*** FAIRware Constants ***/
-const FAIRWARE_API_BASE_URL = "http://localhost:9090/";
+const FAIRWARE_API_BASE_URL = "https://api.fairware.metadatacenter.org/";
 export const FAIRWARE_TEMPLATE_RECOMMEND_URL = FAIRWARE_API_BASE_URL + "template/recommend"
 export const FAIRWARE_METADATA_ALIGN_URL = FAIRWARE_API_BASE_URL + "metadata/align";
 export const FAIRWARE_METADATA_SEARCH_URL = FAIRWARE_API_BASE_URL + "metadata/search";
