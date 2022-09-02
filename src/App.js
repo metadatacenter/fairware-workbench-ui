@@ -10,7 +10,6 @@ import EvaluationResultTable from "./components/routes/evaluation/EvaluationResu
 import SelectTemplate from "./components/routes/selection/SelectTemplate";
 import PrivacyPolicy from "./components/routes/PrivacyPolicy";
 import About from "./components/routes/About";
-import Support from "./components/routes/Support";
 import Resources from "./components/routes/Resources";
 import SummaryReport from "./components/routes/summaryReport/SummaryReport";
 import AlignFields from "./components/routes/alignment/AlignFields";
@@ -35,7 +34,6 @@ export default function App() {
                 <Route path="/SummaryReport" element={<SummaryReport/>}/>
                 <Route path="/PrivacyPolicy" element={<PrivacyPolicy/>}/>
                 <Route path="/About" element={<About/>}/>
-                <Route path="/Support" element={<Support/>}/>
                 <Route path="/Resources" element={<Resources/>}/>
               </Routes>
             </BrowserRouter>

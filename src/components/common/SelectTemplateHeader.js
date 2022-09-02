@@ -42,7 +42,6 @@ export default function SelectTemplateHeader(props) {
                     </div>
                     <Stack id={"linksContainer"} direction="row" spacing={4}>
                         <Button component={Link} to="/About" color="inherit">About</Button>
-                        <Button component={Link} to="/Support" color="inherit">Support</Button>
                         <Button component={Link} to="/Resources" color="inherit">Resources</Button>
                     </Stack>
                 </Toolbar>
