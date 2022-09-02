@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@mui/material/Box";
 import SimpleHeader from "../common/SimpleHeader";
 import AppFooter from "../common/AppFooter";
+import roriLogo from '../../../src/resources/img/rori-logo.png';
 import cihrLogo from '../../../src/resources/img/cihr-logo.png';
 import fwfLogo from '../../../src/resources/img/fwf-logo.png';
 import nihrLogo from '../../../src/resources/img/nihr-logo.png';
@@ -35,6 +36,12 @@ export default function Home() {
                 <Typography align={"center"}><Link to={"/PrivacyPolicy"}>How this tool uses your
                     data</Link></Typography>
                 <div style={{marginTop: "12vh", textAlign: "center"}}>
+                    <Box
+                        component="img"
+                        sx={{height: 90}}
+                        alt="Research on Research Institute logo"
+                        src={roriLogo}
+                    />
                     <Box
                         component="img"
                         sx={{height: 90}}
