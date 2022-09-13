@@ -20,6 +20,7 @@ export default function Resources() {
                         </li>
                     </ul>
                 </div>
+                <div>For reporting any software bugs please use the <a href="https://github.com/metadatacenter/fairware-workbench-ui/issues">ticketing system</a> or contact the developers found in the GitHub contributor page.</div>
                 <h2>API Documentation</h2>
                 <div>
                     The API documentation is available through Swagger page and it is accessible from <a
