@@ -33,8 +33,6 @@ export default function Home() {
                         size={"large"}>
                         Start Evaluating Published Data</Button>
                 </div>
-                <Typography align={"center"}><Link to={"/PrivacyPolicy"}>How this tool uses your
-                    data</Link></Typography>
                 <div style={{marginTop: "12vh", textAlign: "center"}}>
                     <Box
                         component="img"
